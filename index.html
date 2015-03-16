@@ -47,7 +47,7 @@
       <div class="content">
         
 
-          <h1 id="introduction">Introduction</h1>
+          <h1 id="overview">Overview</h1>
 
 <p>The official viagogo API v2 connects your website or application with the world’s largest ticket marketplace. Your application can use the API to search for and view events, purchase tickets for an event or list tickets on the viagogo platform.</p>
 
@@ -97,7 +97,9 @@
   -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
-<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
+<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
+                            <span class="s">"clientSecret"</span><span class="p">,</span>
+                            <span class="k">new</span> <span class="nf">ProductHeaderValue</span><span class="p">(</span><span class="s">"MyAwesomeApp"</span><span class="p">));</span>
 <span class="n">var</span> <span class="n">root</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Root</span><span class="p">.</span><span class="nf">GetAsync</span><span class="p">();</span>
 </code></pre>
 
@@ -399,7 +401,7 @@
 
 <p>The example request above includes the <code>id</code>, <code>name</code> and <code>_embedded</code> fields in the event resource and the <code>city</code> field in its embedded venue.</p>
 
-<h2 id="user-agent-header">User Agent Header</h2>
+<h2 id="user-agent-required">User Agent Required</h2>
 
 <blockquote>
   <p>Invalid <code>User-Agent</code> header:</p>
@@ -440,6 +442,180 @@
 <p><code>VGG-Country: FR</code></p>
 
 <p>In the example above, the application is specifying that it would like make requests in the French geography (as if the client were using the www.viagogo.fr website).</p>
+
+<h2 id="http-caching">HTTP Caching</h2>
+
+<h3 id="cache-control-header">Cache-Control Header</h3>
+
+<p>Most responses return a <code>Cache-Control</code> header with a <code>max-age</code> value that indicates the number of seconds your application can cache a particular response for. You don’t need to request a resource any more frequently than every <code>max-age</code> seconds.</p>
+
+<h3 id="e-tag-header">E-Tag Header</h3>
+
+<p>All responses return the <code>ETag</code> header. You can use the value of this header to make subsequent requests to those resources using the <code>If-None-Match</code> header. If the resource has not changed, the server will return a <code>304 Not Modified</code> response with an empty body.</p>
+
+          <h1 id="getting-started">Getting Started</h1>
+
+          <h2 id="entities">Entities</h2>
+
+<p>The main entities in the API are events, listins and categories.</p>
+
+<p>An <a href="#event"><code>Event</code></a> is a show/festival/match/etc, taking place at a venue, for which tickets can be bought and sold.</p>
+
+<p>A <a href="#listing"><code>Listing</code></a> is a set of one or more tickets for an event.</p>
+
+<p>A <a href="#category"><code>Category</code></a> is a grouping of similar events or categories. Categories in the viagogo platform are arranged in a tree hierarchy where categories near the root of the tree (direct children of the root) are referred to as <em>genres</em> (e.g. “Concerts”, “Threatre”, “Festival”, “Sports”) and categories that are leaves of the tree are referred to as <em>performers</em>.</p>
+
+          <h2 id="getting-all-events-in-a-genre">Getting All Events in a Genre</h2>
+
+<blockquote>
+  <p><strong>1. Get the Root resource:</strong></p>
+</blockquote>
+
+<pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2"</span>
+  -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
+  -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+</code></pre>
+
+<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
+                            <span class="s">"clientSecret"</span><span class="p">,</span>
+                            <span class="k">new</span> <span class="nf">ProductHeaderValue</span><span class="p">(</span><span class="s">"MyAwesomeApp"</span><span class="p">));</span>
+<span class="n">var</span> <span class="n">root</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Root</span><span class="p">.</span><span class="nf">GetAsync</span><span class="p">();</span>
+</code></pre>
+
+<blockquote>
+  <p><strong>2. Get the Genres:</strong></p>
+</blockquote>
+
+<pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/categories/0/children"</span>
+  -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
+  -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+</code></pre>
+
+<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">genres</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Categories</span><span class="p">.</span><span class="nf">GetAllGenresAsync</span><span class="p">();</span>
+</code></pre>
+
+<blockquote>
+  <p><strong>3. Page through the Events in the Genre</strong></p>
+</blockquote>
+
+<pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/categories/3/events"</span>
+  -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
+  -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+</code></pre>
+
+<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">events</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Events</span><span class="p">.</span><span class="nf">GetAllByCategoryAsync</span><span class="p">(</span><span class="n">genres</span><span class="p">[</span><span class="m">0</span><span class="p">].</span><span class="n">Id</span><span class="p">);</span>
+</code></pre>
+
+<blockquote>
+  <p>The above command returns JSON structured like this:</p>
+</blockquote>
+
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"total_items"</span><span class="p">:</span><span class="w"> </span><span class="mi">50000</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"page_size"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/categories/1207/events?page=1&amp;page_size=1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"next"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/categories/1207/events?page=2&amp;page_size=1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"last"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/categories/1207/events?page=50000&amp;page_size=1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"_embedded"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">735139</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One Direction"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T18:30:00+01:00"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"date_confirmed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"min_ticket_price"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">25.65</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"currency_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"display"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$25.65"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"notes_html"</span><span class="p">:</span><span class="w"> </span><span class="s2">"General Notes \n • All sales are final \n • Ticket prices are set by the seller and may be above or below face value \n • Event dates and times are subject to change, it is up to you to check local listings for updates \n • After your purchase, you will receive a confirmation email with your ticket delivery details and timing"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"restrictions_html"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Everyone &lt;strong&gt;under 15&lt;/strong&gt; must be accompanied by an adult."</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/events/735139"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"event:listings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/events/735139/listings"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"View Tickets"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"event:category"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/categories/20746"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"event:webpage"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.viagogo.com/E-735139"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"_embedded"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"venue"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1364</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The O2 arena"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"London"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">51.5025</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0024</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/venues/1364"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"_embedded"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GB"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"United Kingdom"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                  </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/countries/GB"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+                  </span><span class="p">}</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Retrieving all of the events in a particular genre (e.g. “Concert Tickets”, “Theatre Tickets”) is simple if you use the hyperlinks available in API responses.</p>
+
+<h3 id="start-at-the-root">1. Start at the Root</h3>
+
+<p>As is the case when retrieving most data in API v2, you should start by getting the <a href="#root"><code>Root</code></a> resource to find the hyperlink to the resource you care about.</p>
+
+<h3 id="find-the-genres-that-you-care-about">2. Find the Genre(s) that you care about</h3>
+
+<p>Follow the <a href="#viagogogenres"><code>viagogo:genres</code></a> link to get the genre you are interested in.</p>
+
+<h3 id="page-through-the-events-in-the-genre">3. Page through the Events in the Genre</h3>
+
+<p>Follow the <a href="#categoryevents"><code>category:events</code></a> link to get the first page of events. Once we have the first page, we can follow the <code>next</code> links to retrieve all pages (see <a href="#pagination">pagination</a>). Since there will be lots of events under a genre, we suggest using a large <code>page_size</code> to reduce the total number of requests your application has to make.</p>
 
           <h1 id="authentication">Authentication</h1>
 
