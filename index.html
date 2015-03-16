@@ -457,7 +457,7 @@
 
           <h2 id="entities">Entities</h2>
 
-<p>The main entities in the API are events, listins and categories.</p>
+<p>The main entities in the API are events, listings and categories.</p>
 
 <p>An <a href="#event"><code>Event</code></a> is a show/festival/match/etc, taking place at a venue, for which tickets can be bought and sold.</p>
 
@@ -758,7 +758,7 @@
 <span class="n">var</span> <span class="n">genres</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Search</span><span class="p">.</span><span class="nf">GetAllAsync</span><span class="p">(</span><span class="s">"lady gaga"</span><span class="p">);</span>
 </code></pre>
 
-<p>Access tokens should be included in a <code>Bearer</code> authorization header when making API requests.</p>
+<p>Access tokens should be included in a <code>Bearer</code> authorization header when making API requests. The <code>expires_in</code> property in a token response represents the number of seconds before the token expires. Tokens can be re-used in multiple requests up until they expire.</p>
 
 <h2 id="scopes">Scopes</h2>
 
