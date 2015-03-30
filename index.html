@@ -566,6 +566,11 @@
             </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.viagogo.com/E-735139"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
             </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"event:localwebpage"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.viagogo.co.uk/E-735139"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
           </span><span class="p">}</span><span class="w">
         </span><span class="p">},</span><span class="w">
         </span><span class="s2">"_embedded"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -616,6 +621,133 @@
 <h3 id="page-through-the-events-in-the-genre">3. Page through the Events in the Genre</h3>
 
 <p>Follow the <a href="#categoryevents"><code>category:events</code></a> link to get the first page of events. Once we have the first page, we can follow the <code>next</code> links to retrieve all pages (see <a href="#pagination">pagination</a>). Since there will be lots of events under a genre, we suggest using a large <code>page_size</code> to reduce the total number of requests your application has to make.</p>
+
+          <h2 id="search-for-events">Search for Events</h2>
+
+<blockquote>
+  <p><strong>1. Get the Root resource:</strong></p>
+</blockquote>
+
+<pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2"</span>
+  -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
+  -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+</code></pre>
+
+<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
+                            <span class="s">"clientSecret"</span><span class="p">,</span>
+                            <span class="k">new</span> <span class="nf">ProductHeaderValue</span><span class="p">(</span><span class="s">"MyAwesomeApp"</span><span class="p">));</span>
+<span class="n">var</span> <span class="n">root</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Root</span><span class="p">.</span><span class="nf">GetAsync</span><span class="p">();</span>
+</code></pre>
+
+<blockquote>
+  <p><strong>2. Search for the Team/Artist/Tournament/etc Category:</strong></p>
+</blockquote>
+
+<pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/search"</span>
+  -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
+  -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+</code></pre>
+
+<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">searchResults</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Search</span><span class="p">.</span><span class="nf">GetAllAsync</span><span class="p">(</span><span class="s">"one direction"</span><span class="p">);</span>
+</code></pre>
+
+<blockquote>
+  <p>The above command returns JSON structured like this:</p>
+</blockquote>
+
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"total_items"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"page_size"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/search?page=1&amp;page_size=1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"next"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/search?page=2&amp;page_size=1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"last"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/search?page=100&amp;page_size=1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"_embedded"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One Direction"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Category"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"type_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Artist"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"searchresult:category"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/categories/20746"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+  <p><strong>3. Get the Details of the Category</strong></p>
+</blockquote>
+
+<pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/categories/20746"</span>
+  -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
+  -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+</code></pre>
+
+<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">category</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Categories</span><span class="p">.</span><span class="nf">GetAsync</span><span class="p">(</span><span class="n">searchResults</span><span class="p">[</span><span class="m">0</span><span class="p">].</span><span class="n">Id</span><span class="p">);</span>
+</code></pre>
+
+<blockquote>
+  <p><strong>4. Page through the Events in the Category</strong></p>
+</blockquote>
+
+<pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/categories/20746/events"</span>
+  -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
+  -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+</code></pre>
+
+<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">events</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Events</span><span class="p">.</span><span class="nf">GetAllByCategoryAsync</span><span class="p">(</span><span class="n">category</span><span class="p">.</span><span class="n">Id</span><span class="p">);</span>
+</code></pre>
+
+<p>API v2 provides access to the same search features available on the viagogo website. Your application can use this search to quickly find a particular category, event, venue or metro area.</p>
+
+<h3 id="start-at-the-root">1. Start at the Root</h3>
+
+<p>As is the case when retrieving most data in API v2, you should start by getting the <a href="#root"><code>Root</code></a> resource to find the hyperlink to the resource you care about.</p>
+
+<h3 id="search-for-the-teamartisttournamentetc-category">2. Search for the Team/Artist/Tournament/etc Category</h3>
+
+<p>Follow the <a href="#viagogosearch"><code>viagogo:search</code></a> link to query for entities you are interested in.</p>
+
+<h3 id="get-the-details-of-the-category">3. Get the Details of the Category</h3>
+
+<p><a href="#searchresult"><code>SearchResult</code></a> resources only contain very basic entity information so you should follow the link on the result that will get you more information about the entity (see <a href="#searchresultcategory"><code>searchresult:category</code></a>, <a href="#searchresultevent"><code>searchresult:event</code></a>, <a href="#searchresultmetroarea"><code>searchresult:metroarea</code></a> and <a href="#searchresultvenue"><code>searchresult:venue</code></a>)</p>
+
+<h3 id="page-through-the-events-in-the-category">4. Page through the Events in the Category</h3>
+
+<p>Follow the <a href="#categoryevents"><code>category:events</code></a> link to get the first page of events under the category. Once we have the first page, we can follow the <code>next</code> links to retrieve all pages (see <a href="#pagination">pagination</a>).</p>
+
+          <h2 id="direct-users-to-the-viagogo-website">Direct Users to the viagogo Website</h2>
+
+<p>Your application can use links on <a href="#category"><code>Category</code></a>, <a href="#event"><code>Event</code></a> and <a href="#listing"><code>Listing</code></a> resources to direct users to the viagogo website. These resources provide two types of links that you can use depending on your scenario.</p>
+
+<h3 id="user-locale-specific-website-links">User-Locale-Specific Website Links</h3>
+
+<p><a href="#category"><code>Category</code></a>, <a href="#event"><code>Event</code></a> and <a href="#listing"><code>Listing</code></a> resources provide <a href="#categorywebpage"><code>category:webpage</code></a>, <a href="#eventwebpage"><code>event:webpage</code></a> and <a href="#listingwebpage"><code>listing:webpage</code></a> links respectively. You should use these links to direct the user to a viagogo website domain that matches the user’s locale.  The viagogo website domain will match the <a href="#vgg-country-header"><code>VGG-Country</code> Header</a> in your request. For example, if you know that a user of your application is German, your application should be requesting event data with <code>VGG-Country</code> header set to <em>DE</em> and you can use this link to direct them to <em>www.viagogo.de</em>.</p>
+
+<h3 id="event-locale-specific-website-links">Event-Locale-Specific Website Links</h3>
+
+<p><a href="#event"><code>Event</code></a> and <a href="#listing"><code>Listing</code></a> resources provide <a href="#eventwebpage"><code>event:webpage</code></a> and <a href="#listingwebpage"><code>listing:webpage</code></a> links respectively. You should usse these links to direct the user to a viagogo website domain that matches the event’s locale. For example, if you know that an event is in Australia you can use this link to direct your user to <em>www.viagogo.com/au</em>.</p>
 
           <h1 id="authentication">Authentication</h1>
 
@@ -1131,22 +1263,22 @@
       <td>A category.</td>
     </tr>
     <tr>
+      <td><a href="#categorychildren"><code>category:children</code></a></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>The direct descendants of this category.</td>
+    </tr>
+    <tr>
+      <td><a href="#categoryevents"><code>category:events</code></a></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>The events in this category.</td>
+    </tr>
+    <tr>
       <td><a href="#categoryimage"><code>category:image</code></a></td>
       <td><code>GET</code></td>
       <td>No</td>
       <td>The image for this category.</td>
-    </tr>
-    <tr>
-      <td><a href="#categorywebpage"><code>category:webpage</code></a></td>
-      <td><code>GET</code></td>
-      <td>No</td>
-      <td>The webpage on the viagogo website for this category.</td>
-    </tr>
-    <tr>
-      <td><a href="#categoryexclusivewebpage"><code>category:exclusivewebpage</code></a></td>
-      <td><code>GET</code></td>
-      <td>No</td>
-      <td>The exclusive webpage on the viagogo where tickets can be purchased.</td>
     </tr>
     <tr>
       <td><a href="#categoryparent"><code>category:parent</code></a></td>
@@ -1155,22 +1287,16 @@
       <td>The parent of this category.</td>
     </tr>
     <tr>
-      <td><a href="#categorychildren"><code>category:children</code></a></td>
-      <td><code>GET</code></td>
-      <td>No</td>
-      <td>The direct descendants of this category.</td>
-    </tr>
-    <tr>
       <td><a href="#categoryperformers"><code>category:performers</code></a></td>
       <td><code>GET</code></td>
       <td>No</td>
       <td>The leaf descendants this category. These categories will be direct parents of events.</td>
     </tr>
     <tr>
-      <td><a href="#categoryevents"><code>category:events</code></a></td>
+      <td><a href="#categorywebpage"><code>category:webpage</code></a></td>
       <td><code>GET</code></td>
       <td>No</td>
-      <td>The events in this category.</td>
+      <td>The webpage on the viagogo website for this category.</td>
     </tr>
   </tbody>
 </table>
@@ -1566,16 +1692,16 @@
       <td>The category that contains this event.</td>
     </tr>
     <tr>
-      <td><a href="#eventexclusivewebpage"><code>event:exclusivewebpage</code></a></td>
-      <td><code>GET</code></td>
-      <td>No</td>
-      <td>The exclusive viagogo website webpage for this event.</td>
-    </tr>
-    <tr>
       <td><a href="#eventlistings"><code>event:listings</code></a></td>
       <td><code>GET</code></td>
       <td>No</td>
       <td>The listings for this event.</td>
+    </tr>
+    <tr>
+      <td><a href="#eventlocalwebpage"><code>event:localwebpage</code></a></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>The webpage on the local viagogo website for this event.</td>
     </tr>
     <tr>
       <td><a href="#eventwebpage"><code>event:webpage</code></a></td>
@@ -2082,6 +2208,18 @@
       <td><code>GET</code></td>
       <td>No</td>
       <td>The event for this listing.</td>
+    </tr>
+    <tr>
+      <td><a href="#listinglocalwebpage"><code>listing:localwebpage</code></a></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>The webpage on the local viagogo website where a listing can be purchased.</td>
+    </tr>
+    <tr>
+      <td><a href="#listingwebpage"><code>listing:webpage</code></a></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>The webpage on the viagogo website for this listing.</td>
     </tr>
   </tbody>
 </table>
@@ -3179,6 +3317,11 @@
             </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.viagogo.com/E-735139"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
             </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"event:localwebpage"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.viagogo.co.uk/E-735139"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
           </span><span class="p">}</span><span class="w">
         </span><span class="p">},</span><span class="w">
         </span><span class="s2">"_embedded"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -3288,14 +3431,6 @@
 <h3 id="response">Response</h3>
 
 <p>Returns the <a href="#events"><code>Events</code></a> resource containing the events in a category.</p>
-
-          <h2 id="categoryexclusivewebpage">category:exclusivewebpage</h2>
-
-<p>You can GET the href of this link to retrieve the exclusive viagogo website webpage for a category.</p>
-
-<h3 id="response">Response</h3>
-
-<p>An HTML web page.</p>
 
           <h2 id="categoryimage">category:image</h2>
 
@@ -3587,14 +3722,6 @@
 
 <p>The <a href="#category"><code>Category</code></a> resource.</p>
 
-          <h2 id="eventexclusivewebpage">event:exclusivewebpage</h2>
-
-<p>You can GET the href of this link to retrieve the exclusive viagogo website webpage for a event.</p>
-
-<h3 id="response">Response</h3>
-
-<p>An HTML web page.</p>
-
           <h2 id="eventlistings">event:listings</h2>
 
 <pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/events/735139/listings"</span>
@@ -3761,9 +3888,17 @@
 
 <p>Returns the <a href="#listings"><code>Listings</code></a> resource that contains the listings in an event.</p>
 
+          <h2 id="eventlocalwebpage">event:localwebpage</h2>
+
+<p>You can GET the href of this link to retrieve the local viagogo website webpage for a event. The domain of the viagogo webpage will match the country where the event is taking place. (e.g. www.viagogo.fr for an event taking place in France).</p>
+
+<h3 id="response">Response</h3>
+
+<p>An HTML web page.</p>
+
           <h2 id="eventwebpage">event:webpage</h2>
 
-<p>You can GET the href of this link to retrieve the viagogo website webpage for a event.</p>
+<p>You can GET the href of this link to retrieve the viagogo website webpage for a event. The domain of the viagogo webpage will match the <a href="#vgg-country-header"><code>VGG-Country</code> Header</a> in your request.</p>
 
 <h3 id="response">Response</h3>
 
@@ -3818,6 +3953,11 @@
       </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.viagogo.com/E-735139"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
       </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"event:localwebpage"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.viagogo.co.uk/E-735139"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="s2">"_embedded"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -3857,6 +3997,22 @@
 <h3 id="response">Response</h3>
 
 <p>The <a href="#event"><code>Event</code></a> resource.</p>
+
+          <h2 id="listinglocalwebpage">listing:localwebpage</h2>
+
+<p>You can GET the href of this link to retrieve the local viagogo website webpage where a listing can be purchased. The domain of the viagogo webpage will match the country where the event is taking place. (e.g. www.viagogo.fr for an event taking place in France).</p>
+
+<h3 id="response">Response</h3>
+
+<p>An HTML web page.</p>
+
+          <h2 id="listingwebpage">listing:webpage</h2>
+
+<p>You can GET the href of this link to retrieve the viagogo website webpage where a listing can be purchased. The domain of the viagogo webpage will match the <a href="#vgg-country-header"><code>VGG-Country</code> Header</a> in your request.</p>
+
+<h3 id="response">Response</h3>
+
+<p>An HTML web page.</p>
 
           <h2 id="metroareaevents">metroarea:events</h2>
 
@@ -3927,6 +4083,11 @@
           </span><span class="p">},</span><span class="w">
           </span><span class="s2">"event:webpage"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
             </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.viagogo.com/E-735139"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"event:localwebpage"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.viagogo.co.uk/E-735139"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
             </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
           </span><span class="p">}</span><span class="w">
@@ -4240,6 +4401,11 @@
       </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.viagogo.com/E-735139"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
       </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"event:localwebpage"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.viagogo.co.uk/E-735139"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="s2">"_embedded"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -4457,6 +4623,11 @@
           </span><span class="p">},</span><span class="w">
           </span><span class="s2">"event:webpage"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
             </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.viagogo.com/E-735139"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"event:localwebpage"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.viagogo.co.uk/E-735139"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
             </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
           </span><span class="p">}</span><span class="w">
