@@ -94,7 +94,7 @@
 
 <pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2"</span>
   -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
-  -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
@@ -368,7 +368,7 @@
 
 <pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/events/735139?fields=id,name,_embedded&amp;fields[venue]=city"</span>
   -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
-  -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
@@ -473,7 +473,7 @@
 
 <pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2"</span>
   -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
-  -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
@@ -488,7 +488,7 @@
 
 <pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/categories/0/children"</span>
   -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
-  -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">genres</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Categories</span><span class="p">.</span><span class="nf">GetAllGenresAsync</span><span class="p">();</span>
@@ -500,7 +500,7 @@
 
 <pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/categories/3/events"</span>
   -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
-  -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">events</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Events</span><span class="p">.</span><span class="nf">GetAllByCategoryAsync</span><span class="p">(</span><span class="n">genres</span><span class="p">[</span><span class="m">0</span><span class="p">].</span><span class="n">Id</span><span class="p">);</span>
@@ -630,7 +630,7 @@
 
 <pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2"</span>
   -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
-  -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
@@ -645,7 +645,7 @@
 
 <pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/search"</span>
   -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
-  -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">searchResults</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Search</span><span class="p">.</span><span class="nf">GetAllAsync</span><span class="p">(</span><span class="s">"one direction"</span><span class="p">);</span>
@@ -701,7 +701,7 @@
 
 <pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/categories/20746"</span>
   -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
-  -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">category</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Categories</span><span class="p">.</span><span class="nf">GetAsync</span><span class="p">(</span><span class="n">searchResults</span><span class="p">[</span><span class="m">0</span><span class="p">].</span><span class="n">Id</span><span class="p">);</span>
@@ -713,7 +713,7 @@
 
 <pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/categories/20746/events"</span>
   -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
-  -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">events</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Events</span><span class="p">.</span><span class="nf">GetAllByCategoryAsync</span><span class="p">(</span><span class="n">category</span><span class="p">.</span><span class="n">Id</span><span class="p">);</span>
@@ -877,7 +877,7 @@
 
 <pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/search?query=lady%20gaga"</span>
   -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
-  -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">tokenStore</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">InMemoryOAuth2TokenStore</span><span class="p">();</span>
@@ -2236,7 +2236,7 @@
     </tr>
     <tr>
       <td><code>listing_notes</code></td>
-      <td><a href="#listing-notes"><code>ListingNotes</code></a></td>
+      <td><a href="#listing-notes"><code>ListingNotes</code>[]</a></td>
       <td>No</td>
       <td>The listing notes for this listing.</td>
     </tr>
@@ -3105,7 +3105,7 @@
 
 <pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/categories/3/children"</span>
   -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
-  -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
@@ -3226,7 +3226,7 @@
     </tr>
     <tr>
       <td><code>max_ticket_price</code></td>
-      <td><a href="#money"><code>money</code></a></td>
+      <td><code>decimal</code></td>
       <td>Filters results to only include categories that have events with tickets available for less than the specified amount. NOTE: This price is assumed to be in the currency code specified in the <a href="/#accept-currency-header">Accept-Currency</a></td>
     </tr>
     <tr>
@@ -3250,7 +3250,7 @@
 
 <pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/categories/1207/events"</span>
   -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
-  -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
@@ -3407,7 +3407,7 @@
     </tr>
     <tr>
       <td><code>max_ticket_price</code></td>
-      <td><a href="#money"><code>money</code></a></td>
+      <td><code>decimal</code></td>
       <td>Filters results to only include events with tickets available for less than the specified amount. NOTE: This price is assumed to be in the currency code specified in the <a href="/#accept-currency-header">Accept-Currency</a>.</td>
     </tr>
     <tr>
@@ -3444,7 +3444,7 @@
 
 <pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/categories/1207"</span>
   -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
-  -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
@@ -3517,7 +3517,7 @@
 
 <pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/categories/3/children?onlyLeafCategories=True"</span>
   -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
-  -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
@@ -3631,7 +3631,7 @@
     </tr>
     <tr>
       <td><code>max_ticket_price</code></td>
-      <td><a href="#money"><code>money</code></a></td>
+      <td><code>decimal</code></td>
       <td>Filters results to only include categories that have events with tickets available for less than the specified amount. NOTE: This price is assumed to be in the currency code specified in the <a href="/#accept-currency-header">Accept-Currency</a></td>
     </tr>
     <tr>
@@ -3663,7 +3663,7 @@
 
 <pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/categories/20746"</span>
   -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
-  -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
@@ -3726,7 +3726,7 @@
 
 <pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/events/735139/listings"</span>
   -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
-  -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
@@ -3874,7 +3874,7 @@
     <tr>
       <td><code>sort</code></td>
       <td><code>string</code></td>
-      <td>Determines the ordering of items. A comma-separated string containing <code>id</code>, <code>name</code>, <code>ticket_price</code>, <code>seating.section</code>, or <code>number_of_tickets</code>.</td>
+      <td>Determines the ordering of items. A comma-separated string containing <code>id</code>, <code>ticket_price</code>, <code>seating.section</code>, or <code>number_of_tickets</code>.</td>
     </tr>
     <tr>
       <td><code>number_of_tickets</code></td>
@@ -3908,7 +3908,7 @@
 
 <pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/events/735139"</span>
   -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
-  -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
@@ -4018,7 +4018,7 @@
 
 <pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/categories/0/events?metro_area_id=65"</span>
   -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
-  -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
@@ -4175,7 +4175,7 @@
     </tr>
     <tr>
       <td><code>max_ticket_price</code></td>
-      <td><a href="#money"><code>money</code></a></td>
+      <td><code>decimal</code></td>
       <td>Filters results to only include events with tickets available for less than the specified amount. NOTE: This price is assumed to be in the currency code specified in the <a href="/#accept-currency-header">Accept-Currency</a>.</td>
     </tr>
     <tr>
@@ -4204,7 +4204,7 @@
 
 <pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/venues?metro_area_id=65"</span>
   -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
-  -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
@@ -4295,7 +4295,7 @@
 
 <pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/categories/1207"</span>
   -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
-  -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
@@ -4357,7 +4357,7 @@
 
 <pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/events/735139"</span>
   -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
-  -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
@@ -4450,7 +4450,7 @@
 
 <pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/metroareas/65"</span>
   -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
-  -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
@@ -4494,7 +4494,7 @@
 
 <pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/venues/1364"</span>
   -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
-  -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
@@ -4558,7 +4558,7 @@
 
 <pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/categories/0/events?venue_id=1364"</span>
   -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
-  -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
@@ -4715,7 +4715,7 @@
     </tr>
     <tr>
       <td><code>max_ticket_price</code></td>
-      <td><a href="#money"><code>money</code></a></td>
+      <td><code>decimal</code></td>
       <td>Filters results to only include events with tickets available for less than the specified amount. NOTE: This price is assumed to be in the currency code specified in the <a href="/#accept-currency-header">Accept-Currency</a>.</td>
     </tr>
     <tr>
@@ -4744,7 +4744,7 @@
 
 <pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/metroareas/65"</span>
   -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
-  -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
@@ -4789,7 +4789,7 @@
 
 <pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/countries"</span>
   -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
-  -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
@@ -4866,7 +4866,7 @@
 
 <pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/currencies"</span>
   -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
-  -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
@@ -4944,7 +4944,7 @@
 
 <pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/categories/0/children"</span>
   -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
-  -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
@@ -5065,7 +5065,7 @@
     </tr>
     <tr>
       <td><code>max_ticket_price</code></td>
-      <td><a href="#money"><code>money</code></a></td>
+      <td><code>decimal</code></td>
       <td>Filters results to only include categories that have events with tickets available for less than the specified amount. NOTE: This price is assumed to be in the currency code specified in the <a href="/#accept-currency-header">Accept-Currency</a></td>
     </tr>
     <tr>
@@ -5089,7 +5089,7 @@
 
 <pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/languages"</span>
   -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
-  -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
@@ -5166,7 +5166,7 @@
 
 <pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/metroareas"</span>
   -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
-  -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
@@ -5236,7 +5236,7 @@
 
 <pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/search"</span>
   -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
-  -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
@@ -5324,7 +5324,7 @@
 
 <pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/venues"</span>
   -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
-  -H <span class="s2">"Authorization: Bearer: pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
