@@ -49,17 +49,32 @@
 
           <h1 id="overview">Overview</h1>
 
-<p>The official viagogo API v2 connects your website or application with the world’s largest ticket marketplace. Your application can use the API to search for and view events, purchase tickets for an event or list tickets on the viagogo platform.</p>
+<p>The official viagogo API v2 connects your website or application with the
+world’s largest ticket marketplace. Your application can use the API to search
+for and view events, purchase tickets for an event or list tickets on the
+viagogo platform.</p>
 
 <h2 id="quick-reference">Quick Reference</h2>
+
+<blockquote>
+  <p>Libraries are <a href="#libraries">available in several languages</a>.</p>
+</blockquote>
 
 <blockquote>
   <p><strong>API Root Endpoint:</strong> <code>https://api.viagogo.net/v2</code></p>
 </blockquote>
 
-<p>All API access is over HTTPS, and accessed from the <code>api.viagogo.net</code> domain. Request and response payloads are formatted as <code>application/hal+json</code>, which is basically just plain old JSON with hyperlinks (see <a href="#media-type">Media Type</a>). <a href="http://oauth.net/2/">OAuth2</a> is used for all authentication. All API requests must be authenticated or you will receive a <code>401 Unauthorized</code> error response (see <a href="#authentication">Authentication</a>).</p>
+<p>All API access is over HTTPS, and accessed from the <code>api.viagogo.net</code> domain.
+Request and response payloads are formatted as <code>application/hal+json</code>, which is
+basically just plain old JSON with hyperlinks (see <a href="#media-type">Media Type</a>).
+We support <a href="http://en.wikipedia.org/wiki/Cross-origin_resource_sharing">cross-origin resource sharing</a> to allow you to interact
+securely with our API from a client-side web application. <a href="http://oauth.net/2/">OAuth2</a>
+is used for all authentication. All API requests must be authenticated or you
+will receive a <code>401 Unauthorized</code> error response (see
+<a href="#authentication">Authentication</a>).</p>
 
-<p>Before accessing viagogo APIs, you need to register your application. During the beta period, API access will be available by invitation only.</p>
+<p>Before accessing viagogo APIs, you need to register your application.
+During the beta period, API access will be available by invitation only.</p>
 
 <aside class="notice">
   <strong>The previous version of the API will be deprecated on November 30th 2015</strong>
@@ -68,15 +83,27 @@
 
 <h2 id="explorable-api">Explorable API</h2>
 
-<p>The viagogo API v2 is an explorable API that uses hyperlinks to guide applications between resources. As such, the media type used in API responses and the structure of this documentation is intended to encourage developers to build applications that use hyperlinks to navigate between resources instead of using hard-coded URLs.</p>
+<p>The viagogo API v2 is an explorable API that uses hyperlinks to guide
+applications between resources. As such, the media type used in API responses
+and the structure of this documentation is intended to encourage developers to
+build applications that use hyperlinks to navigate between resources instead of
+using hard-coded URLs.</p>
 
-<p>One of the main advantages of using hyperlinks is that API responses are able to better describe the current state of a resource by using links to represent the possible actions available on that resource. This should reduce (or hopefully remove) the need for your applications to implement logic for managing the various states of a resource.</p>
+<p>One of the main advantages of using hyperlinks is that API responses are able to
+better describe the current state of a resource by using links to represent the
+possible actions available on that resource. This should reduce (or hopefully
+remove) the need for your applications to implement logic for managing the
+various states of a resource.</p>
 
 <h3 id="media-type">Media Type</h3>
 
-<p>The API uses <a href="http://stateless.co/hal_specification.html">Hypertext Application Language (HAL)</a> to hyperlink between resources. HAL is a simple format that provides a set of conventions for expressing hyperlinks in JSON - it’s basically just plain old JSON with hyperlinks!</p>
+<p>The API uses <a href="http://stateless.co/hal_specification.html">Hypertext Application Language (HAL)</a> to hyperlink between
+resources. HAL is a simple format that provides a set of conventions for
+expressing hyperlinks in JSON - it’s basically just plain old JSON with
+hyperlinks!</p>
 
-<p>All viagogo API resources are represented using the <code>application/hal+json</code> media type. The following properties can be expected on every resource:</p>
+<p>All viagogo API resources are represented using the <code>application/hal+json</code>
+media type. The following properties can be expected on every resource:</p>
 
 <ul>
   <li><code>_links</code> - a JSON object containing a set of hyperlinks to other resources</li>
@@ -86,9 +113,15 @@
 
 <h3 id="use-link-relations-instead-of-urls">Use Link Relations instead of URLs</h3>
 
-<p>Link relations (the keys in the <code>_links</code> property of resources) are very important in this API. They are a part of the contract between the API and your application and we have documented the request parameters and response type that are expected when your application follows a link (see <a href="#link-relations">Link Relations</a>. The idea is that applications will be coded to understand the different link relations but will not care about the actual URL of the link.</p>
+<p>Link relations (the keys in the <code>_links</code> property of resources) are very
+important in this API. They are a part of the contract between the API and your
+application and we have documented the request parameters and response type that
+are expected when your application follows a link
+(see <a href="#link-relations">Link Relations</a>. The idea is that applications will be
+coded to understand the different link relations but will not care about the
+actual URL of the link.</p>
 
-<p>To get a feel for how this works, look at our <a href="#">Guides</a>.</p>
+<p>To get a feel for how this works, look at our <a href="#getting-started">Guides</a>.</p>
 
 <h3 id="root-endpoint">Root endpoint</h3>
 
@@ -158,13 +191,17 @@
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>The only URL that your application needs to know is the root endpoint, which is like the “Home Page” of the API. You can issue a <code>GET</code> request to the root endpoint of the API to get the root resource that links to all other API resources.</p>
+<p>The only URL that your application needs to know is the root endpoint, which is
+like the “Home Page” of the API. You can issue a <code>GET</code> request to the root
+endpoint of the API to get the root resource that links to all other API
+resources.</p>
 
 <p><code>GET https://api.viagogo.net/v2</code></p>
 
 <h2 id="http-methods">HTTP Methods</h2>
 
-<p>Where possible, API v2 strives to use appropriate <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">HTTP methods</a> for each action.</p>
+<p>Where possible, API v2 strives to use appropriate <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">HTTP methods</a>
+for each action.</p>
 
 <table>
   <thead>
@@ -199,7 +236,8 @@
 
 <h2 id="http-status-codes">HTTP Status Codes</h2>
 
-<p>API v2 attempts to return appropriate <a href="http://en.wikipedia.org/wiki/List_of_HTTP_status_codes">HTTP status codes</a> for every request.</p>
+<p>API v2 attempts to return appropriate <a href="http://en.wikipedia.org/wiki/List_of_HTTP_status_codes">HTTP status codes</a> for
+every request.</p>
 
 <table>
   <thead>
@@ -277,7 +315,8 @@
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>When the viagogo API returns error messages, it includes a specific error code and possibly a localized error message that can be displayed to a user.</p>
+<p>When the viagogo API returns error messages, it includes a specific error code
+and possibly a localized error message that can be displayed to a user.</p>
 
 <h3 id="error-codes">Error Codes</h3>
 
@@ -350,19 +389,29 @@
 
 <h2 id="pagination">Pagination</h2>
 
-<p>Requests that return multiple results will be paginated to 100 items by default. You can use the <code>page</code> parameter to specify which page of data to retrieve. You can use <code>page_size</code> parameter to set custom page sizes on the API responses. API responses return pre-built pagination links with rels <code>first</code>, <code>prev</code>, <code>next</code> and <code>last</code> and client applications are encouraged to follow these links for pagination.</p>
+<p>Requests that return multiple results will be paginated to 100 items by default.
+You can use the <code>page</code> parameter to specify which page of data to retrieve. You
+can use <code>page_size</code> parameter to set custom page sizes on the API responses. API
+responses return pre-built pagination links with rels <code>first</code>, <code>prev</code>, <code>next</code>
+and <code>last</code> and client applications are encouraged to follow these links for
+pagination.</p>
 
 <p><code>GET https://api.viagogo.net/v2/addresses?page=1&amp;page_size=30</code></p>
 
-<p>Note that page numbering is 1-based and that omitting the <code>page</code> parameter will return the first page.</p>
+<p>Note that page numbering is 1-based and that omitting the <code>page</code> parameter will
+return the first page.</p>
 
 <h2 id="sorting">Sorting</h2>
 
-<p>Paginated results can be sorted according to one of more criteria using the <code>sort</code> param. Clients can specify sort criteria as a comma-separated list of the names of fields that should be used to sort. The default sort order is ascending but a <em>-</em> prefix on any sort field specifies a descending sort order.</p>
+<p>Paginated results can be sorted according to one of more criteria using the
+<code>sort</code> param. Clients can specify sort criteria as a comma-separated list of the
+names of fields that should be used to sort. The default sort order is ascending
+but a <em>-</em> prefix on any sort field specifies a descending sort order.</p>
 
 <p><code>GET https://api.viagogo.net/v2/categories/1207/events?sort=start_date,-ticket_price</code></p>
 
-<p>The example request above sorts results by <code>start_date</code> ascending and then by <code>ticket_price</code> descending.</p>
+<p>The example request above sorts results by <code>start_date</code> ascending and then by
+<code>ticket_price</code> descending.</p>
 
 <h2 id="sparse-fieldsets">Sparse Fieldsets</h2>
 
@@ -395,11 +444,15 @@
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>Your application can request for the API to return only specific fields in the response on a per-type basis by including a <code>fields</code>[TYPE] parameter. The value of the <code>fields</code> parameter must be a comma-separated list of the name(s) of the field(s) to be returned.</p>
+<p>Your application can request for the API to return only specific fields in the
+response on a per-type basis by including a <code>fields</code>[TYPE] parameter. The value
+of the <code>fields</code> parameter must be a comma-separated list of the name(s) of the
+field(s) to be returned.</p>
 
 <p><code>GET https://api.viagogo.net/v2/events/735139?fields=id,name,_embedded&amp;fields[venue]=city</code></p>
 
-<p>The example request above includes the <code>id</code>, <code>name</code> and <code>_embedded</code> fields in the event resource and the <code>city</code> field in its embedded venue.</p>
+<p>The example request above includes the <code>id</code>, <code>name</code> and <code>_embedded</code> fields in
+the event resource and the <code>city</code> field in its embedded venue.</p>
 
 <h2 id="user-agent-required">User Agent Required</h2>
 
@@ -413,47 +466,93 @@
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>All API requests <strong>must</strong> include a valid <code>User-Agent</code> header. Requests with no <code>User-Agent</code> header will be rejected. If you provide an invalid <code>User-Agent</code> header, you will receive a <code>403 Forbidden</code> response.</p>
+<p>All API requests <strong>must</strong> include a valid <code>User-Agent</code> header. Requests with no
+<code>User-Agent</code> header will be rejected. If you provide an invalid <code>User-Agent</code>
+header, you will receive a <code>403 Forbidden</code> response.</p>
 
 <h2 id="localization">Localization</h2>
 
-<p>viagogo API v2 support various request headers to return locale-specific content in responses.</p>
+<p>viagogo API v2 support various request headers to return locale-specific content
+in responses.</p>
 
 <h3 id="accept-language-header">Accept-Language Header</h3>
 
-<p>The <code>Accept-Language</code> header can be used to determine the language of the API response content (e.g. event names and error messages). Content will be returned in English if no <code>Accept-Language</code> header is provided, or viagogo does not currently support the requested language codes.</p>
+<p>The <code>Accept-Language</code> header can be used to determine the language of the API
+response content (e.g. event names and error messages). Content will be returned
+in English if no <code>Accept-Language</code> header is provided, or viagogo does not
+currently support the requested language codes.</p>
 
 <p><code>Accept-Language: da, en-gb;q=0.8, en;q=0.7</code></p>
 
-<p>In the example header above, the request is specifying “I prefer Danish, but will accept British English and other types of English.” See more information about the <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.4">Accept-Language header</a>.</p>
+<p>In the example header above, the request is specifying “I prefer Danish, but
+will accept British English and other types of English.” See more information
+about the <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.4">Accept-Language header</a>.</p>
 
 <h3 id="accept-currency-header">Accept-Currency Header</h3>
 
-<p>The <code>Accept-Currency</code> header can be used to determine the currency of responses that include monetary values. For example, <a href="/browse/listings/">Listing</a> resources have a <code>ticket_display_price</code> property that gives the price-per-ticket in the currency requested by the application. The value of the <code>Accept-Currency</code> header should be a three-letter currency code as defined by <a href="http://en.wikipedia.org/wiki/ISO_4217">ISO 4217</a>.</p>
+<p>The <code>Accept-Currency</code> header can be used to determine the currency of responses
+that include monetary values. For example, <a href="#listing">Listing</a> resources have a
+<code>ticket_display_price</code> property that gives the price-per-ticket in the currency
+requested by the application. The value of the <code>Accept-Currency</code> header should
+be a three-letter currency code as defined by <a href="http://en.wikipedia.org/wiki/ISO_4217">ISO 4217</a>.</p>
 
 <p><code>Accept-Currency: eur</code></p>
 
-<p>In the example above, the request is specifying that it would like to receive monetary values in Euros where possible.</p>
+<p>In the example above, the request is specifying that it would like to receive
+monetary values in Euros where possible.</p>
 
 <h3 id="vgg-country-header">VGG-Country Header</h3>
 
-<p>Applications can include the <code>VGG-Country</code> header to change the geography-context of requests. Each domain of the viagogo website is referred to as a <em>geography</em> that has its own category-structure and language, currency and content defaults. The value of the <code>VGG-Country</code> header should be a two-letter country code as defined by <a href="http://en.wikipedia.org/wiki/ISO_3166-1">ISO 3166</a>. If an application does not provide a <code>VGG-Country</code> header then the API will default to the <em>US</em> geography (www.viagogo.com).</p>
+<p>Applications can include the <code>VGG-Country</code> header to change the
+geography-context of requests. Each domain of the viagogo website is referred to
+as a <em>geography</em> that has its own category-structure and language, currency and
+content defaults. The value of the <code>VGG-Country</code> header should be a two-letter
+country code as defined by <a href="http://en.wikipedia.org/wiki/ISO_3166-1">ISO 3166</a>. If an application does not
+provide a <code>VGG-Country</code> header then the API will default to the <em>US</em> geography
+(www.viagogo.com).</p>
 
 <p><code>VGG-Country: FR</code></p>
 
-<p>In the example above, the application is specifying that it would like make requests in the French geography (as if the client were using the www.viagogo.fr website).</p>
+<p>In the example above, the application is specifying that it would like make
+requests in the French geography (as if the client were using the www.viagogo.fr
+website).</p>
 
 <h2 id="http-caching">HTTP Caching</h2>
 
 <h3 id="cache-control-header">Cache-Control Header</h3>
 
-<p>Most responses return a <code>Cache-Control</code> header with a <code>max-age</code> value that indicates the number of seconds your application can cache a particular response for. You don’t need to request a resource any more frequently than every <code>max-age</code> seconds.</p>
+<p>Most responses return a <code>Cache-Control</code> header with a <code>max-age</code> value that
+indicates the number of seconds your application can cache a particular response
+for. You don’t need to request a resource any more frequently than every
+<code>max-age</code> seconds.</p>
 
 <h3 id="e-tag-header">E-Tag Header</h3>
 
-<p>All responses return the <code>ETag</code> header. You can use the value of this header to make subsequent requests to those resources using the <code>If-None-Match</code> header. If the resource has not changed, the server will return a <code>304 Not Modified</code> response with an empty body.</p>
+<p>All responses return the <code>ETag</code> header. You can use the value of this header to
+make subsequent requests to those resources using the <code>If-None-Match</code> header.
+If the resource has not changed, the server will return a <code>304 Not Modified</code>
+response with an empty body.</p>
 
           <h1 id="getting-started">Getting Started</h1>
+
+          <h2 id="libraries">Libraries</h2>
+
+<p>Use the viagogo API in your favourite language with one of our API libraries.
+Use the official GogoKit library, or choose between any of the available third
+party libraries.</p>
+
+<h3 id="gogokit">GogoKit</h3>
+
+<ul>
+  <li>C# - <a href="https://github.com/viagogo/gogokit.net">gogokit.net</a></li>
+  <li>Ruby - <a href="https://github.com/viagogo/gogokit.rb">gogokit.rb</a></li>
+  <li>PHP - <a href="https://github.com/viagogo/gogokit.php">gogokit.php</a></li>
+</ul>
+
+<h3 id="third-party-libraries">Third-party libraries</h3>
+
+<p><a href="https://github.com/viagogo/developer.viagogo.net/issues">Let us know</a> about
+your libraries for the viagogo API and we will list them here.</p>
 
           <h2 id="entities">Entities</h2>
 
