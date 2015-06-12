@@ -13,7 +13,7 @@
 
       <script>
         $(function() {
-          setupLanguages(["shell","csharp"]);
+          setupLanguages(["shell","csharp","ruby"]);
         });
       </script>
   </head>
@@ -30,6 +30,7 @@
         <div class="lang-selector">
               <a href="#" data-language-name="shell">cURL</a>
               <a href="#" data-language-name="csharp">C#</a>
+              <a href="#" data-language-name="ruby">Ruby</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -133,7 +134,13 @@ actual URL of the link.</p>
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
                             <span class="s">"clientSecret"</span><span class="p">,</span>
                             <span class="k">new</span> <span class="nf">ProductHeaderValue</span><span class="p">(</span><span class="s">"MyAwesomeApp"</span><span class="p">));</span>
-<span class="n">var</span> <span class="n">root</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Root</span><span class="p">.</span><span class="nf">GetAsync</span><span class="p">();</span>
+<span class="n">var</span> <span class="n">root</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Hypermedia</span><span class="p">.</span><span class="nf">GetRootAsync</span><span class="p">();</span>
+</code></pre>
+
+<pre><code class="highlight ruby"><span class="n">api</span> <span class="o">=</span> <span class="no">GogoKit</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client_id: </span><span class="no">CLIENT_ID</span><span class="p">,</span>
+                          <span class="ss">client_secret: </span><span class="no">CLIENT_SECRET</span><span class="p">,</span>
+                          <span class="ss">access_token: </span><span class="no">ACCESS_TOKEN</span><span class="p">)</span>
+<span class="n">root</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">get_root</span>
 </code></pre>
 
 <blockquote>
@@ -420,13 +427,26 @@ but a <em>-</em> prefix on any sort field specifies a descending sort order.</p>
   -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
-<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
-<span class="n">api</span><span class="p">.</span><span class="n">Connection</span><span class="p">.</span><span class="n">HttpConnection</span><span class="p">.</span><span class="nf">SendRequestAsync</span><span class="p">(</span>
-    <span class="k">new</span> <span class="nf">Uri</span><span class="p">(</span><span class="n">https</span><span class="p">:</span><span class="c1">//api.viagogo.net/v2/events/735139?fields=id,name,_embedded&amp;fields[venue]=city),
-</span>    <span class="n">HttpMethod</span><span class="p">.</span><span class="n">Get</span><span class="p">,</span>
-    <span class="s">"application/hal+json"</span><span class="p">,</span>
-    <span class="k">null</span><span class="p">,</span>
-    <span class="k">null</span><span class="p">);</span>
+<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
+                            <span class="s">"clientSecret"</span><span class="p">,</span>
+                            <span class="k">new</span> <span class="nf">ProductHeaderValue</span><span class="p">(</span><span class="s">"MyAwesomeApp"</span><span class="p">));</span>
+
+<span class="n">var</span> <span class="n">request</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">EventRequest</span><span class="p">();</span>
+<span class="n">request</span><span class="p">.</span><span class="n">Parameters</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="s">"fields"</span><span class="p">,</span> <span class="s">"id,name,_embedded"</span><span class="p">);</span>
+<span class="n">request</span><span class="p">.</span><span class="n">Parameters</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="s">"fields[venue]"</span><span class="p">,</span> <span class="s">"city"</span><span class="p">);</span>
+
+<span class="n">var</span> <span class="n">@event</span> <span class="p">=</span> <span class="n">api</span><span class="p">.</span><span class="n">Events</span><span class="p">.</span><span class="nf">GetAsync</span><span class="p">(</span><span class="m">735139</span><span class="p">,</span> <span class="n">request</span><span class="p">);</span>
+<span class="n">var</span> <span class="n">root</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Hypermedia</span><span class="p">.</span><span class="nf">GetRootAsync</span><span class="p">();</span>
+</code></pre>
+
+<pre><code class="highlight ruby"><span class="n">api</span> <span class="o">=</span> <span class="no">GogoKit</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client_id: </span><span class="no">CLIENT_ID</span><span class="p">,</span>
+                          <span class="ss">client_secret: </span><span class="no">CLIENT_SECRET</span><span class="p">,</span>
+                          <span class="ss">access_token: </span><span class="no">ACCESS_TOKEN</span><span class="p">)</span>
+<span class="n">event</span> <span class="o">=</span> <span class="n">event</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">get_event</span><span class="p">(</span><span class="mi">735139</span><span class="p">,</span>
+                              <span class="ss">params: </span><span class="p">{</span>
+                                <span class="s1">'fields'</span> <span class="o">=&gt;</span> <span class="s1">'id,name,_embedded'</span><span class="p">,</span>
+                                <span class="s1">'fields[venue]'</span> <span class="o">=&gt;</span> <span class="s1">'city'</span>
+                              <span class="p">})</span>
 </code></pre>
 
 <blockquote>
@@ -558,11 +578,16 @@ your libraries for the viagogo API and we will list them here.</p>
 
 <p>The main entities in the API are events, listings and categories.</p>
 
-<p>An <a href="#event"><code>Event</code></a> is a show/festival/match/etc, taking place at a venue, for which tickets can be bought and sold.</p>
+<p>An <a href="#event"><code>Event</code></a> is a show/festival/match/etc, taking place at a venue, for
+which tickets can be bought and sold.</p>
 
 <p>A <a href="#listing"><code>Listing</code></a> is a set of one or more tickets for an event.</p>
 
-<p>A <a href="#category"><code>Category</code></a> is a grouping of similar events or categories. Categories in the viagogo platform are arranged in a tree hierarchy where categories near the root of the tree (direct children of the root) are referred to as <em>genres</em> (e.g. “Concerts”, “Threatre”, “Festival”, “Sports”) and categories that are leaves of the tree are referred to as <em>performers</em>.</p>
+<p>A <a href="#category"><code>Category</code></a> is a grouping of similar events or categories.
+Categories in the viagogo platform are arranged in a tree hierarchy where
+categories near the root of the tree (direct children of the root) are referred
+to as <em>genres</em> (e.g. “Concerts”, “Threatre”, “Festival”, “Sports”) and categories
+that are leaves of the tree are referred to as <em>performers</em>.</p>
 
           <h2 id="getting-all-events-in-a-genre">Getting All Events in a Genre</h2>
 
@@ -578,7 +603,13 @@ your libraries for the viagogo API and we will list them here.</p>
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
                             <span class="s">"clientSecret"</span><span class="p">,</span>
                             <span class="k">new</span> <span class="nf">ProductHeaderValue</span><span class="p">(</span><span class="s">"MyAwesomeApp"</span><span class="p">));</span>
-<span class="n">var</span> <span class="n">root</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Root</span><span class="p">.</span><span class="nf">GetAsync</span><span class="p">();</span>
+<span class="n">var</span> <span class="n">root</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Hypermedia</span><span class="p">.</span><span class="nf">GetRootAsync</span><span class="p">();</span>
+</code></pre>
+
+<pre><code class="highlight ruby"><span class="n">api</span> <span class="o">=</span> <span class="no">GogoKit</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client_id: </span><span class="no">CLIENT_ID</span><span class="p">,</span>
+                          <span class="ss">client_secret: </span><span class="no">CLIENT_SECRET</span><span class="p">,</span>
+                          <span class="ss">access_token: </span><span class="no">ACCESS_TOKEN</span><span class="p">)</span>
+<span class="n">root</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">get_root</span>
 </code></pre>
 
 <blockquote>
@@ -593,6 +624,9 @@ your libraries for the viagogo API and we will list them here.</p>
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">genres</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Categories</span><span class="p">.</span><span class="nf">GetAllGenresAsync</span><span class="p">();</span>
 </code></pre>
 
+<pre><code class="highlight ruby"><span class="n">genres</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">get_genres</span>
+</code></pre>
+
 <blockquote>
   <p><strong>3. Page through the Events in the Genre</strong></p>
 </blockquote>
@@ -603,6 +637,9 @@ your libraries for the viagogo API and we will list them here.</p>
 </code></pre>
 
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">events</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Events</span><span class="p">.</span><span class="nf">GetAllByCategoryAsync</span><span class="p">(</span><span class="n">genres</span><span class="p">[</span><span class="m">0</span><span class="p">].</span><span class="n">Id</span><span class="p">);</span>
+</code></pre>
+
+<pre><code class="highlight ruby"><span class="n">events</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">get_events_by_category</span> <span class="n">genres</span><span class="p">.</span><span class="nf">items</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nf">id</span>
 </code></pre>
 
 <blockquote>
@@ -707,19 +744,28 @@ your libraries for the viagogo API and we will list them here.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>Retrieving all of the events in a particular genre (e.g. “Concert Tickets”, “Theatre Tickets”) is simple if you use the hyperlinks available in API responses.</p>
+<p>Retrieving all of the events in a particular genre (e.g. “Concert Tickets”,
+“Theatre Tickets”) is simple if you use the hyperlinks available in API
+responses.</p>
 
 <h3 id="start-at-the-root">1. Start at the Root</h3>
 
-<p>As is the case when retrieving most data in API v2, you should start by getting the <a href="#root"><code>Root</code></a> resource to find the hyperlink to the resource you care about.</p>
+<p>As is the case when retrieving most data in API v2, you should start by getting
+the <a href="#root"><code>Root</code></a> resource to find the hyperlink to the resource you care
+about.</p>
 
 <h3 id="find-the-genres-that-you-care-about">2. Find the Genre(s) that you care about</h3>
 
-<p>Follow the <a href="#viagogogenres"><code>viagogo:genres</code></a> link to get the genre you are interested in.</p>
+<p>Follow the <a href="#viagogogenres"><code>viagogo:genres</code></a> link to get the genre you are
+interested in.</p>
 
 <h3 id="page-through-the-events-in-the-genre">3. Page through the Events in the Genre</h3>
 
-<p>Follow the <a href="#categoryevents"><code>category:events</code></a> link to get the first page of events. Once we have the first page, we can follow the <code>next</code> links to retrieve all pages (see <a href="#pagination">pagination</a>). Since there will be lots of events under a genre, we suggest using a large <code>page_size</code> to reduce the total number of requests your application has to make.</p>
+<p>Follow the <a href="#categoryevents"><code>category:events</code></a> link to get the first page of
+events. Once we have the first page, we can follow the <code>next</code> links to retrieve
+all pages (see <a href="#pagination">pagination</a>). Since there will be lots of events
+under a genre, we suggest using a large <code>page_size</code> to reduce the total number
+of requests your application has to make.</p>
 
           <h2 id="search-for-events">Search for Events</h2>
 
@@ -735,7 +781,13 @@ your libraries for the viagogo API and we will list them here.</p>
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
                             <span class="s">"clientSecret"</span><span class="p">,</span>
                             <span class="k">new</span> <span class="nf">ProductHeaderValue</span><span class="p">(</span><span class="s">"MyAwesomeApp"</span><span class="p">));</span>
-<span class="n">var</span> <span class="n">root</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Root</span><span class="p">.</span><span class="nf">GetAsync</span><span class="p">();</span>
+<span class="n">var</span> <span class="n">root</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Hypermedia</span><span class="p">.</span><span class="nf">GetRootAsync</span><span class="p">();</span>
+</code></pre>
+
+<pre><code class="highlight ruby"><span class="n">api</span> <span class="o">=</span> <span class="no">GogoKit</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client_id: </span><span class="no">CLIENT_ID</span><span class="p">,</span>
+                          <span class="ss">client_secret: </span><span class="no">CLIENT_SECRET</span><span class="p">,</span>
+                          <span class="ss">access_token: </span><span class="no">ACCESS_TOKEN</span><span class="p">)</span>
+<span class="n">root</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">get_root</span>
 </code></pre>
 
 <blockquote>
@@ -748,6 +800,9 @@ your libraries for the viagogo API and we will list them here.</p>
 </code></pre>
 
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">searchResults</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Search</span><span class="p">.</span><span class="nf">GetAllAsync</span><span class="p">(</span><span class="s">"one direction"</span><span class="p">);</span>
+</code></pre>
+
+<pre><code class="highlight ruby"><span class="n">search_results</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">search</span> <span class="s1">'one direction'</span>
 </code></pre>
 
 <blockquote>
@@ -806,6 +861,9 @@ your libraries for the viagogo API and we will list them here.</p>
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">category</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Categories</span><span class="p">.</span><span class="nf">GetAsync</span><span class="p">(</span><span class="n">searchResults</span><span class="p">[</span><span class="m">0</span><span class="p">].</span><span class="n">Id</span><span class="p">);</span>
 </code></pre>
 
+<pre><code class="highlight ruby"><span class="n">category</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">get_category</span> <span class="n">search_results</span><span class="p">.</span><span class="nf">items</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nf">id</span>
+</code></pre>
+
 <blockquote>
   <p><strong>4. Page through the Events in the Category</strong></p>
 </blockquote>
@@ -818,41 +876,75 @@ your libraries for the viagogo API and we will list them here.</p>
 <pre><code class="highlight csharp"><span class="n">var</span> <span class="n">events</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Events</span><span class="p">.</span><span class="nf">GetAllByCategoryAsync</span><span class="p">(</span><span class="n">category</span><span class="p">.</span><span class="n">Id</span><span class="p">);</span>
 </code></pre>
 
-<p>API v2 provides access to the same search features available on the viagogo website. Your application can use this search to quickly find a particular category, event, venue or metro area.</p>
+<pre><code class="highlight ruby"><span class="n">events</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">get_events_by_category</span> <span class="n">category</span><span class="p">.</span><span class="nf">id</span>
+</code></pre>
+
+<p>API v2 provides access to the same search features available on the viagogo
+website. Your application can use this search to quickly find a particular
+category, event, venue or metro area.</p>
 
 <h3 id="start-at-the-root">1. Start at the Root</h3>
 
-<p>As is the case when retrieving most data in API v2, you should start by getting the <a href="#root"><code>Root</code></a> resource to find the hyperlink to the resource you care about.</p>
+<p>As is the case when retrieving most data in API v2, you should start by getting
+the <a href="#root"><code>Root</code></a> resource to find the hyperlink to the resource you care
+about.</p>
 
 <h3 id="search-for-the-teamartisttournamentetc-category">2. Search for the Team/Artist/Tournament/etc Category</h3>
 
-<p>Follow the <a href="#viagogosearch"><code>viagogo:search</code></a> link to query for entities you are interested in.</p>
+<p>Follow the <a href="#viagogosearch"><code>viagogo:search</code></a> link to query for entities you are
+interested in.</p>
 
 <h3 id="get-the-details-of-the-category">3. Get the Details of the Category</h3>
 
-<p><a href="#searchresult"><code>SearchResult</code></a> resources only contain very basic entity information so you should follow the link on the result that will get you more information about the entity (see <a href="#searchresultcategory"><code>searchresult:category</code></a>, <a href="#searchresultevent"><code>searchresult:event</code></a>, <a href="#searchresultmetroarea"><code>searchresult:metroarea</code></a> and <a href="#searchresultvenue"><code>searchresult:venue</code></a>)</p>
+<p><a href="#searchresult"><code>SearchResult</code></a> resources only contain very basic entity
+information so you should follow the link on the result that will get you more
+information about the entity (see <a href="#searchresultcategory"><code>searchresult:category</code></a>,
+<a href="#searchresultevent"><code>searchresult:event</code></a>,
+<a href="#searchresultmetroarea"><code>searchresult:metroarea</code></a> and
+<a href="#searchresultvenue"><code>searchresult:venue</code></a>)</p>
 
 <h3 id="page-through-the-events-in-the-category">4. Page through the Events in the Category</h3>
 
-<p>Follow the <a href="#categoryevents"><code>category:events</code></a> link to get the first page of events under the category. Once we have the first page, we can follow the <code>next</code> links to retrieve all pages (see <a href="#pagination">pagination</a>).</p>
+<p>Follow the <a href="#categoryevents"><code>category:events</code></a> link to get the first page of
+events under the category. Once we have the first page, we can follow the <code>next</code>
+links to retrieve all pages (see <a href="#pagination">pagination</a>).</p>
 
           <h2 id="direct-users-to-the-viagogo-website">Direct Users to the viagogo Website</h2>
 
-<p>Your application can use links on <a href="#category"><code>Category</code></a>, <a href="#event"><code>Event</code></a> and <a href="#listing"><code>Listing</code></a> resources to direct users to the viagogo website. These resources provide two types of links that you can use depending on your scenario.</p>
+<p>Your application can use links on <a href="#category"><code>Category</code></a>, <a href="#event"><code>Event</code></a> and
+<a href="#listing"><code>Listing</code></a> resources to direct users to the viagogo website. These
+resources provide two types of links that you can use depending on your scenario.</p>
 
 <h3 id="user-locale-specific-website-links">User-Locale-Specific Website Links</h3>
 
-<p><a href="#category"><code>Category</code></a>, <a href="#event"><code>Event</code></a> and <a href="#listing"><code>Listing</code></a> resources provide <a href="#categorywebpage"><code>category:webpage</code></a>, <a href="#eventwebpage"><code>event:webpage</code></a> and <a href="#listingwebpage"><code>listing:webpage</code></a> links respectively. You should use these links to direct the user to a viagogo website domain that matches the user’s locale.  The viagogo website domain will match the <a href="#vgg-country-header"><code>VGG-Country</code> Header</a> in your request. For example, if you know that a user of your application is German, your application should be requesting event data with <code>VGG-Country</code> header set to <em>DE</em> and you can use this link to direct them to <em>www.viagogo.de</em>.</p>
+<p><a href="#category"><code>Category</code></a>, <a href="#event"><code>Event</code></a> and <a href="#listing"><code>Listing</code></a> resources
+provide <a href="#categorywebpage"><code>category:webpage</code></a>, <a href="#eventwebpage"><code>event:webpage</code></a>
+and <a href="#listingwebpage"><code>listing:webpage</code></a> links respectively. You should use these
+links to direct the user to a viagogo website domain that matches the user’s
+locale.  The viagogo website domain will match the
+<a href="#vgg-country-header"><code>VGG-Country</code> Header</a> in your request. For example, if you
+know that a user of your application is German, your application should be
+requesting event data with <code>VGG-Country</code> header set to <em>DE</em> and you can use this
+link to direct them to <em>www.viagogo.de</em>.</p>
 
 <h3 id="event-locale-specific-website-links">Event-Locale-Specific Website Links</h3>
 
-<p><a href="#event"><code>Event</code></a> and <a href="#listing"><code>Listing</code></a> resources provide <a href="#eventwebpage"><code>event:webpage</code></a> and <a href="#listingwebpage"><code>listing:webpage</code></a> links respectively. You should usse these links to direct the user to a viagogo website domain that matches the event’s locale. For example, if you know that an event is in Australia you can use this link to direct your user to <em>www.viagogo.com/au</em>.</p>
+<p><a href="#event"><code>Event</code></a> and <a href="#listing"><code>Listing</code></a> resources provide
+<a href="#eventwebpage"><code>event:webpage</code></a> and <a href="#listingwebpage"><code>listing:webpage</code></a> links
+respectively. You should usse these links to direct the user to a viagogo
+website domain that matches the event’s locale. For example, if you know that an
+event is in Australia you can use this link to direct your user to
+<em>www.viagogo.com/au</em>.</p>
 
           <h1 id="authentication">Authentication</h1>
 
-<p>The viagogo API uses <a href="http://oauth.net/2/">OAuth2</a> for all authentication. OAuth2 is a protocol that lets external applications access public viagogo resources and private viagogo user details without getting their password.</p>
+<p>The viagogo API uses <a href="http://oauth.net/2/">OAuth2</a> for all authentication.
+OAuth2 is a protocol that lets external applications access public viagogo
+resources and private viagogo user details without getting their password.</p>
 
-<p>All developers need to <a href="#">register their application</a> before getting started. Registered applications are assigned a unique Client ID and Client Secret that are required for authentication.</p>
+<p>All developers need to <a href="#">register their application</a> before getting started.
+Registered applications are assigned a unique Client ID and Client Secret that
+are required for authentication.</p>
 
 <aside class="notice">
   <strong>Tokens are passwords.</strong>
@@ -866,7 +958,9 @@ your libraries for the viagogo API and we will list them here.</p>
 
 <h2 id="getting-access-tokens">Getting Access Tokens</h2>
 
-<p>In order to make authenticated requests to the viagogo API, your application must first obtain an OAuth access token. The way you obtain an access token depends on your use case.</p>
+<p>In order to make authenticated requests to the viagogo API, your application
+must first obtain an OAuth access token. The way you obtain an access token
+depends on your use case.</p>
 
 <table>
   <thead>
@@ -885,7 +979,8 @@ your libraries for the viagogo API and we will list them here.</p>
 
 <h2 id="client-credentials-grant">Client Credentials Grant</h2>
 
-<p>Applications can use the client credentials grant to get an access token that will provide access to public, non-user-specific data (events, listings, etc).</p>
+<p>Applications can use the client credentials grant to get an access token that
+will provide access to public, non-user-specific data (events, listings, etc).</p>
 
 <pre><code class="highlight shell">curl -X POST <span class="s2">"https://www.viagogo.co.uk/secure/oauth2/token"</span>
   -u <span class="s2">"clientId:clientSecret"</span> --basic
@@ -893,15 +988,23 @@ your libraries for the viagogo API and we will list them here.</p>
   -d <span class="s2">"grant_type=client_credentials"</span>
 </code></pre>
 
-<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
-<span class="n">var</span> <span class="n">token</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">OAuth2</span><span class="p">.</span><span class="nf">GetClientCredentialsAccessTokenAsync</span><span class="p">();</span>
+<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
+                            <span class="s">"clientSecret"</span><span class="p">,</span>
+                            <span class="k">new</span> <span class="nf">ProductHeaderValue</span><span class="p">(</span><span class="s">"MyAwesomeApp"</span><span class="p">));</span>
+<span class="n">var</span> <span class="n">token</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">OAuth2</span><span class="p">.</span><span class="nf">GetClientAccessTokenAsync</span><span class="p">();</span>
+</code></pre>
+
+<pre><code class="highlight ruby"><span class="n">api</span> <span class="o">=</span> <span class="no">GogoKit</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client_id: </span><span class="no">CLIENT_ID</span><span class="p">,</span> <span class="ss">client_secret: </span><span class="no">CLIENT_SECRET</span><span class="p">)</span>
+<span class="n">token</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">get_client_access_token</span>
 </code></pre>
 
 <h3 id="create-a-basic-authorization-header">1. Create a Basic Authorization header</h3>
 
 <ul>
-  <li>URL encode your application’s client id and client secret according to <a href="http://www.ietf.org/rfc/rfc1738.txt">RFC 1738</a></li>
-  <li>Concatenate the encoded client id, a colon character “:” and the encoded consumer secret into a single string</li>
+  <li>URL encode your application’s client id and client secret according to
+<a href="http://www.ietf.org/rfc/rfc1738.txt">RFC 1738</a></li>
+  <li>Concatenate the encoded client id, a colon character “:” and the encoded
+consumer secret into a single string</li>
   <li>Base64 encode the string from the previous step</li>
 </ul>
 
@@ -920,7 +1023,8 @@ your libraries for the viagogo API and we will list them here.</p>
 <h3 id="obtain-an-access-token">2. Obtain an access token</h3>
 
 <ul>
-  <li>The value calculated in <a href="#create-a-basic-authorization-header">Step 1</a> must be exchanged for an access token:</li>
+  <li>The value calculated in <a href="#create-a-basic-authorization-header">Step 1</a> must be
+exchanged for an access token:</li>
 </ul>
 
 <h3 id="http-request">HTTP Request</h3>
@@ -979,17 +1083,26 @@ your libraries for the viagogo API and we will list them here.</p>
   -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
-<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">tokenStore</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">InMemoryOAuth2TokenStore</span><span class="p">();</span>
-<span class="n">await</span> <span class="n">tokenStore</span><span class="p">.</span><span class="nf">SetTokenAsync</span><span class="p">(</span><span class="n">token</span><span class="p">);</span>
-<span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
+<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
                             <span class="s">"clientSecret"</span><span class="p">,</span>
-                            <span class="k">new</span> <span class="nf">ProductHeaderValue</span><span class="p">(</span><span class="s">"MyAwesomeApp"</span><span class="p">,</span> <span class="s">"1.0"</span><span class="p">),</span>
-                            <span class="n">GogoKit</span><span class="p">.</span><span class="n">Configuration</span><span class="p">.</span><span class="n">Configuration</span><span class="p">.</span><span class="n">Default</span><span class="p">,</span>
-                            <span class="n">tokenStore</span><span class="p">);</span>
-<span class="n">var</span> <span class="n">genres</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Search</span><span class="p">.</span><span class="nf">GetAllAsync</span><span class="p">(</span><span class="s">"lady gaga"</span><span class="p">);</span>
+                            <span class="k">new</span> <span class="nf">ProductHeaderValue</span><span class="p">(</span><span class="s">"MyAwesomeApp"</span><span class="p">));</span>
+<span class="n">var</span> <span class="n">token</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">OAuth2</span><span class="p">.</span><span class="nf">GetClientAccessTokenAsync</span><span class="p">();</span>
+<span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">TokenStore</span><span class="p">.</span><span class="nf">SetTokenAsync</span><span class="p">(</span><span class="n">token</span><span class="p">);</span>
+
+<span class="n">var</span> <span class="n">searchResults</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Search</span><span class="p">.</span><span class="nf">GetAllAsync</span><span class="p">(</span><span class="s">"lady gaga"</span><span class="p">);</span>
 </code></pre>
 
-<p>Access tokens should be included in a <code>Bearer</code> authorization header when making API requests. The <code>expires_in</code> property in a token response represents the number of seconds before the token expires. Tokens can be re-used in multiple requests up until they expire.</p>
+<pre><code class="highlight ruby"><span class="n">api</span> <span class="o">=</span> <span class="no">GogoKit</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client_id: </span><span class="no">CLIENT_ID</span><span class="p">,</span> <span class="ss">client_secret: </span><span class="no">CLIENT_SECRET</span><span class="p">)</span>
+<span class="n">token</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">get_client_access_token</span>
+<span class="n">api</span><span class="p">.</span><span class="nf">access_token</span> <span class="o">=</span> <span class="n">token</span><span class="p">.</span><span class="nf">access_token</span>
+
+<span class="n">search_results</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">search</span> <span class="s1">'lady gaga'</span>
+</code></pre>
+
+<p>Access tokens should be included in a <code>Bearer</code> authorization header when making
+API requests. The <code>expires_in</code> property in a token response represents the
+number of seconds before the token expires. Tokens can be re-used in multiple
+requests up until they expire.</p>
 
 <h2 id="scopes">Scopes</h2>
 
@@ -3207,8 +3320,16 @@ your libraries for the viagogo API and we will list them here.</p>
   -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
-<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
-<span class="n">var</span> <span class="n">children</span> <span class="p">=</span> <span class="n">await</span> <span class="n">client</span><span class="p">.</span><span class="n">Categories</span><span class="p">.</span><span class="nf">GetChildrenAsync</span><span class="p">(</span><span class="m">3</span><span class="p">);</span>
+<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
+                            <span class="s">"clientSecret"</span><span class="p">,</span>
+                            <span class="k">new</span> <span class="nf">ProductHeaderValue</span><span class="p">(</span><span class="s">"MyAwesomeApp"</span><span class="p">));</span>
+<span class="n">var</span> <span class="n">children</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Categories</span><span class="p">.</span><span class="nf">GetChildrenAsync</span><span class="p">(</span><span class="m">3</span><span class="p">);</span>
+</code></pre>
+
+<pre><code class="highlight ruby"><span class="n">api</span> <span class="o">=</span> <span class="no">GogoKit</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client_id: </span><span class="no">CLIENT_ID</span><span class="p">,</span>
+                          <span class="ss">client_secret: </span><span class="no">CLIENT_SECRET</span><span class="p">,</span>
+                          <span class="ss">access_token: </span><span class="no">ACCESS_TOKEN</span><span class="p">)</span>
+<span class="n">children</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">get_category_children</span> <span class="mi">3</span>
 </code></pre>
 
 <blockquote>
@@ -3292,7 +3413,8 @@ your libraries for the viagogo API and we will list them here.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>You can <code>GET</code> the href of this link to retrieve the <a href="#categories"><code>Categories</code></a> resource that contains the direct children of a category.</p>
+<p>You can <code>GET</code> the href of this link to retrieve the <a href="#categories"><code>Categories</code></a>
+resource that contains the direct children of a category.</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -3343,7 +3465,8 @@ your libraries for the viagogo API and we will list them here.</p>
 
 <h3 id="response">Response</h3>
 
-<p>Returns the <a href="#categories"><code>Categories</code></a> resource containing the direct children of a category.</p>
+<p>Returns the <a href="#categories"><code>Categories</code></a> resource containing the direct children
+of a category.</p>
 
           <h2 id="categoryevents">category:events</h2>
 
@@ -3352,8 +3475,16 @@ your libraries for the viagogo API and we will list them here.</p>
   -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
-<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
-<span class="n">var</span> <span class="n">events</span> <span class="p">=</span> <span class="n">await</span> <span class="n">client</span><span class="p">.</span><span class="n">Events</span><span class="p">.</span><span class="nf">GetAllByCategoryAsync</span><span class="p">(</span><span class="m">1207</span><span class="p">);</span>
+<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
+                            <span class="s">"clientSecret"</span><span class="p">,</span>
+                            <span class="k">new</span> <span class="nf">ProductHeaderValue</span><span class="p">(</span><span class="s">"MyAwesomeApp"</span><span class="p">));</span>
+<span class="n">var</span> <span class="n">events</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Events</span><span class="p">.</span><span class="nf">GetAllByCategoryAsync</span><span class="p">(</span><span class="m">1207</span><span class="p">);</span>
+</code></pre>
+
+<pre><code class="highlight ruby"><span class="n">api</span> <span class="o">=</span> <span class="no">GogoKit</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client_id: </span><span class="no">CLIENT_ID</span><span class="p">,</span>
+                          <span class="ss">client_secret: </span><span class="no">CLIENT_SECRET</span><span class="p">,</span>
+                          <span class="ss">access_token: </span><span class="no">ACCESS_TOKEN</span><span class="p">)</span>
+<span class="n">children</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">get_events_by_category</span> <span class="mi">1207</span>
 </code></pre>
 
 <blockquote>
@@ -3458,7 +3589,8 @@ your libraries for the viagogo API and we will list them here.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>You can <code>GET</code> the href of this link to retrieve the <a href="#events"><code>Events</code></a> resource that contains the events in a category.</p>
+<p>You can <code>GET</code> the href of this link to retrieve the <a href="#events"><code>Events</code></a> resource
+that contains the events in a category.</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -3524,6 +3656,11 @@ your libraries for the viagogo API and we will list them here.</p>
       <td><code>boolean</code></td>
       <td>Filters results to only include events that have tickets.</td>
     </tr>
+    <tr>
+      <td><code>metro_area_id</code></td>
+      <td><code>int</code></td>
+      <td>Filters results to only include events located in a particular <a href="#metroarea"><code>MetroArea</code></a>.</td>
+    </tr>
   </tbody>
 </table>
 
@@ -3546,9 +3683,18 @@ your libraries for the viagogo API and we will list them here.</p>
   -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
-<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
-<span class="n">var</span> <span class="n">category</span> <span class="p">=</span> <span class="n">await</span> <span class="n">client</span><span class="p">.</span><span class="n">Categories</span><span class="p">.</span><span class="nf">GetAsync</span><span class="p">(</span><span class="m">20746</span><span class="p">);</span>
-<span class="n">var</span> <span class="n">parentCategory</span> <span class="p">=</span> <span class="n">await</span> <span class="n">client</span><span class="p">.</span><span class="n">Connection</span><span class="p">.</span><span class="n">GetAsync</span><span class="p">&lt;</span><span class="n">Category</span><span class="p">&gt;(</span><span class="n">category</span><span class="p">.</span><span class="n">Links</span><span class="p">[</span><span class="s">"category:parent"</span><span class="p">],</span> <span class="k">null</span><span class="p">);</span>
+<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
+                            <span class="s">"clientSecret"</span><span class="p">,</span>
+                            <span class="k">new</span> <span class="nf">ProductHeaderValue</span><span class="p">(</span><span class="s">"MyAwesomeApp"</span><span class="p">));</span>
+<span class="n">var</span> <span class="n">category</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Categories</span><span class="p">.</span><span class="nf">GetAsync</span><span class="p">(</span><span class="m">20746</span><span class="p">);</span>
+<span class="n">var</span> <span class="n">parentCategory</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Hypermedia</span><span class="p">.</span><span class="n">GetAsync</span><span class="p">&lt;</span><span class="n">Category</span><span class="p">&gt;(</span><span class="n">category</span><span class="p">.</span><span class="n">ParentLink</span><span class="p">,</span> <span class="k">null</span><span class="p">);</span>
+</code></pre>
+
+<pre><code class="highlight ruby"><span class="n">api</span> <span class="o">=</span> <span class="no">GogoKit</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client_id: </span><span class="no">CLIENT_ID</span><span class="p">,</span>
+                          <span class="ss">client_secret: </span><span class="no">CLIENT_SECRET</span><span class="p">,</span>
+                          <span class="ss">access_token: </span><span class="no">ACCESS_TOKEN</span><span class="p">)</span>
+<span class="n">category</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">get_category</span> <span class="mi">20746</span>
+<span class="n">parent_category</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">get</span> <span class="n">category</span><span class="p">.</span><span class="nf">links</span><span class="p">[</span><span class="s1">'category:parent'</span><span class="p">]</span>
 </code></pre>
 
 <blockquote>
@@ -3606,7 +3752,8 @@ your libraries for the viagogo API and we will list them here.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>You can GET the href of this link to retrieve the <a href="#category"><code>Category</code></a> resource that is a parent of a category.</p>
+<p>You can GET the href of this link to retrieve the <a href="#category"><code>Category</code></a>
+resource that is a parent of a category.</p>
 
 <h3 id="response">Response</h3>
 
@@ -3619,11 +3766,20 @@ your libraries for the viagogo API and we will list them here.</p>
   -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
-<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
+<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
+                            <span class="s">"clientSecret"</span><span class="p">,</span>
+                            <span class="k">new</span> <span class="nf">ProductHeaderValue</span><span class="p">(</span><span class="s">"MyAwesomeApp"</span><span class="p">));</span>
 <span class="n">var</span> <span class="n">category</span> <span class="p">=</span> <span class="n">await</span> <span class="n">client</span><span class="p">.</span><span class="n">Categories</span><span class="p">.</span><span class="nf">GetAsync</span><span class="p">(</span><span class="m">3</span><span class="p">);</span>
-<span class="n">var</span> <span class="n">performers</span> <span class="p">=</span> <span class="n">await</span> <span class="n">client</span><span class="p">.</span><span class="n">Connection</span><span class="p">.</span><span class="n">GetAsync</span><span class="p">&lt;</span><span class="n">PagedResource</span><span class="p">&lt;</span><span class="n">Category</span><span class="p">&gt;&gt;(</span>
-                                          <span class="n">category</span><span class="p">.</span><span class="n">Links</span><span class="p">[</span><span class="s">"category:performers"</span><span class="p">],</span>
+<span class="n">var</span> <span class="n">performers</span> <span class="p">=</span> <span class="n">await</span> <span class="n">client</span><span class="p">.</span><span class="n">Hypermedia</span><span class="p">.</span><span class="n">GetAsync</span><span class="p">&lt;</span><span class="n">PagedResource</span><span class="p">&lt;</span><span class="n">Category</span><span class="p">&gt;&gt;(</span>
+                                          <span class="n">category</span><span class="p">.</span><span class="n">PerformersLink</span><span class="p">,</span>
                                           <span class="k">null</span><span class="p">);</span>
+</code></pre>
+
+<pre><code class="highlight ruby"><span class="n">api</span> <span class="o">=</span> <span class="no">GogoKit</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client_id: </span><span class="no">CLIENT_ID</span><span class="p">,</span>
+                          <span class="ss">client_secret: </span><span class="no">CLIENT_SECRET</span><span class="p">,</span>
+                          <span class="ss">access_token: </span><span class="no">ACCESS_TOKEN</span><span class="p">)</span>
+<span class="n">category</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">get_category</span> <span class="mi">3</span>
+<span class="n">performers</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">get</span> <span class="n">category</span><span class="p">.</span><span class="nf">links</span><span class="p">[</span><span class="s1">'category:performers'</span><span class="p">]</span>
 </code></pre>
 
 <blockquote>
@@ -3697,7 +3853,8 @@ your libraries for the viagogo API and we will list them here.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>You can <code>GET</code> the href of this link to retrieve the <a href="#categories"><code>Categories</code></a> resource that contains the leaf-descendants of a category.</p>
+<p>You can <code>GET</code> the href of this link to retrieve the <a href="#categories"><code>Categories</code></a>
+resource that contains the leaf-descendants of a category.</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -3748,11 +3905,13 @@ your libraries for the viagogo API and we will list them here.</p>
 
 <h3 id="response">Response</h3>
 
-<p>Returns the <a href="#categories"><code>Categories</code></a> resource containing the leaf descendants of a category.</p>
+<p>Returns the <a href="#categories"><code>Categories</code></a> resource containing the leaf descendants
+of a category.</p>
 
           <h2 id="categorywebpage">category:webpage</h2>
 
-<p>You can GET the href of this link to retrieve the viagogo website webpage for a category.</p>
+<p>You can GET the href of this link to retrieve the viagogo website webpage for a
+category.</p>
 
 <h3 id="response">Response</h3>
 
@@ -3765,9 +3924,18 @@ your libraries for the viagogo API and we will list them here.</p>
   -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
-<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
-<span class="n">var</span> <span class="n">@event</span> <span class="p">=</span> <span class="n">await</span> <span class="n">client</span><span class="p">.</span><span class="n">Events</span><span class="p">.</span><span class="nf">GetAsync</span><span class="p">(</span><span class="m">735139</span><span class="p">);</span>
-<span class="n">var</span> <span class="n">eventCategory</span> <span class="p">=</span> <span class="n">await</span> <span class="n">client</span><span class="p">.</span><span class="n">Connection</span><span class="p">.</span><span class="n">GetAsync</span><span class="p">&lt;</span><span class="n">Category</span><span class="p">&gt;(</span><span class="n">@event</span><span class="p">.</span><span class="n">Links</span><span class="p">[</span><span class="s">"event:category"</span><span class="p">]);</span>
+<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
+                            <span class="s">"clientSecret"</span><span class="p">,</span>
+                            <span class="k">new</span> <span class="nf">ProductHeaderValue</span><span class="p">(</span><span class="s">"MyAwesomeApp"</span><span class="p">));</span>
+<span class="n">var</span> <span class="n">@event</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Events</span><span class="p">.</span><span class="nf">GetAsync</span><span class="p">(</span><span class="m">735139</span><span class="p">);</span>
+<span class="n">var</span> <span class="n">eventCategory</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Hypermedia</span><span class="p">.</span><span class="n">GetAsync</span><span class="p">&lt;</span><span class="n">Category</span><span class="p">&gt;(</span><span class="n">@event</span><span class="p">.</span><span class="n">CategoryLink</span><span class="p">);</span>
+</code></pre>
+
+<pre><code class="highlight ruby"><span class="n">api</span> <span class="o">=</span> <span class="no">GogoKit</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client_id: </span><span class="no">CLIENT_ID</span><span class="p">,</span>
+                          <span class="ss">client_secret: </span><span class="no">CLIENT_SECRET</span><span class="p">,</span>
+                          <span class="ss">access_token: </span><span class="no">ACCESS_TOKEN</span><span class="p">)</span>
+<span class="n">event</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">get_event</span> <span class="mi">735139</span>
+<span class="n">event_category</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">get</span> <span class="n">event</span><span class="p">.</span><span class="nf">links</span><span class="p">[</span><span class="s1">'event:category'</span><span class="p">]</span>
 </code></pre>
 
 <blockquote>
@@ -3815,7 +3983,8 @@ your libraries for the viagogo API and we will list them here.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>You can GET the href of this link to retrieve the <a href="#category"><code>Category</code></a> resource that contains an event.</p>
+<p>You can GET the href of this link to retrieve the <a href="#category"><code>Category</code></a>
+resource that contains an event.</p>
 
 <h3 id="response">Response</h3>
 
@@ -3828,8 +3997,16 @@ your libraries for the viagogo API and we will list them here.</p>
   -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
-<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
-<span class="n">var</span> <span class="n">@event</span> <span class="p">=</span> <span class="n">await</span> <span class="n">client</span><span class="p">.</span><span class="n">Listings</span><span class="p">.</span><span class="nf">GetAllAsync</span><span class="p">(</span><span class="m">735139</span><span class="p">);</span>
+<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
+                            <span class="s">"clientSecret"</span><span class="p">,</span>
+                            <span class="k">new</span> <span class="nf">ProductHeaderValue</span><span class="p">(</span><span class="s">"MyAwesomeApp"</span><span class="p">));</span>
+<span class="n">var</span> <span class="n">listings</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Listings</span><span class="p">.</span><span class="nf">GetAllByEventAsync</span><span class="p">(</span><span class="m">735139</span><span class="p">);</span>
+</code></pre>
+
+<pre><code class="highlight ruby"><span class="n">api</span> <span class="o">=</span> <span class="no">GogoKit</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client_id: </span><span class="no">CLIENT_ID</span><span class="p">,</span>
+                          <span class="ss">client_secret: </span><span class="no">CLIENT_SECRET</span><span class="p">,</span>
+                          <span class="ss">access_token: </span><span class="no">ACCESS_TOKEN</span><span class="p">)</span>
+<span class="n">listings</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">get_listings_by_event</span> <span class="mi">735139</span>
 </code></pre>
 
 <blockquote>
@@ -3959,7 +4136,8 @@ your libraries for the viagogo API and we will list them here.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>You can <code>GET</code> the href of this link to retrieve the <a href="#listings"><code>Listings</code></a> resource that contains the listings in an event.</p>
+<p>You can <code>GET</code> the href of this link to retrieve the <a href="#listings"><code>Listings</code></a>
+resource that contains the listings in an event.</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -3985,11 +4163,14 @@ your libraries for the viagogo API and we will list them here.</p>
 
 <h3 id="response">Response</h3>
 
-<p>Returns the <a href="#listings"><code>Listings</code></a> resource that contains the listings in an event.</p>
+<p>Returns the <a href="#listings"><code>Listings</code></a> resource that contains the listings in an
+event.</p>
 
           <h2 id="eventlocalwebpage">event:localwebpage</h2>
 
-<p>You can GET the href of this link to retrieve the local viagogo website webpage for a event. The domain of the viagogo webpage will match the country where the event is taking place. (e.g. www.viagogo.fr for an event taking place in France).</p>
+<p>You can GET the href of this link to retrieve the local viagogo website webpage
+for a event. The domain of the viagogo webpage will match the country where the
+event is taking place. (e.g. www.viagogo.fr for an event taking place in France).</p>
 
 <h3 id="response">Response</h3>
 
@@ -3997,7 +4178,9 @@ your libraries for the viagogo API and we will list them here.</p>
 
           <h2 id="eventwebpage">event:webpage</h2>
 
-<p>You can GET the href of this link to retrieve the viagogo website webpage for a event. The domain of the viagogo webpage will match the <a href="#vgg-country-header"><code>VGG-Country</code> Header</a> in your request.</p>
+<p>You can GET the href of this link to retrieve the viagogo website webpage for an
+event. The domain of the viagogo webpage will match the
+<a href="#vgg-country-header"><code>VGG-Country</code> Header</a> in your request.</p>
 
 <h3 id="response">Response</h3>
 
@@ -4010,9 +4193,18 @@ your libraries for the viagogo API and we will list them here.</p>
   -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
-<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
-<span class="n">var</span> <span class="n">listing</span> <span class="p">=</span> <span class="n">await</span> <span class="n">client</span><span class="p">.</span><span class="n">Listings</span><span class="p">.</span><span class="nf">GetAsync</span><span class="p">(</span><span class="m">22096065</span><span class="p">);</span>
-<span class="n">var</span> <span class="n">@event</span> <span class="p">=</span> <span class="n">await</span> <span class="n">client</span><span class="p">.</span><span class="n">Connection</span><span class="p">.</span><span class="n">GetAsync</span><span class="p">&lt;</span><span class="n">Event</span><span class="p">&gt;(</span><span class="n">listing</span><span class="p">.</span><span class="n">Links</span><span class="p">[</span><span class="s">"listing:event"</span><span class="p">]);</span>
+<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
+                            <span class="s">"clientSecret"</span><span class="p">,</span>
+                            <span class="k">new</span> <span class="nf">ProductHeaderValue</span><span class="p">(</span><span class="s">"MyAwesomeApp"</span><span class="p">));</span>
+<span class="n">var</span> <span class="n">listing</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Listings</span><span class="p">.</span><span class="nf">GetAsync</span><span class="p">(</span><span class="m">22096065</span><span class="p">);</span>
+<span class="n">var</span> <span class="n">@event</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Hypermedia</span><span class="p">.</span><span class="n">GetAsync</span><span class="p">&lt;</span><span class="n">Event</span><span class="p">&gt;(</span><span class="n">listing</span><span class="p">.</span><span class="n">EventLink</span><span class="p">);</span>
+</code></pre>
+
+<pre><code class="highlight ruby"><span class="n">api</span> <span class="o">=</span> <span class="no">GogoKit</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client_id: </span><span class="no">CLIENT_ID</span><span class="p">,</span>
+                          <span class="ss">client_secret: </span><span class="no">CLIENT_SECRET</span><span class="p">,</span>
+                          <span class="ss">access_token: </span><span class="no">ACCESS_TOKEN</span><span class="p">)</span>
+<span class="n">listing</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">get_listing</span> <span class="mi">22096065</span>
+<span class="n">event</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">get</span> <span class="n">listing</span><span class="p">.</span><span class="nf">links</span><span class="p">[</span><span class="s1">'listing:event'</span><span class="p">]</span>
 </code></pre>
 
 <blockquote>
@@ -4091,7 +4283,8 @@ your libraries for the viagogo API and we will list them here.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>You can GET the href of this link to retrieve the <a href="#event"><code>Event</code></a> resource that a listing is for.</p>
+<p>You can GET the href of this link to retrieve the <a href="#event"><code>Event</code></a> resource
+that a listing is for.</p>
 
 <h3 id="response">Response</h3>
 
@@ -4099,7 +4292,10 @@ your libraries for the viagogo API and we will list them here.</p>
 
           <h2 id="listinglocalwebpage">listing:localwebpage</h2>
 
-<p>You can GET the href of this link to retrieve the local viagogo website webpage where a listing can be purchased. The domain of the viagogo webpage will match the country where the event is taking place. (e.g. www.viagogo.fr for an event taking place in France).</p>
+<p>You can GET the href of this link to retrieve the local viagogo website webpage
+where a listing can be purchased. The domain of the viagogo webpage will match
+the country where the event is taking place. (e.g. www.viagogo.fr for an event
+taking place in France).</p>
 
 <h3 id="response">Response</h3>
 
@@ -4107,7 +4303,9 @@ your libraries for the viagogo API and we will list them here.</p>
 
           <h2 id="listingwebpage">listing:webpage</h2>
 
-<p>You can GET the href of this link to retrieve the viagogo website webpage where a listing can be purchased. The domain of the viagogo webpage will match the <a href="#vgg-country-header"><code>VGG-Country</code> Header</a> in your request.</p>
+<p>You can GET the href of this link to retrieve the viagogo website webpage where
+a listing can be purchased. The domain of the viagogo webpage will match the
+<a href="#vgg-country-header"><code>VGG-Country</code> Header</a> in your request.</p>
 
 <h3 id="response">Response</h3>
 
@@ -4120,8 +4318,18 @@ your libraries for the viagogo API and we will list them here.</p>
   -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
-<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
-<span class="n">var</span> <span class="n">events</span> <span class="p">=</span> <span class="n">await</span> <span class="n">client</span><span class="p">.</span><span class="n">Events</span><span class="p">.</span><span class="nf">GetAllByMetroAreaAsync</span><span class="p">(</span><span class="m">65</span><span class="p">);</span>
+<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
+                            <span class="s">"clientSecret"</span><span class="p">,</span>
+                            <span class="k">new</span> <span class="nf">ProductHeaderValue</span><span class="p">(</span><span class="s">"MyAwesomeApp"</span><span class="p">));</span>
+<span class="n">var</span> <span class="n">metroArea</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">MetroAreas</span><span class="p">.</span><span class="nf">GetAsync</span><span class="p">(</span><span class="m">65</span><span class="p">);</span>
+<span class="n">var</span> <span class="n">events</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Hypermedia</span><span class="p">.</span><span class="n">GetAsync</span><span class="p">&lt;</span><span class="n">PagedResource</span><span class="p">&lt;</span><span class="n">Event</span><span class="p">&gt;&gt;(</span><span class="n">metroArea</span><span class="p">.</span><span class="n">EventsLink</span><span class="p">);</span>
+</code></pre>
+
+<pre><code class="highlight ruby"><span class="n">api</span> <span class="o">=</span> <span class="no">GogoKit</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client_id: </span><span class="no">CLIENT_ID</span><span class="p">,</span>
+                          <span class="ss">client_secret: </span><span class="no">CLIENT_SECRET</span><span class="p">,</span>
+                          <span class="ss">access_token: </span><span class="no">ACCESS_TOKEN</span><span class="p">)</span>
+<span class="n">metro_area</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">get_metro_area</span> <span class="mi">65</span>
+<span class="n">events</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">get</span> <span class="n">metro_area</span><span class="p">.</span><span class="nf">links</span><span class="p">[</span><span class="s1">'metroarea:events'</span><span class="p">]</span>
 </code></pre>
 
 <blockquote>
@@ -4226,7 +4434,8 @@ your libraries for the viagogo API and we will list them here.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>You can <code>GET</code> the href of this link to retrieve the <a href="#events"><code>Events</code></a> resource that contains the events taking place in a particular metro area.</p>
+<p>You can <code>GET</code> the href of this link to retrieve the <a href="#events"><code>Events</code></a> resource
+that contains the events taking place in a particular metro area.</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -4297,7 +4506,8 @@ your libraries for the viagogo API and we will list them here.</p>
 
 <h3 id="response">Response</h3>
 
-<p>Returns the <a href="#events"><code>Events</code></a> resource containing the events taking place in a particular metro area.</p>
+<p>Returns the <a href="#events"><code>Events</code></a> resource containing the events taking place in a
+particular metro area.</p>
 
           <h2 id="metroareavenues">metroarea:venues</h2>
 
@@ -4306,9 +4516,18 @@ your libraries for the viagogo API and we will list them here.</p>
   -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
-<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
-<span class="n">var</span> <span class="n">metroArea</span> <span class="p">=</span> <span class="n">await</span> <span class="n">client</span><span class="p">.</span><span class="n">MetroAreas</span><span class="p">.</span><span class="nf">GetAsync</span><span class="p">(</span><span class="m">65</span><span class="p">);</span>
-<span class="n">var</span> <span class="n">venues</span> <span class="p">=</span> <span class="n">await</span> <span class="n">client</span><span class="p">.</span><span class="n">Connection</span><span class="p">.</span><span class="n">GetAsync</span><span class="p">&lt;</span><span class="n">PagedResource</span><span class="p">&lt;</span><span class="n">Venue</span><span class="p">&gt;&gt;(</span><span class="n">metroArea</span><span class="p">.</span><span class="n">Links</span><span class="p">[</span><span class="s">"metroarea:venues"</span><span class="p">]);</span>
+<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
+                            <span class="s">"clientSecret"</span><span class="p">,</span>
+                            <span class="k">new</span> <span class="nf">ProductHeaderValue</span><span class="p">(</span><span class="s">"MyAwesomeApp"</span><span class="p">));</span>
+<span class="n">var</span> <span class="n">metroArea</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">MetroAreas</span><span class="p">.</span><span class="nf">GetAsync</span><span class="p">(</span><span class="m">65</span><span class="p">);</span>
+<span class="n">var</span> <span class="n">venues</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Hypermedia</span><span class="p">.</span><span class="n">GetAsync</span><span class="p">&lt;</span><span class="n">PagedResource</span><span class="p">&lt;</span><span class="n">Venue</span><span class="p">&gt;&gt;(</span><span class="n">metroArea</span><span class="p">.</span><span class="n">VenuesLink</span><span class="p">);</span>
+</code></pre>
+
+<pre><code class="highlight ruby"><span class="n">api</span> <span class="o">=</span> <span class="no">GogoKit</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client_id: </span><span class="no">CLIENT_ID</span><span class="p">,</span>
+                          <span class="ss">client_secret: </span><span class="no">CLIENT_SECRET</span><span class="p">,</span>
+                          <span class="ss">access_token: </span><span class="no">ACCESS_TOKEN</span><span class="p">)</span>
+<span class="n">metro_area</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">get_metro_area</span> <span class="mi">65</span>
+<span class="n">venues</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">get</span> <span class="n">metro_area</span><span class="p">.</span><span class="nf">links</span><span class="p">[</span><span class="s1">'metroarea:venues'</span><span class="p">]</span>
 </code></pre>
 
 <blockquote>
@@ -4384,11 +4603,13 @@ your libraries for the viagogo API and we will list them here.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>You can <code>GET</code> the href of this link to retrieve the <a href="#venues"><code>Venues</code></a> resource that contains the venues located in a metro area.</p>
+<p>You can <code>GET</code> the href of this link to retrieve the <a href="#venues"><code>Venues</code></a> resource
+that contains the venues located in a metro area.</p>
 
 <h3 id="response">Response</h3>
 
-<p>Returns the <a href="#venues"><code>Venues</code></a> resource that contains the venues located in a metro area.</p>
+<p>Returns the <a href="#venues"><code>Venues</code></a> resource that contains the venues located in a
+metro area.</p>
 
           <h2 id="searchresultcategory">searchresult:category</h2>
 
@@ -4397,8 +4618,18 @@ your libraries for the viagogo API and we will list them here.</p>
   -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
-<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
-<span class="n">var</span> <span class="n">category</span> <span class="p">=</span> <span class="n">await</span> <span class="n">client</span><span class="p">.</span><span class="n">Connection</span><span class="p">.</span><span class="n">GetAsync</span><span class="p">&lt;</span><span class="n">Category</span><span class="p">&gt;(</span><span class="n">searchResult</span><span class="p">.</span><span class="n">Links</span><span class="p">[</span><span class="s">"searchresult:category"</span><span class="p">]);</span>
+<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
+                            <span class="s">"clientSecret"</span><span class="p">,</span>
+                            <span class="k">new</span> <span class="nf">ProductHeaderValue</span><span class="p">(</span><span class="s">"MyAwesomeApp"</span><span class="p">));</span>
+<span class="n">var</span> <span class="n">searchResults</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Search</span><span class="p">.</span><span class="nf">GetAsync</span><span class="p">(</span><span class="s">"one direction"</span><span class="p">);</span>
+<span class="n">var</span> <span class="n">category</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Hypermedia</span><span class="p">.</span><span class="n">GetAsync</span><span class="p">&lt;</span><span class="n">Category</span><span class="p">&gt;(</span><span class="n">searchResults</span><span class="p">[</span><span class="m">0</span><span class="p">].</span><span class="n">CategoryLink</span><span class="p">);</span>
+</code></pre>
+
+<pre><code class="highlight ruby"><span class="n">api</span> <span class="o">=</span> <span class="no">GogoKit</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client_id: </span><span class="no">CLIENT_ID</span><span class="p">,</span>
+                          <span class="ss">client_secret: </span><span class="no">CLIENT_SECRET</span><span class="p">,</span>
+                          <span class="ss">access_token: </span><span class="no">ACCESS_TOKEN</span><span class="p">)</span>
+<span class="n">search_results</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">search</span> <span class="s1">'one direction'</span>
+<span class="n">category</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">get</span> <span class="n">search_results</span><span class="p">.</span><span class="nf">items</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nf">links</span><span class="p">[</span><span class="s1">'searchresult:category'</span><span class="p">]</span>
 </code></pre>
 
 <blockquote>
@@ -4446,7 +4677,8 @@ your libraries for the viagogo API and we will list them here.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>You can GET the href of this link to retrieve the <a href="#category"><code>Category</code></a> resource that a search result represents.</p>
+<p>You can GET the href of this link to retrieve the <a href="#category"><code>Category</code></a>
+resource that a search result represents.</p>
 
 <h3 id="response">Response</h3>
 
@@ -4459,8 +4691,18 @@ your libraries for the viagogo API and we will list them here.</p>
   -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
-<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
-<span class="n">var</span> <span class="n">@event</span> <span class="p">=</span> <span class="n">await</span> <span class="n">client</span><span class="p">.</span><span class="n">Connection</span><span class="p">.</span><span class="n">GetAsync</span><span class="p">&lt;</span><span class="n">Event</span><span class="p">&gt;(</span><span class="n">searchResult</span><span class="p">.</span><span class="n">Links</span><span class="p">[</span><span class="s">"searchresult:event"</span><span class="p">]);</span>
+<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
+                            <span class="s">"clientSecret"</span><span class="p">,</span>
+                            <span class="k">new</span> <span class="nf">ProductHeaderValue</span><span class="p">(</span><span class="s">"MyAwesomeApp"</span><span class="p">));</span>
+<span class="n">var</span> <span class="n">searchResults</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Search</span><span class="p">.</span><span class="nf">GetAsync</span><span class="p">(</span><span class="s">"one direction"</span><span class="p">);</span>
+<span class="n">var</span> <span class="k">event</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Hypermedia</span><span class="p">.</span><span class="n">GetAsync</span><span class="p">&lt;</span><span class="n">Event</span><span class="p">&gt;(</span><span class="n">searchResults</span><span class="p">[</span><span class="m">0</span><span class="p">].</span><span class="n">EventLink</span><span class="p">);</span>
+</code></pre>
+
+<pre><code class="highlight ruby"><span class="n">api</span> <span class="o">=</span> <span class="no">GogoKit</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client_id: </span><span class="no">CLIENT_ID</span><span class="p">,</span>
+                          <span class="ss">client_secret: </span><span class="no">CLIENT_SECRET</span><span class="p">,</span>
+                          <span class="ss">access_token: </span><span class="no">ACCESS_TOKEN</span><span class="p">)</span>
+<span class="n">search_results</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">search</span> <span class="s1">'one direction'</span>
+<span class="n">event</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">get</span> <span class="n">search_results</span><span class="p">.</span><span class="nf">items</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nf">links</span><span class="p">[</span><span class="s1">'searchresult:event'</span><span class="p">]</span>
 </code></pre>
 
 <blockquote>
@@ -4539,7 +4781,8 @@ your libraries for the viagogo API and we will list them here.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>You can GET the href of this link to retrieve the <a href="#event"><code>Event</code></a> resource that a search result represents.</p>
+<p>You can GET the href of this link to retrieve the <a href="#event"><code>Event</code></a> resource
+that a search result represents.</p>
 
 <h3 id="response">Response</h3>
 
@@ -4552,8 +4795,18 @@ your libraries for the viagogo API and we will list them here.</p>
   -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
-<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
-<span class="n">var</span> <span class="n">metroArea</span> <span class="p">=</span> <span class="n">await</span> <span class="n">client</span><span class="p">.</span><span class="n">Connection</span><span class="p">.</span><span class="n">GetAsync</span><span class="p">&lt;</span><span class="n">MetroArea</span><span class="p">&gt;(</span><span class="n">searchResult</span><span class="p">.</span><span class="n">Links</span><span class="p">[</span><span class="s">"searchresult:metroarea"</span><span class="p">]);</span>
+<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
+                            <span class="s">"clientSecret"</span><span class="p">,</span>
+                            <span class="k">new</span> <span class="nf">ProductHeaderValue</span><span class="p">(</span><span class="s">"MyAwesomeApp"</span><span class="p">));</span>
+<span class="n">var</span> <span class="n">searchResults</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Search</span><span class="p">.</span><span class="nf">GetAsync</span><span class="p">(</span><span class="s">"one direction"</span><span class="p">);</span>
+<span class="n">var</span> <span class="n">metroArea</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Hypermedia</span><span class="p">.</span><span class="n">GetAsync</span><span class="p">&lt;</span><span class="n">MetroArea</span><span class="p">&gt;(</span><span class="n">searchResults</span><span class="p">[</span><span class="m">0</span><span class="p">].</span><span class="n">MetroAreaLink</span><span class="p">);</span>
+</code></pre>
+
+<pre><code class="highlight ruby"><span class="n">api</span> <span class="o">=</span> <span class="no">GogoKit</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client_id: </span><span class="no">CLIENT_ID</span><span class="p">,</span>
+                          <span class="ss">client_secret: </span><span class="no">CLIENT_SECRET</span><span class="p">,</span>
+                          <span class="ss">access_token: </span><span class="no">ACCESS_TOKEN</span><span class="p">)</span>
+<span class="n">search_results</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">search</span> <span class="s1">'one direction'</span>
+<span class="n">metro_area</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">get</span> <span class="n">search_results</span><span class="p">.</span><span class="nf">items</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nf">links</span><span class="p">[</span><span class="s1">'searchresult:metroarea'</span><span class="p">]</span>
 </code></pre>
 
 <blockquote>
@@ -4583,7 +4836,8 @@ your libraries for the viagogo API and we will list them here.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>You can GET the href of this link to retrieve the <a href="#metro-area"><code>MetroArea</code></a> resource that a search result represents.</p>
+<p>You can GET the href of this link to retrieve the <a href="#metro-area"><code>MetroArea</code></a>
+resource that a search result represents.</p>
 
 <h3 id="response">Response</h3>
 
@@ -4596,8 +4850,18 @@ your libraries for the viagogo API and we will list them here.</p>
   -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
-<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
-<span class="n">var</span> <span class="n">venue</span> <span class="p">=</span> <span class="n">await</span> <span class="n">client</span><span class="p">.</span><span class="n">Connection</span><span class="p">.</span><span class="n">GetAsync</span><span class="p">&lt;</span><span class="n">Venue</span><span class="p">&gt;(</span><span class="n">searchResult</span><span class="p">.</span><span class="n">Links</span><span class="p">[</span><span class="s">"searchresult:venue"</span><span class="p">]);</span>
+<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
+                            <span class="s">"clientSecret"</span><span class="p">,</span>
+                            <span class="k">new</span> <span class="nf">ProductHeaderValue</span><span class="p">(</span><span class="s">"MyAwesomeApp"</span><span class="p">));</span>
+<span class="n">var</span> <span class="n">searchResults</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Search</span><span class="p">.</span><span class="nf">GetAsync</span><span class="p">(</span><span class="s">"one direction"</span><span class="p">);</span>
+<span class="n">var</span> <span class="n">venue</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Hypermedia</span><span class="p">.</span><span class="n">GetAsync</span><span class="p">&lt;</span><span class="n">Venue</span><span class="p">&gt;(</span><span class="n">searchResults</span><span class="p">[</span><span class="m">0</span><span class="p">].</span><span class="n">VenueLink</span><span class="p">);</span>
+</code></pre>
+
+<pre><code class="highlight ruby"><span class="n">api</span> <span class="o">=</span> <span class="no">GogoKit</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client_id: </span><span class="no">CLIENT_ID</span><span class="p">,</span>
+                          <span class="ss">client_secret: </span><span class="no">CLIENT_SECRET</span><span class="p">,</span>
+                          <span class="ss">access_token: </span><span class="no">ACCESS_TOKEN</span><span class="p">)</span>
+<span class="n">search_results</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">search</span> <span class="s1">'one direction'</span>
+<span class="n">venue</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">get</span> <span class="n">search_results</span><span class="p">.</span><span class="nf">items</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nf">links</span><span class="p">[</span><span class="s1">'searchresult:venue'</span><span class="p">]</span>
 </code></pre>
 
 <blockquote>
@@ -4647,7 +4911,8 @@ your libraries for the viagogo API and we will list them here.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>You can GET the href of this link to retrieve the <a href="#venue"><code>Venue</code></a> resource that a search result represents.</p>
+<p>You can GET the href of this link to retrieve the <a href="#venue"><code>Venue</code></a> resource
+that a search result represents.</p>
 
 <h3 id="response">Response</h3>
 
@@ -4660,8 +4925,18 @@ your libraries for the viagogo API and we will list them here.</p>
   -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
-<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
-<span class="n">var</span> <span class="n">events</span> <span class="p">=</span> <span class="n">await</span> <span class="n">client</span><span class="p">.</span><span class="n">Events</span><span class="p">.</span><span class="nf">GetAllByVenueAsync</span><span class="p">(</span><span class="m">1364</span><span class="p">);</span>
+<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
+                            <span class="s">"clientSecret"</span><span class="p">,</span>
+                            <span class="k">new</span> <span class="nf">ProductHeaderValue</span><span class="p">(</span><span class="s">"MyAwesomeApp"</span><span class="p">));</span>
+<span class="n">var</span> <span class="n">venue</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Venues</span><span class="p">.</span><span class="nf">GetAsync</span><span class="p">(</span><span class="m">1364</span><span class="p">);</span>
+<span class="n">var</span> <span class="n">events</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Hypermedia</span><span class="p">.</span><span class="n">GetAsync</span><span class="p">&lt;</span><span class="n">PagedResource</span><span class="p">&lt;</span><span class="n">Event</span><span class="p">&gt;&gt;(</span><span class="n">venue</span><span class="p">.</span><span class="n">EventsLink</span><span class="p">);</span>
+</code></pre>
+
+<pre><code class="highlight ruby"><span class="n">api</span> <span class="o">=</span> <span class="no">GogoKit</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client_id: </span><span class="no">CLIENT_ID</span><span class="p">,</span>
+                          <span class="ss">client_secret: </span><span class="no">CLIENT_SECRET</span><span class="p">,</span>
+                          <span class="ss">access_token: </span><span class="no">ACCESS_TOKEN</span><span class="p">)</span>
+<span class="n">venue</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">get_venue</span> <span class="mi">1364</span>
+<span class="n">events</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">get</span> <span class="n">venue</span><span class="p">.</span><span class="nf">links</span><span class="p">[</span><span class="s1">'venue:events'</span><span class="p">]</span>
 </code></pre>
 
 <blockquote>
@@ -4766,7 +5041,8 @@ your libraries for the viagogo API and we will list them here.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>You can <code>GET</code> the href of this link to retrieve the <a href="#events"><code>Events</code></a> resource that contains the events taking place in a particular venue.</p>
+<p>You can <code>GET</code> the href of this link to retrieve the <a href="#events"><code>Events</code></a> resource
+that contains the events taking place in a particular venue.</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -4837,7 +5113,8 @@ your libraries for the viagogo API and we will list them here.</p>
 
 <h3 id="response">Response</h3>
 
-<p>Returns the <a href="#events"><code>Events</code></a> resource containing the events taking place in a particular venue.</p>
+<p>Returns the <a href="#events"><code>Events</code></a> resource containing the events taking place in a
+particular venue.</p>
 
           <h2 id="venuemetroarea">venue:metroarea</h2>
 
@@ -4846,9 +5123,18 @@ your libraries for the viagogo API and we will list them here.</p>
   -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
-<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
-<span class="n">var</span> <span class="n">venue</span> <span class="p">=</span> <span class="n">await</span> <span class="n">client</span><span class="p">.</span><span class="n">Venues</span><span class="p">.</span><span class="nf">GetAsync</span><span class="p">(</span><span class="m">1364</span><span class="p">);</span>
-<span class="n">var</span> <span class="n">metroArea</span> <span class="p">=</span> <span class="n">await</span> <span class="n">client</span><span class="p">.</span><span class="n">Connection</span><span class="p">.</span><span class="n">GetAsync</span><span class="p">&lt;</span><span class="n">MetroArea</span><span class="p">&gt;(</span><span class="n">venue</span><span class="p">.</span><span class="n">Links</span><span class="p">[</span><span class="s">"venue:metroarea"</span><span class="p">]);</span>
+<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
+                            <span class="s">"clientSecret"</span><span class="p">,</span>
+                            <span class="k">new</span> <span class="nf">ProductHeaderValue</span><span class="p">(</span><span class="s">"MyAwesomeApp"</span><span class="p">));</span>
+<span class="n">var</span> <span class="n">venue</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Venues</span><span class="p">.</span><span class="nf">GetAsync</span><span class="p">(</span><span class="m">1364</span><span class="p">);</span>
+<span class="n">var</span> <span class="n">metroArea</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Hypermedia</span><span class="p">.</span><span class="n">GetAsync</span><span class="p">&lt;</span><span class="n">MetroArea</span><span class="p">&gt;(</span><span class="n">venue</span><span class="p">.</span><span class="n">MetroAreaLink</span><span class="p">);</span>
+</code></pre>
+
+<pre><code class="highlight ruby"><span class="n">api</span> <span class="o">=</span> <span class="no">GogoKit</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client_id: </span><span class="no">CLIENT_ID</span><span class="p">,</span>
+                          <span class="ss">client_secret: </span><span class="no">CLIENT_SECRET</span><span class="p">,</span>
+                          <span class="ss">access_token: </span><span class="no">ACCESS_TOKEN</span><span class="p">)</span>
+<span class="n">venue</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">get_venue</span> <span class="mi">1364</span>
+<span class="n">metro_area</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">get</span> <span class="n">venue</span><span class="p">.</span><span class="nf">links</span><span class="p">[</span><span class="s1">'venue:metroarea'</span><span class="p">]</span>
 </code></pre>
 
 <blockquote>
@@ -4878,7 +5164,8 @@ your libraries for the viagogo API and we will list them here.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>You can GET the href of this link to retrieve the <a href="#metro-area"><code>MetroArea</code></a> resource that contains a venue.</p>
+<p>You can GET the href of this link to retrieve the <a href="#metro-area"><code>MetroArea</code></a>
+resource that contains a venue.</p>
 
 <h3 id="response">Response</h3>
 
@@ -4891,8 +5178,16 @@ your libraries for the viagogo API and we will list them here.</p>
   -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
-<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
-<span class="n">var</span> <span class="n">countries</span> <span class="p">=</span> <span class="n">await</span> <span class="n">client</span><span class="p">.</span><span class="n">Countries</span><span class="p">.</span><span class="nf">GetAllAsync</span><span class="p">();</span>
+<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
+                            <span class="s">"clientSecret"</span><span class="p">,</span>
+                            <span class="k">new</span> <span class="nf">ProductHeaderValue</span><span class="p">(</span><span class="s">"MyAwesomeApp"</span><span class="p">));</span>
+<span class="n">var</span> <span class="n">countries</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Countries</span><span class="p">.</span><span class="nf">GetAllAsync</span><span class="p">();</span>
+</code></pre>
+
+<pre><code class="highlight ruby"><span class="n">api</span> <span class="o">=</span> <span class="no">GogoKit</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client_id: </span><span class="no">CLIENT_ID</span><span class="p">,</span>
+                          <span class="ss">client_secret: </span><span class="no">CLIENT_SECRET</span><span class="p">,</span>
+                          <span class="ss">access_token: </span><span class="no">ACCESS_TOKEN</span><span class="p">)</span>
+<span class="n">countries</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">get_countries</span>
 </code></pre>
 
 <blockquote>
@@ -4938,7 +5233,8 @@ your libraries for the viagogo API and we will list them here.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>You can <code>GET</code> the href of this link to retrieve the <a href="#countries"><code>Countries</code></a> resource that contains the available countries.</p>
+<p>You can <code>GET</code> the href of this link to retrieve the <a href="#countries"><code>Countries</code></a>
+resource that contains the available countries.</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -4959,7 +5255,8 @@ your libraries for the viagogo API and we will list them here.</p>
 
 <h3 id="response">Response</h3>
 
-<p>Returns the <a href="#countries"><code>Countries</code></a> resource that contains the available countries.</p>
+<p>Returns the <a href="#countries"><code>Countries</code></a> resource that contains the available
+countries.</p>
 
           <h2 id="viagogocurrencies">viagogo:currencies</h2>
 
@@ -4968,8 +5265,16 @@ your libraries for the viagogo API and we will list them here.</p>
   -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
-<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
-<span class="n">var</span> <span class="n">currencies</span> <span class="p">=</span> <span class="n">await</span> <span class="n">client</span><span class="p">.</span><span class="n">Currencies</span><span class="p">.</span><span class="nf">GetAllAsync</span><span class="p">();</span>
+<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
+                            <span class="s">"clientSecret"</span><span class="p">,</span>
+                            <span class="k">new</span> <span class="nf">ProductHeaderValue</span><span class="p">(</span><span class="s">"MyAwesomeApp"</span><span class="p">));</span>
+<span class="n">var</span> <span class="n">currencies</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Currencies</span><span class="p">.</span><span class="nf">GetAllAsync</span><span class="p">();</span>
+</code></pre>
+
+<pre><code class="highlight ruby"><span class="n">api</span> <span class="o">=</span> <span class="no">GogoKit</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client_id: </span><span class="no">CLIENT_ID</span><span class="p">,</span>
+                          <span class="ss">client_secret: </span><span class="no">CLIENT_SECRET</span><span class="p">,</span>
+                          <span class="ss">access_token: </span><span class="no">ACCESS_TOKEN</span><span class="p">)</span>
+<span class="n">currencies</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">get_currencies</span>
 </code></pre>
 
 <blockquote>
@@ -5016,7 +5321,8 @@ your libraries for the viagogo API and we will list them here.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>You can <code>GET</code> the href of this link to retrieve the <a href="#currencies"><code>Currencies</code></a> resource that contains the available currencies.</p>
+<p>You can <code>GET</code> the href of this link to retrieve the <a href="#currencies"><code>Currencies</code></a>
+resource that contains the available currencies.</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -5037,7 +5343,8 @@ your libraries for the viagogo API and we will list them here.</p>
 
 <h3 id="response">Response</h3>
 
-<p>Returns the <a href="#currencies"><code>Currencies</code></a> resource that contains the available currencies.</p>
+<p>Returns the <a href="#currencies"><code>Currencies</code></a> resource that contains the available
+currencies.</p>
 
           <h2 id="viagogogenres">viagogo:genres</h2>
 
@@ -5046,8 +5353,16 @@ your libraries for the viagogo API and we will list them here.</p>
   -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
-<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
-<span class="n">var</span> <span class="n">genres</span> <span class="p">=</span> <span class="n">await</span> <span class="n">client</span><span class="p">.</span><span class="n">Categories</span><span class="p">.</span><span class="nf">GetAllGenresAsync</span><span class="p">();</span>
+<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
+                            <span class="s">"clientSecret"</span><span class="p">,</span>
+                            <span class="k">new</span> <span class="nf">ProductHeaderValue</span><span class="p">(</span><span class="s">"MyAwesomeApp"</span><span class="p">));</span>
+<span class="n">var</span> <span class="n">genres</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Categories</span><span class="p">.</span><span class="nf">GetAllGenresAsync</span><span class="p">();</span>
+</code></pre>
+
+<pre><code class="highlight ruby"><span class="n">api</span> <span class="o">=</span> <span class="no">GogoKit</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client_id: </span><span class="no">CLIENT_ID</span><span class="p">,</span>
+                          <span class="ss">client_secret: </span><span class="no">CLIENT_SECRET</span><span class="p">,</span>
+                          <span class="ss">access_token: </span><span class="no">ACCESS_TOKEN</span><span class="p">)</span>
+<span class="n">genres</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">get_genres</span>
 </code></pre>
 
 <blockquote>
@@ -5131,7 +5446,8 @@ your libraries for the viagogo API and we will list them here.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>You can <code>GET</code> the href of this link to retrieve the <a href="#categories"><code>Categories</code></a> resource that contains the genre categories (e.g. “Sports”, “Concerts”).</p>
+<p>You can <code>GET</code> the href of this link to retrieve the <a href="#categories"><code>Categories</code></a>
+resource that contains the genre categories (e.g. “Sports”, “Concerts”).</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -5182,7 +5498,8 @@ your libraries for the viagogo API and we will list them here.</p>
 
 <h3 id="response">Response</h3>
 
-<p>Returns the <a href="#categories"><code>Categories</code></a> resource that contains the genre categories (e.g. “Sports”, “Concerts”).</p>
+<p>Returns the <a href="#categories"><code>Categories</code></a> resource that contains the genre
+categories (e.g. “Sports”, “Concerts”).</p>
 
           <h2 id="viagogolanguages">viagogo:languages</h2>
 
@@ -5191,8 +5508,16 @@ your libraries for the viagogo API and we will list them here.</p>
   -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
-<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
-<span class="n">var</span> <span class="n">languages</span> <span class="p">=</span> <span class="n">await</span> <span class="n">client</span><span class="p">.</span><span class="n">Languages</span><span class="p">.</span><span class="nf">GetAllAsync</span><span class="p">();</span>
+<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
+                            <span class="s">"clientSecret"</span><span class="p">,</span>
+                            <span class="k">new</span> <span class="nf">ProductHeaderValue</span><span class="p">(</span><span class="s">"MyAwesomeApp"</span><span class="p">));</span>
+<span class="n">var</span> <span class="n">languages</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Languages</span><span class="p">.</span><span class="nf">GetAllAsync</span><span class="p">();</span>
+</code></pre>
+
+<pre><code class="highlight ruby"><span class="n">api</span> <span class="o">=</span> <span class="no">GogoKit</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client_id: </span><span class="no">CLIENT_ID</span><span class="p">,</span>
+                          <span class="ss">client_secret: </span><span class="no">CLIENT_SECRET</span><span class="p">,</span>
+                          <span class="ss">access_token: </span><span class="no">ACCESS_TOKEN</span><span class="p">)</span>
+<span class="n">languages</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">get_languages</span>
 </code></pre>
 
 <blockquote>
@@ -5238,7 +5563,8 @@ your libraries for the viagogo API and we will list them here.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>You can <code>GET</code> the href of this link to retrieve the <a href="#languages"><code>Languages</code></a> resource that contains the available languages.</p>
+<p>You can <code>GET</code> the href of this link to retrieve the <a href="#languages"><code>Languages</code></a>
+resource that contains the available languages.</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -5259,7 +5585,8 @@ your libraries for the viagogo API and we will list them here.</p>
 
 <h3 id="response">Response</h3>
 
-<p>Returns the <a href="#languages"><code>Languages</code></a> resource that contains the available languages.</p>
+<p>Returns the <a href="#languages"><code>Languages</code></a> resource that contains the available
+languages.</p>
 
           <h2 id="viagogometroareas">viagogo:metroareas</h2>
 
@@ -5268,8 +5595,16 @@ your libraries for the viagogo API and we will list them here.</p>
   -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
-<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
-<span class="n">var</span> <span class="n">metroAreas</span> <span class="p">=</span> <span class="n">await</span> <span class="n">client</span><span class="p">.</span><span class="n">MetroAreas</span><span class="p">.</span><span class="nf">GetAllAsync</span><span class="p">();</span>
+<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
+                            <span class="s">"clientSecret"</span><span class="p">,</span>
+                            <span class="k">new</span> <span class="nf">ProductHeaderValue</span><span class="p">(</span><span class="s">"MyAwesomeApp"</span><span class="p">));</span>
+<span class="n">var</span> <span class="n">metroAreas</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">MetroAreas</span><span class="p">.</span><span class="nf">GetAllAsync</span><span class="p">();</span>
+</code></pre>
+
+<pre><code class="highlight ruby"><span class="n">api</span> <span class="o">=</span> <span class="no">GogoKit</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client_id: </span><span class="no">CLIENT_ID</span><span class="p">,</span>
+                          <span class="ss">client_secret: </span><span class="no">CLIENT_SECRET</span><span class="p">,</span>
+                          <span class="ss">access_token: </span><span class="no">ACCESS_TOKEN</span><span class="p">)</span>
+<span class="n">metro_areas</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">get_metro_areas</span>
 </code></pre>
 
 <blockquote>
@@ -5325,11 +5660,13 @@ your libraries for the viagogo API and we will list them here.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>You can <code>GET</code> the href of this link to retrieve the <a href="#metroareas"><code>MetroAreas</code></a> resource that contains the available metro areas.</p>
+<p>You can <code>GET</code> the href of this link to retrieve the <a href="#metroareas"><code>MetroAreas</code></a>
+resource that contains the available metro areas.</p>
 
 <h3 id="response">Response</h3>
 
-<p>Returns the <a href="#metroareas"><code>MetroAreas</code></a> resource that contains the available metro areas.</p>
+<p>Returns the <a href="#metroareas"><code>MetroAreas</code></a> resource that contains the available
+metro areas.</p>
 
           <h2 id="viagogosearch">viagogo:search</h2>
 
@@ -5337,9 +5674,16 @@ your libraries for the viagogo API and we will list them here.</p>
   -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
   -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
+<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
+                            <span class="s">"clientSecret"</span><span class="p">,</span>
+                            <span class="k">new</span> <span class="nf">ProductHeaderValue</span><span class="p">(</span><span class="s">"MyAwesomeApp"</span><span class="p">));</span>
+<span class="n">var</span> <span class="n">searchResults</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Search</span><span class="p">.</span><span class="nf">GetAsync</span><span class="p">(</span><span class="s">"One Dir"</span><span class="p">)</span>
+</code></pre>
 
-<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
-<span class="n">var</span> <span class="n">searchResults</span> <span class="p">=</span> <span class="n">await</span> <span class="n">client</span><span class="p">.</span><span class="n">Search</span><span class="p">.</span><span class="nf">GetAllAsync</span><span class="p">(</span><span class="s">"One Dir"</span><span class="p">);</span>
+<pre><code class="highlight ruby"><span class="n">api</span> <span class="o">=</span> <span class="no">GogoKit</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client_id: </span><span class="no">CLIENT_ID</span><span class="p">,</span>
+                          <span class="ss">client_secret: </span><span class="no">CLIENT_SECRET</span><span class="p">,</span>
+                          <span class="ss">access_token: </span><span class="no">ACCESS_TOKEN</span><span class="p">)</span>
+<span class="n">search_results</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">search</span> <span class="s1">'One Dir'</span>
 </code></pre>
 
 <blockquote>
@@ -5386,7 +5730,8 @@ your libraries for the viagogo API and we will list them here.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>You can <code>GET</code> the href of this link to search for entities that match a given query.</p>
+<p>You can <code>GET</code> the href of this link to search for entities that match a given
+query.</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -5417,7 +5762,8 @@ your libraries for the viagogo API and we will list them here.</p>
 
 <h3 id="response">Response</h3>
 
-<p>Returns the <a href="#search-results">SearchResults</a> resource containing the results of the query.</p>
+<p>Returns the <a href="#search-results">SearchResults</a> resource containing the results of
+the query.</p>
 
           <h2 id="viagogovenues">viagogo:venues</h2>
 
@@ -5426,8 +5772,16 @@ your libraries for the viagogo API and we will list them here.</p>
   -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
 </code></pre>
 
-<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span> <span class="s">"clientSecret"</span><span class="p">,</span> <span class="s">"MyAwesomeApp"</span><span class="p">);</span>
-<span class="n">var</span> <span class="n">venues</span> <span class="p">=</span> <span class="n">await</span> <span class="n">client</span><span class="p">.</span><span class="n">Venues</span><span class="p">.</span><span class="nf">GetAllAsync</span><span class="p">();</span>
+<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
+                            <span class="s">"clientSecret"</span><span class="p">,</span>
+                            <span class="k">new</span> <span class="nf">ProductHeaderValue</span><span class="p">(</span><span class="s">"MyAwesomeApp"</span><span class="p">));</span>
+<span class="n">var</span> <span class="n">venues</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Venues</span><span class="p">.</span><span class="nf">GetAllAsync</span><span class="p">();</span>
+</code></pre>
+
+<pre><code class="highlight ruby"><span class="n">api</span> <span class="o">=</span> <span class="no">GogoKit</span><span class="o">::</span><span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">client_id: </span><span class="no">CLIENT_ID</span><span class="p">,</span>
+                          <span class="ss">client_secret: </span><span class="no">CLIENT_SECRET</span><span class="p">,</span>
+                          <span class="ss">access_token: </span><span class="no">ACCESS_TOKEN</span><span class="p">)</span>
+<span class="n">venues</span> <span class="o">=</span> <span class="n">api</span><span class="p">.</span><span class="nf">get_venues</span>
 </code></pre>
 
 <blockquote>
@@ -5503,7 +5857,8 @@ your libraries for the viagogo API and we will list them here.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>You can <code>GET</code> the href of this link to retrieve the <a href="#venues"><code>Venues</code></a> resource that contains the available venues.</p>
+<p>You can <code>GET</code> the href of this link to retrieve the <a href="#venues"><code>Venues</code></a> resource
+that contains the available venues.</p>
 
 <h3 id="response">Response</h3>
 
@@ -5514,6 +5869,7 @@ your libraries for the viagogo API and we will list them here.</p>
           <div class="lang-selector">
                 <a href="#" data-language-name="shell">cURL</a>
                 <a href="#" data-language-name="csharp">C#</a>
+                <a href="#" data-language-name="ruby">Ruby</a>
           </div>
       </div>
     </div>
