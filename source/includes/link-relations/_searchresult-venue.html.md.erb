@@ -3,13 +3,25 @@
 <%= curl('GET', VENUE['_links']['self']['href']) %>
 
 ~~~ csharp
-var client = new ViagogoClient("clientId", "clientSecret", "MyAwesomeApp");
-var venue = await client.Connection.GetAsync<Venue>(searchResult.Links["searchresult:venue"]);
+var api = new ViagogoClient("clientId",
+                            "clientSecret",
+                            new ProductHeaderValue("MyAwesomeApp"));
+var searchResults = await api.Search.GetAsync("one direction");
+var venue = await api.Hypermedia.GetAsync<Venue>(searchResults[0].VenueLink);
+~~~
+
+~~~ ruby
+api = GogoKit::Client.new(client_id: CLIENT_ID,
+                          client_secret: CLIENT_SECRET,
+                          access_token: ACCESS_TOKEN)
+search_results = api.search 'one direction'
+venue = api.get search_results.items[0].links['searchresult:venue']
 ~~~
 
 <%= json(:venue) %>
 
-You can GET the href of this link to retrieve the [`Venue`](#venue) resource that a search result represents.
+You can GET the href of this link to retrieve the [`Venue`](#venue) resource
+that a search result represents.
 
 
 ### Response

@@ -3,14 +3,25 @@
 <%= curl('GET', LISTING['_links']['listing:event']['href']) %>
 
 ~~~ csharp
-var client = new ViagogoClient("clientId", "clientSecret", "MyAwesomeApp");
-var listing = await client.Listings.GetAsync(<%= LISTING['id'] %>);
-var @event = await client.Connection.GetAsync<Event>(listing.Links["listing:event"]);
+var api = new ViagogoClient("clientId",
+                            "clientSecret",
+                            new ProductHeaderValue("MyAwesomeApp"));
+var listing = await api.Listings.GetAsync(<%= LISTING['id'] %>);
+var @event = await api.Hypermedia.GetAsync<Event>(listing.EventLink);
+~~~
+
+~~~ ruby
+api = GogoKit::Client.new(client_id: CLIENT_ID,
+                          client_secret: CLIENT_SECRET,
+                          access_token: ACCESS_TOKEN)
+listing = api.get_listing <%= LISTING['id'] %>
+event = api.get listing.links['listing:event']
 ~~~
 
 <%= json(:event) %>
 
-You can GET the href of this link to retrieve the [`Event`](#event) resource that a listing is for.
+You can GET the href of this link to retrieve the [`Event`](#event) resource
+that a listing is for.
 
 
 ### Response

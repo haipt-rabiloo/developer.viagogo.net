@@ -3,14 +3,25 @@
 <%= curl('GET', VENUE['_links']['venue:metroarea']['href']) %>
 
 ~~~ csharp
-var client = new ViagogoClient("clientId", "clientSecret", "MyAwesomeApp");
-var venue = await client.Venues.GetAsync(<%= VENUE['id'] %>);
-var metroArea = await client.Connection.GetAsync<MetroArea>(venue.Links["venue:metroarea"]);
+var api = new ViagogoClient("clientId",
+                            "clientSecret",
+                            new ProductHeaderValue("MyAwesomeApp"));
+var venue = await api.Venues.GetAsync(<%= VENUE['id'] %>);
+var metroArea = await api.Hypermedia.GetAsync<MetroArea>(venue.MetroAreaLink);
+~~~
+
+~~~ ruby
+api = GogoKit::Client.new(client_id: CLIENT_ID,
+                          client_secret: CLIENT_SECRET,
+                          access_token: ACCESS_TOKEN)
+venue = api.get_venue <%= VENUE['id'] %>
+metro_area = api.get venue.links['venue:metroarea']
 ~~~
 
 <%= json(:metro_area) %>
 
-You can GET the href of this link to retrieve the [`MetroArea`](#metro-area) resource that contains a venue.
+You can GET the href of this link to retrieve the [`MetroArea`](#metro-area)
+resource that contains a venue.
 
 
 ### Response

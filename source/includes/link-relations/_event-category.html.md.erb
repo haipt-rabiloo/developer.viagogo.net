@@ -3,14 +3,25 @@
 <%= curl('GET', EVENT['_links']['event:category']['href']) %>
 
 ~~~ csharp
-var client = new ViagogoClient("clientId", "clientSecret", "MyAwesomeApp");
-var @event = await client.Events.GetAsync(<%= EVENT['id'] %>);
-var eventCategory = await client.Connection.GetAsync<Category>(@event.Links["event:category"]);
+var api = new ViagogoClient("clientId",
+                            "clientSecret",
+                            new ProductHeaderValue("MyAwesomeApp"));
+var @event = await api.Events.GetAsync(<%= EVENT['id'] %>);
+var eventCategory = await api.Hypermedia.GetAsync<Category>(@event.CategoryLink);
+~~~
+
+~~~ ruby
+api = GogoKit::Client.new(client_id: CLIENT_ID,
+                          client_secret: CLIENT_SECRET,
+                          access_token: ACCESS_TOKEN)
+event = api.get_event <%= EVENT['id'] %>
+event_category = api.get event.links['event:category']
 ~~~
 
 <%= json(:category_performer) %>
 
-You can GET the href of this link to retrieve the [`Category`](#category) resource that contains an event.
+You can GET the href of this link to retrieve the [`Category`](#category)
+resource that contains an event.
 
 
 ### Response

@@ -3,15 +3,6 @@
 <%= curl('GET', CATEGORY_GENRE['_links']['category:performers']['href']) %>
 
 ~~~ csharp
-var client = new ViagogoClient("clientId", "clientSecret", "MyAwesomeApp");
-var category = await client.Categories.GetAsync(<%= CATEGORY_GENRE['id'] %>);
-var performers = await client.Connection.GetAsync<PagedResource<Category>>(
-                                          category.Links["category:performers"],
-                                          null);
-~~~
-
-
-~~~ csharp
 var api = new ViagogoClient("clientId",
                             "clientSecret",
                             new ProductHeaderValue("MyAwesomeApp"));
@@ -31,7 +22,8 @@ performers = api.get category.links['category:performers']
 
 <%= json_paged_resource(:category_performer, "category:performers") %>
 
-You can `GET` the href of this link to retrieve the [`Categories`](#categories) resource that contains the leaf-descendants of a category.
+You can `GET` the href of this link to retrieve the [`Categories`](#categories)
+resource that contains the leaf-descendants of a category.
 
 
 ### Parameters
@@ -48,4 +40,5 @@ You can `GET` the href of this link to retrieve the [`Categories`](#categories) 
 
 ### Response
 
-Returns the [`Categories`](#categories) resource containing the leaf descendants of a category.
+Returns the [`Categories`](#categories) resource containing the leaf descendants
+of a category.

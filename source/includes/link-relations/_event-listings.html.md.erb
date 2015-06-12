@@ -3,13 +3,23 @@
 <%= curl('GET', EVENT['_links']['event:listings']['href']) %>
 
 ~~~ csharp
-var client = new ViagogoClient("clientId", "clientSecret", "MyAwesomeApp");
-var @event = await client.Listings.GetAllAsync(<%= EVENT['id'] %>);
+var api = new ViagogoClient("clientId",
+                            "clientSecret",
+                            new ProductHeaderValue("MyAwesomeApp"));
+var listings = await api.Listings.GetAllByEventAsync(<%= EVENT['id'] %>);
+~~~
+
+~~~ ruby
+api = GogoKit::Client.new(client_id: CLIENT_ID,
+                          client_secret: CLIENT_SECRET,
+                          access_token: ACCESS_TOKEN)
+listings = api.get_listings_by_event <%= EVENT['id'] %>
 ~~~
 
 <%= json_paged_resource(:listing, "event:listings") %>
 
-You can `GET` the href of this link to retrieve the [`Listings`](#listings) resource that contains the listings in an event.
+You can `GET` the href of this link to retrieve the [`Listings`](#listings)
+resource that contains the listings in an event.
 
 
 ### Parameters
@@ -20,4 +30,5 @@ You can `GET` the href of this link to retrieve the [`Listings`](#listings) reso
 
 ### Response
 
-Returns the [`Listings`](#listings) resource that contains the listings in an event.
+Returns the [`Listings`](#listings) resource that contains the listings in an
+event.

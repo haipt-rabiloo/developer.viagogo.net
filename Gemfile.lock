@@ -148,6 +148,3 @@ DEPENDENCIES
   ruby18_source_location
   therubyracer
   wdm
-
-BUNDLED WITH
-   1.10.3

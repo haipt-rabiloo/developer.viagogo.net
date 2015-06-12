@@ -3,13 +3,25 @@
 <%= curl('GET', METRO_AREA['_links']['metroarea:events']['href']) %>
 
 ~~~ csharp
-var client = new ViagogoClient("clientId", "clientSecret", "MyAwesomeApp");
-var events = await client.Events.GetAllByMetroAreaAsync(<%= METRO_AREA['id'] %>);
+var api = new ViagogoClient("clientId",
+                            "clientSecret",
+                            new ProductHeaderValue("MyAwesomeApp"));
+var metroArea = await api.MetroAreas.GetAsync(<%= METRO_AREA['id'] %>);
+var events = await api.Hypermedia.GetAsync<PagedResource<Event>>(metroArea.EventsLink);
+~~~
+
+~~~ ruby
+api = GogoKit::Client.new(client_id: CLIENT_ID,
+                          client_secret: CLIENT_SECRET,
+                          access_token: ACCESS_TOKEN)
+metro_area = api.get_metro_area <%= METRO_AREA['id'] %>
+events = api.get metro_area.links['metroarea:events']
 ~~~
 
 <%= json_paged_resource(:event, "metroarea:events") %>
 
-You can `GET` the href of this link to retrieve the [`Events`](#events) resource that contains the events taking place in a particular metro area.
+You can `GET` the href of this link to retrieve the [`Events`](#events) resource
+that contains the events taking place in a particular metro area.
 
 
 ### Parameters
@@ -29,4 +41,5 @@ You can `GET` the href of this link to retrieve the [`Events`](#events) resource
 
 ### Response
 
-Returns the [`Events`](#events) resource containing the events taking place in a particular metro area.
+Returns the [`Events`](#events) resource containing the events taking place in a
+particular metro area.
