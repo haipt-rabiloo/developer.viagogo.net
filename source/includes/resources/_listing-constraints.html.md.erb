@@ -1,0 +1,30 @@
+## ListingConstraints
+
+The constraints applied to a listing for a particular event on the viagogo
+marketplace. All [`SellerListing`](#sellerlisting) resources created for the
+associated [`Event`](#event) must meet these constraints.
+
+
+### Properties
+
+| **Name** | **Type** | **Description** |
+| `min_ticket_price` | [`money`](#money) | The minimum price of a ticket. |
+| `max_ticket_price` | [`money`](#money) | The maximum price of a ticket. |
+| `min_number_of_tickets` | `int` | The minimum number of tickets available for purchase. |
+| `max_number_of_tickets` | `int` | The maximum number of tickets available for purchase. |
+| `ticket_location_required` | `boolean` | True if a ticket location is required for tickets; Otherwise, false. |
+| `seats_required` | `boolean` | True if seat-level information is required; Otherwise, false. |
+| `sections` | [`Section`[]](#section) | The valid section and row information. If no sections are specified then any text will be accepted for `section` and `row`. |
+
+### Links
+
+| **Relation** | **Method** | **Templated** | **Description** |
+| `self` | `GET` | No | The constraints applied to a listing for an event. |
+
+### Embedded
+
+| **Relation** | **Type** | **Optional** | **Description** |
+| `ticket_type` | [`TicketType`](#tickettype) | No | The valid types of tickets. |
+| `split_type` | [`SplitType`](#splittype) | No | The way that tickets are allowed to be split up when sold. |
+| `listing_notes` | [`ListingNote`[]](#listingnotes) | No | The available notes for this listing. |
+| `currencies` | [`Currency`[]](#currency) | No | The valid currencies for the listing ticket price. |

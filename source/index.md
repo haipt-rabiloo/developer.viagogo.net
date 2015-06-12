@@ -34,6 +34,7 @@ includes:
   - resources/events
   - resources/language
   - resources/languages
+  - resources/listing-constraints
   - resources/listing-note
   - resources/listing-notes
   - resources/listing
@@ -43,6 +44,9 @@ includes:
   - resources/root
   - resources/search-result
   - resources/search-results
+  - resources/seller-listing
+  - resources/seller-listings
+  - resources/split-type
   - resources/ticket-type
   - resources/ticket-types
   - resources/venue

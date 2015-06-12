@@ -1,0 +1,44 @@
+## SellerListing
+
+A set of tickets for sale on the viagogo marketplace that belong to the
+currently authenticated user.
+
+
+### Properties
+
+| **Name** | **Type** | **Description** |
+| `id` | `int` | The listing identifier. |
+| `created_at` | [`datetime`](#datetime) | The date when the listing was created. |
+| `number_of_tickets` | `int` | The number of tickets available for purchase. |
+| `display_number_of_tickets` | `int` | The number of tickets that should be displayed to buyers as available for purchase. |
+| `seating` | [`seating`](#seating) | The seating information for the ticket(s) in this listing. |
+| `face_value` | [`money`](#money) | The price printed on the ticket, not including any booking fees. |
+| `ticket_price` | [`money`](#money) | The price of each ticket in the listing. |
+| `ticket_proceeds` | [`money`](#money) | The amount that the seller will receive for each ticket sold. |
+
+
+### Links
+
+| **Relation** | **Method** | **Templated** | **Description** |
+| `self` | `GET` | No | A listing for an event. |
+| [`sellerlisting:constraints`](#sellerlistingconstraints) | `GET` | No | The constraints for the listing. |
+| [`sellerlisting:ticketlocation`](#sellerlistingticketlocation) | `GET` | No | The address where the ticket(s) are located. |
+| [`sellerlisting:updatetickettype`](#sellerlistingupdatetickettype) | `PATCH` | No | Update the type of ticket(s) for this listing. |
+| [`sellerlisting:updatesplittype`](#sellerlisting:updatesplittype) | `PATCH` | No | Update the way the ticket(s) are allowed to be split up when sold. |
+| [`sellerlisting:updateticketprice`](#sellerlistingupdateticketprice) | `PATCH` | No | Update the price of each ticket in this listing. |
+| [`sellerlisting:updatenumberoftickets`](#sellerlistingupdatenumberoftickets) | `PATCH` | No | Update the number of tickets available for purchase. |
+| [`sellerlisting:updateticketlocation`](#sellerlistingupdateticketlocation) | `PATCH` | No | Update the address where the ticket(s) are located. |
+| [`sellerlisting:updatenotes`](#sellerlistingupdatenotes) | `PATCH` | No | Update notes for this listing. |
+| [`sellerlisting:updatefacevalue`](#sellerlistingupdatefacevalue) | `PATCH` | No | Update face value for this listing. |
+| [`sellerlisting:publish`](#sellerlistingpublish) | `PATCH` | No | Make the listing available for purchase on the viagogo marketplace. |
+| [`sellerlisting:unpublish`](#sellerlistingunpublish) | `PATCH` | No | Make the listing unavailable for purchase on the viagogo marketplace. |
+
+
+### Embedded
+
+| **Relation** | **Type** | **Optional** | **Description** |
+| `event` | [`Event`](#event) | No | The event for this listing. |
+| `venue` | [`Venue`](#venue) | No | The venue where the event is taking place. |
+| `ticket_type` | [`TicketType`](#tickettype) | No | The type of ticket(s) in this listing. |
+| `split_type` | [`SplitType`](#splittype) | No | The way that the ticket(s) are allowed to be split up when sold. |
+| `listing_notes` | [`ListingNote`[]](#listingnote) | No | The notes for this listing. |

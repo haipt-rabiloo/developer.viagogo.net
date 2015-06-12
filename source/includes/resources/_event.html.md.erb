@@ -6,8 +6,8 @@ An event on the viagogo platform.
 ### Properties
 
 | **Name** | **Type** | **Description** |
-| `id` | `int` | The category identifier. |
-| `name` | `string` | The name of the category. |
+| `id` | `int` | The event identifier. |
+| `name` | `string` | The name of the event. |
 | `start_date` | [`datetime`](#datetime) | The date when the event starts. |
 | `end_date` | [`datetime`](#datetime) | The date when the event ends. |
 | `min_ticket_price` | [`money`](#money) | The minimum ticket price of the listings in this event. |
@@ -24,7 +24,8 @@ An event on the viagogo platform.
 | [`event:listings`](#eventlistings) | `GET` | No | The listings for this event. |
 | [`event:localwebpage`](#eventlocalwebpage) | `GET` | No | The webpage on the local viagogo website for this event. |
 | [`event:webpage`](#eventwebpage) | `GET` | No | The webpage on the viagogo website for this event. |
-
+| [`event:listingconstraints`](#eventlistingconstraints) | `GET` | No | The listing constraints for this event. |
+| [`event:createsellerlisting`](#eventcreatesellerlisting) | `POST` | No | Create a [`SellerListing`](#sellerlisting) for this event. |
 
 ### Embedded
 
