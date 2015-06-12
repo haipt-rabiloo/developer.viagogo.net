@@ -60,6 +60,8 @@ includes:
   - link-relations/category-performers
   - link-relations/category-webpage
   - link-relations/event-category
+  - link-relations/event-createsellerlisting
+  - link-relations/event-listingconstraints
   - link-relations/event-listings
   - link-relations/event-localwebpage
   - link-relations/event-webpage

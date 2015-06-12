@@ -100,6 +100,12 @@ module ResourceHelpers
     "display" => "$5.35"
   }
 
+  MONEY_PROCEEDS ||= {
+    "amount" => 22.58,
+    "currency_code" => "USD",
+    "display" => "$22.58"
+  }
+
   MONEY_ZERO ||= {
     "amount" => 0,
     "currency_code" => "USD",
@@ -324,10 +330,30 @@ module ResourceHelpers
         "href" => "http://www.viagogo.co.uk/E-735139",
         "title" => nil,
         "templated" => false
+      },
+      "event:listingconstraints" => {
+        "href" => "https://api.viagogo.net/v2/events/735139/listingconstraints",
+        "title" => nil,
+        "templated" => false
+      },
+      "event:createsellerlisting" => {
+        "href" => "https://api.viagogo.net/v2/events/735139/sellerlistings",
+        "title" => "Sell Tickets",
+        "templated" => false
       }
     },
     "_embedded" => {
       "venue" => EMBEDDED_VENUE
+    }
+  }
+
+  EMBEDDED_EVENT ||= {
+    "id" => EVENT["id"],
+    "name" => EVENT["name"],
+    "start_date" => EVENT["start_date"],
+    "date_confirmed" => EVENT["date_confirmed"],
+    "_links" => {
+      "self" => EVENT["_links"]["self"]
     }
   }
 
@@ -495,6 +521,12 @@ module ResourceHelpers
     }
   }
 
+  SPLIT_TYPE ||= {
+    "type" => "Any",
+    "name" => "Any",
+    "description" => "Allow the tickets to be split up in any way"
+  }
+
   LISTING ||= {
     "id" => 22096065,
     "number_of_tickets" => 1,
@@ -535,6 +567,130 @@ module ResourceHelpers
         LISTING_NOTE
       ],
       "ticket_type" => TICKET_TYPE
+    }
+  }
+
+  SELLER_LISTING ||= {
+    "id" => 22096065,
+    "created_at" => "2015-06-12T15:05:35+01:00",
+    "number_of_tickets" => 2,
+    "display_number_of_tickets" => nil,
+    "seating" => SEATING,
+    "face_value" => MONEY_EURO,
+    "ticket_price" => MONEY,
+    "ticket_proceeds" => MONEY_PROCEEDS,
+    "_links" => {
+      "self" => {
+        "href" => "https://api.viagogo.net/v2/sellerlistings/22096065",
+        "title" => nil,
+        "templated" => false
+      },
+      "sellerlisting:constraints" => {
+        "href" => "https://api.viagogo.net/v2/sellerlistings/22096065/constraints",
+        "title" => nil,
+        "templated" => false
+      },
+      "sellerlisting:updatetickettype" => {
+        "href" => "https://api.viagogo.net/v2/sellerlistings/22096065",
+        "title" => nil,
+        "templated" => false
+      },
+      "sellerlisting:updateticketprice" => {
+        "href" => "https://api.viagogo.net/v2/sellerlistings/22096065",
+        "title" => nil,
+        "templated" => false
+      },
+      "sellerlisting:updatesplittype" => {
+        "href" => "https://api.viagogo.net/v2/sellerlistings/22096065",
+        "title" => nil,
+        "templated" => false
+      },
+      "sellerlisting:updatenumberoftickets" => {
+        "href" => "https://api.viagogo.net/v2/sellerlistings/22096065",
+        "title" => nil,
+        "templated" => false
+      },
+      "sellerlisting:updateseating" => {
+        "href" => "https://api.viagogo.net/v2/sellerlistings/22096065",
+        "title" => nil,
+        "templated" => false
+      },
+      "sellerlisting:updateticketlocation" => {
+        "href" => "https://api.viagogo.net/v2/sellerlistings/22096065",
+        "title" => nil,
+        "templated" => false
+      },
+      "sellerlisting:updatenotes" => {
+        "href" => "https://api.viagogo.net/v2/sellerlistings/22096065",
+        "title" => nil,
+        "templated" => false
+      },
+      "sellerlisting:unpublish" => {
+        "href" => "https://api.viagogo.net/v2/sellerlistings/22096065",
+        "title" => nil,
+        "templated" => false
+      },
+      "sellerlisting:delete" => {
+        "href" => "https://api.viagogo.net/v2/sellerlistings/22096065",
+        "title" => "Delete Listing",
+        "templated" => false
+      },
+      "sellerlisting:updatefacevalue" => {
+        "href" => "https://api.viagogo.net/v2/sellerlistings/22096065",
+        "title" => nil,
+        "templated" => false
+      },
+      "sellerlisting:ticketlocation" => {
+        "href" => "https://api.viagogo.net/v2/addresses/34115",
+        "title" => "Ticket Location Address",
+        "templated" => false
+      }
+    },
+    "_embedded" => {
+      "event" => EMBEDDED_EVENT,
+      "venue" => EMBEDDED_VENUE,
+      "ticket_type" => TICKET_TYPE,
+      "split_type" => SPLIT_TYPE,
+      "listing_notes" => [
+        LISTING_NOTE
+      ]
+    }
+  }
+
+  LISTING_CONSTRAINTS ||= {
+    "min_ticket_price" => MONEY,
+    "max_ticket_price" => MONEY,
+    "min_number_of_tickets" => 1,
+    "max_number_of_tickets" => 99,
+    "ticket_location_required" => true,
+    "seats_required" => false,
+    "sections" => [
+      {
+        "name" => "General Admission",
+        "free_text_row" => false,
+        "rows" => []
+      }
+    ],
+    "_links" => {
+      "self" => {
+        "href" => "https://api.viagogo.net/v2/events/#{EVENT["id"]}/listingconstraints",
+        "title" => nil,
+        "templated" => false
+      }
+    },
+    "_embedded" => {
+      "ticket_types" => [
+        TICKET_TYPE
+      ],
+      "split_types" => [
+        SPLIT_TYPE
+      ],
+      "listing_notes" => [
+        LISTING_NOTE
+      ],
+      "currencies" => [
+        CURRENCY
+      ]
     }
   }
 
