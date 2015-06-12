@@ -3,13 +3,23 @@
 <%= curl('GET', ROOT['_links']['viagogo:languages']['href']) %>
 
 ~~~ csharp
-var client = new ViagogoClient("clientId", "clientSecret", "MyAwesomeApp");
-var languages = await client.Languages.GetAllAsync();
+var api = new ViagogoClient("clientId",
+                            "clientSecret",
+                            new ProductHeaderValue("MyAwesomeApp"));
+var languages = await api.Languages.GetAllAsync();
+~~~
+
+~~~ ruby
+api = GogoKit::Client.new(client_id: CLIENT_ID,
+                          client_secret: CLIENT_SECRET,
+                          access_token: ACCESS_TOKEN)
+languages = api.get_languages
 ~~~
 
 <%= json_paged_resource(:language, "viagogo:languages", 32) %>
 
-You can `GET` the href of this link to retrieve the [`Languages`](#languages) resource that contains the available languages.
+You can `GET` the href of this link to retrieve the [`Languages`](#languages)
+resource that contains the available languages.
 
 ### Parameters
 
@@ -18,4 +28,5 @@ You can `GET` the href of this link to retrieve the [`Languages`](#languages) re
 
 ### Response
 
-Returns the [`Languages`](#languages) resource that contains the available languages.
+Returns the [`Languages`](#languages) resource that contains the available
+languages.

@@ -3,15 +3,26 @@
 <%= curl('GET', ROOT['_links']['viagogo:metroareas']['href']) %>
 
 ~~~ csharp
-var client = new ViagogoClient("clientId", "clientSecret", "MyAwesomeApp");
-var metroAreas = await client.MetroAreas.GetAllAsync();
+var api = new ViagogoClient("clientId",
+                            "clientSecret",
+                            new ProductHeaderValue("MyAwesomeApp"));
+var metroAreas = await api.MetroAreas.GetAllAsync();
+~~~
+
+~~~ ruby
+api = GogoKit::Client.new(client_id: CLIENT_ID,
+                          client_secret: CLIENT_SECRET,
+                          access_token: ACCESS_TOKEN)
+metro_areas = api.get_metro_areas
 ~~~
 
 <%= json_paged_resource(:metro_area, "viagogo:metroareas", 464) %>
 
-You can `GET` the href of this link to retrieve the [`MetroAreas`](#metroareas) resource that contains the available metro areas.
+You can `GET` the href of this link to retrieve the [`MetroAreas`](#metroareas)
+resource that contains the available metro areas.
 
 
 ### Response
 
-Returns the [`MetroAreas`](#metroareas) resource that contains the available metro areas.
+Returns the [`MetroAreas`](#metroareas) resource that contains the available
+metro areas.

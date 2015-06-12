@@ -1,15 +1,24 @@
 ## viagogo:search
 
 <%= curl('GET', ROOT['_links']['viagogo:search']['href']) %>
-
 ~~~ csharp
-var client = new ViagogoClient("clientId", "clientSecret", "MyAwesomeApp");
-var searchResults = await client.Search.GetAllAsync("One Dir");
+var api = new ViagogoClient("clientId",
+                            "clientSecret",
+                            new ProductHeaderValue("MyAwesomeApp"));
+var searchResults = await api.Search.GetAsync("One Dir")
+~~~
+
+~~~ ruby
+api = GogoKit::Client.new(client_id: CLIENT_ID,
+                          client_secret: CLIENT_SECRET,
+                          access_token: ACCESS_TOKEN)
+search_results = api.search 'One Dir'
 ~~~
 
 <%= json_paged_resource(:search_result, "viagogo:search", 40, "query=One%20Dir") %>
 
-You can `GET` the href of this link to search for entities that match a given query.
+You can `GET` the href of this link to search for entities that match a given
+query.
 
 ### Parameters
 
@@ -20,4 +29,5 @@ You can `GET` the href of this link to search for entities that match a given qu
 
 ### Response
 
-Returns the [SearchResults](#search-results) resource containing the results of the query.
+Returns the [SearchResults](#search-results) resource containing the results of
+the query.

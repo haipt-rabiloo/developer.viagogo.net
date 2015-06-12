@@ -3,13 +3,25 @@
 <%= curl('GET', VENUE['_links']['venue:events']['href']) %>
 
 ~~~ csharp
-var client = new ViagogoClient("clientId", "clientSecret", "MyAwesomeApp");
-var events = await client.Events.GetAllByVenueAsync(<%= VENUE['id'] %>);
+var api = new ViagogoClient("clientId",
+                            "clientSecret",
+                            new ProductHeaderValue("MyAwesomeApp"));
+var venue = await api.Venues.GetAsync(<%= VENUE['id'] %>);
+var events = await api.Hypermedia.GetAsync<PagedResource<Event>>(venue.EventsLink);
+~~~
+
+~~~ ruby
+api = GogoKit::Client.new(client_id: CLIENT_ID,
+                          client_secret: CLIENT_SECRET,
+                          access_token: ACCESS_TOKEN)
+venue = api.get_venue <%= VENUE['id'] %>
+events = api.get venue.links['venue:events']
 ~~~
 
 <%= json_paged_resource(:event, "venue:events") %>
 
-You can `GET` the href of this link to retrieve the [`Events`](#events) resource that contains the events taking place in a particular venue.
+You can `GET` the href of this link to retrieve the [`Events`](#events) resource
+that contains the events taking place in a particular venue.
 
 
 ### Parameters
@@ -29,4 +41,5 @@ You can `GET` the href of this link to retrieve the [`Events`](#events) resource
 
 ### Response
 
-Returns the [`Events`](#events) resource containing the events taking place in a particular venue.
+Returns the [`Events`](#events) resource containing the events taking place in a
+particular venue.

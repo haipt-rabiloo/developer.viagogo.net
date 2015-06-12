@@ -3,13 +3,23 @@
 <%= curl('GET', CATEGORY_GENRE['_links']['category:children']['href']) %>
 
 ~~~ csharp
-var client = new ViagogoClient("clientId", "clientSecret", "MyAwesomeApp");
-var children = await client.Categories.GetChildrenAsync(<%= CATEGORY_GENRE['id'] %>);
+var api = new ViagogoClient("clientId",
+                            "clientSecret",
+                            new ProductHeaderValue("MyAwesomeApp"));
+var children = await api.Categories.GetChildrenAsync(<%= CATEGORY_GENRE['id'] %>);
+~~~
+
+~~~ ruby
+api = GogoKit::Client.new(client_id: CLIENT_ID,
+                          client_secret: CLIENT_SECRET,
+                          access_token: ACCESS_TOKEN)
+children = api.get_category_children <%= CATEGORY_GENRE['id'] %>
 ~~~
 
 <%= json_paged_resource(:category, "category:children") %>
 
-You can `GET` the href of this link to retrieve the [`Categories`](#categories) resource that contains the direct children of a category.
+You can `GET` the href of this link to retrieve the [`Categories`](#categories)
+resource that contains the direct children of a category.
 
 
 ### Parameters
@@ -26,4 +36,5 @@ You can `GET` the href of this link to retrieve the [`Categories`](#categories) 
 
 ### Response
 
-Returns the [`Categories`](#categories) resource containing the direct children of a category.
+Returns the [`Categories`](#categories) resource containing the direct children
+of a category.

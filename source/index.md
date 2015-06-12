@@ -4,6 +4,7 @@ title: viagogo API v2
 language_tabs:
   - shell: cURL
   - csharp: C#
+  - ruby: Ruby
 
 toc_footers:
   - <a href='https://github.com/viagogo/developer.viagogo.net'>Source code</a>

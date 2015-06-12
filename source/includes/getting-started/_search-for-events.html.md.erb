@@ -8,7 +8,14 @@
 var api = new ViagogoClient("clientId",
                             "clientSecret",
                             new ProductHeaderValue("MyAwesomeApp"));
-var root = await api.Root.GetAsync();
+var root = await api.Hypermedia.GetRootAsync();
+~~~
+
+~~~ ruby
+api = GogoKit::Client.new(client_id: CLIENT_ID,
+                          client_secret: CLIENT_SECRET,
+                          access_token: ACCESS_TOKEN)
+root = api.get_root
 ~~~
 
 > **2. Search for the Team/Artist/Tournament/etc Category:**
@@ -17,6 +24,10 @@ var root = await api.Root.GetAsync();
 
 ~~~ csharp
 var searchResults = await api.Search.GetAllAsync("one direction");
+~~~
+
+~~~ ruby
+search_results = api.search 'one direction'
 ~~~
 
 <%= json_paged_resource(:search_result, "viagogo:search") %>
@@ -29,6 +40,10 @@ var searchResults = await api.Search.GetAllAsync("one direction");
 var category = await api.Categories.GetAsync(searchResults[0].Id);
 ~~~
 
+~~~ ruby
+category = api.get_category search_results.items[0].id
+~~~
+
 > **4. Page through the Events in the Category**
 
 <%= curl('GET', CATEGORY_PERFORMER['_links']['category:events']['href']) %>
@@ -37,20 +52,36 @@ var category = await api.Categories.GetAsync(searchResults[0].Id);
 var events = await api.Events.GetAllByCategoryAsync(category.Id);
 ~~~
 
-API v2 provides access to the same search features available on the viagogo website. Your application can use this search to quickly find a particular category, event, venue or metro area.
+~~~ ruby
+events = api.get_events_by_category category.id
+~~~
+
+API v2 provides access to the same search features available on the viagogo
+website. Your application can use this search to quickly find a particular
+category, event, venue or metro area.
 
 ### 1. Start at the Root
 
-As is the case when retrieving most data in API v2, you should start by getting the [`Root`](#root) resource to find the hyperlink to the resource you care about.
+As is the case when retrieving most data in API v2, you should start by getting
+the [`Root`](#root) resource to find the hyperlink to the resource you care
+about.
 
 ### 2. Search for the Team/Artist/Tournament/etc Category
 
-Follow the [`viagogo:search`](#viagogosearch) link to query for entities you are interested in.
+Follow the [`viagogo:search`](#viagogosearch) link to query for entities you are
+interested in.
 
 ### 3. Get the Details of the Category
 
-[`SearchResult`](#searchresult) resources only contain very basic entity information so you should follow the link on the result that will get you more information about the entity (see [`searchresult:category`](#searchresultcategory), [`searchresult:event`](#searchresultevent), [`searchresult:metroarea`](#searchresultmetroarea) and [`searchresult:venue`](#searchresultvenue))
+[`SearchResult`](#searchresult) resources only contain very basic entity
+information so you should follow the link on the result that will get you more
+information about the entity (see [`searchresult:category`](#searchresultcategory),
+[`searchresult:event`](#searchresultevent),
+[`searchresult:metroarea`](#searchresultmetroarea) and
+[`searchresult:venue`](#searchresultvenue))
 
 ### 4. Page through the Events in the Category
 
-Follow the [`category:events`](#categoryevents) link to get the first page of events under the category. Once we have the first page, we can follow the `next` links to retrieve all pages (see [pagination](#pagination)).
+Follow the [`category:events`](#categoryevents) link to get the first page of
+events under the category. Once we have the first page, we can follow the `next`
+links to retrieve all pages (see [pagination](#pagination)).

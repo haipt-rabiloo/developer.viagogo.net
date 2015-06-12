@@ -3,13 +3,25 @@
 <%= curl('GET', CATEGORY['_links']['self']['href']) %>
 
 ~~~ csharp
-var client = new ViagogoClient("clientId", "clientSecret", "MyAwesomeApp");
-var category = await client.Connection.GetAsync<Category>(searchResult.Links["searchresult:category"]);
+var api = new ViagogoClient("clientId",
+                            "clientSecret",
+                            new ProductHeaderValue("MyAwesomeApp"));
+var searchResults = await api.Search.GetAsync("one direction");
+var category = await api.Hypermedia.GetAsync<Category>(searchResults[0].CategoryLink);
+~~~
+
+~~~ ruby
+api = GogoKit::Client.new(client_id: CLIENT_ID,
+                          client_secret: CLIENT_SECRET,
+                          access_token: ACCESS_TOKEN)
+search_results = api.search 'one direction'
+category = api.get search_results.items[0].links['searchresult:category']
 ~~~
 
 <%= json(:category_performer) %>
 
-You can GET the href of this link to retrieve the [`Category`](#category) resource that a search result represents.
+You can GET the href of this link to retrieve the [`Category`](#category)
+resource that a search result represents.
 
 
 ### Response

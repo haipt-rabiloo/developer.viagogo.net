@@ -3,16 +3,28 @@
 <%= curl('GET', METRO_AREA['_links']['metroarea:venues']['href']) %>
 
 ~~~ csharp
-var client = new ViagogoClient("clientId", "clientSecret", "MyAwesomeApp");
-var metroArea = await client.MetroAreas.GetAsync(<%= METRO_AREA['id'] %>);
-var venues = await client.Connection.GetAsync<PagedResource<Venue>>(metroArea.Links["metroarea:venues"]);
+var api = new ViagogoClient("clientId",
+                            "clientSecret",
+                            new ProductHeaderValue("MyAwesomeApp"));
+var metroArea = await api.MetroAreas.GetAsync(<%= METRO_AREA['id'] %>);
+var venues = await api.Hypermedia.GetAsync<PagedResource<Venue>>(metroArea.VenuesLink);
+~~~
+
+~~~ ruby
+api = GogoKit::Client.new(client_id: CLIENT_ID,
+                          client_secret: CLIENT_SECRET,
+                          access_token: ACCESS_TOKEN)
+metro_area = api.get_metro_area <%= METRO_AREA['id'] %>
+venues = api.get metro_area.links['metroarea:venues']
 ~~~
 
 <%= json_paged_resource(:venue, "metroarea:venues") %>
 
-You can `GET` the href of this link to retrieve the [`Venues`](#venues) resource that contains the venues located in a metro area.
+You can `GET` the href of this link to retrieve the [`Venues`](#venues) resource
+that contains the venues located in a metro area.
 
 
 ### Response
 
-Returns the [`Venues`](#venues) resource that contains the venues located in a metro area.
+Returns the [`Venues`](#venues) resource that contains the venues located in a
+metro area.

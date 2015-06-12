@@ -3,13 +3,23 @@
 <%= curl('GET', ROOT['_links']['viagogo:countries']['href']) %>
 
 ~~~ csharp
-var client = new ViagogoClient("clientId", "clientSecret", "MyAwesomeApp");
-var countries = await client.Countries.GetAllAsync();
+var api = new ViagogoClient("clientId",
+                            "clientSecret",
+                            new ProductHeaderValue("MyAwesomeApp"));
+var countries = await api.Countries.GetAllAsync();
+~~~
+
+~~~ ruby
+api = GogoKit::Client.new(client_id: CLIENT_ID,
+                          client_secret: CLIENT_SECRET,
+                          access_token: ACCESS_TOKEN)
+countries = api.get_countries
 ~~~
 
 <%= json_paged_resource(:country, "viagogo:countries") %>
 
-You can `GET` the href of this link to retrieve the [`Countries`](#countries) resource that contains the available countries.
+You can `GET` the href of this link to retrieve the [`Countries`](#countries)
+resource that contains the available countries.
 
 ### Parameters
 
@@ -18,4 +28,5 @@ You can `GET` the href of this link to retrieve the [`Countries`](#countries) re
 
 ### Response
 
-Returns the [`Countries`](#countries) resource that contains the available countries.
+Returns the [`Countries`](#countries) resource that contains the available
+countries.

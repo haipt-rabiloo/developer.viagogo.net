@@ -3,13 +3,23 @@
 <%= curl('GET', ROOT['_links']['viagogo:venues']['href']) %>
 
 ~~~ csharp
-var client = new ViagogoClient("clientId", "clientSecret", "MyAwesomeApp");
-var venues = await client.Venues.GetAllAsync();
+var api = new ViagogoClient("clientId",
+                            "clientSecret",
+                            new ProductHeaderValue("MyAwesomeApp"));
+var venues = await api.Venues.GetAllAsync();
+~~~
+
+~~~ ruby
+api = GogoKit::Client.new(client_id: CLIENT_ID,
+                          client_secret: CLIENT_SECRET,
+                          access_token: ACCESS_TOKEN)
+venues = api.get_venues
 ~~~
 
 <%= json_paged_resource(:venue, "viagogo:venues", 21727) %>
 
-You can `GET` the href of this link to retrieve the [`Venues`](#venues) resource that contains the available venues.
+You can `GET` the href of this link to retrieve the [`Venues`](#venues) resource
+that contains the available venues.
 
 
 ### Response

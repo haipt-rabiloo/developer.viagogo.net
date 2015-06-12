@@ -3,13 +3,23 @@
 <%= curl('GET', ROOT['_links']['viagogo:genres']['href']) %>
 
 ~~~ csharp
-var client = new ViagogoClient("clientId", "clientSecret", "MyAwesomeApp");
-var genres = await client.Categories.GetAllGenresAsync();
+var api = new ViagogoClient("clientId",
+                            "clientSecret",
+                            new ProductHeaderValue("MyAwesomeApp"));
+var genres = await api.Categories.GetAllGenresAsync();
+~~~
+
+~~~ ruby
+api = GogoKit::Client.new(client_id: CLIENT_ID,
+                          client_secret: CLIENT_SECRET,
+                          access_token: ACCESS_TOKEN)
+genres = api.get_genres
 ~~~
 
 <%= json_paged_resource(:category_genre, "viagogo:genres", 4) %>
 
-You can `GET` the href of this link to retrieve the [`Categories`](#categories) resource that contains the genre categories (e.g. "Sports", "Concerts").
+You can `GET` the href of this link to retrieve the [`Categories`](#categories)
+resource that contains the genre categories (e.g. "Sports", "Concerts").
 
 ### Parameters
 
@@ -25,4 +35,5 @@ You can `GET` the href of this link to retrieve the [`Categories`](#categories) 
 
 ### Response
 
-Returns the [`Categories`](#categories) resource that contains the genre categories (e.g. "Sports", "Concerts").
+Returns the [`Categories`](#categories) resource that contains the genre
+categories (e.g. "Sports", "Concerts").
