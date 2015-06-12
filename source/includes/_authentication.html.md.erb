@@ -1,8 +1,14 @@
 # Authentication
 
-The viagogo API uses [OAuth2](http://oauth.net/2/) for all authentication. OAuth2 is a protocol that lets external applications access public viagogo resources and private viagogo user details without getting their password.
+[oauth2]: http://oauth.net/2/
 
-All developers need to [register their application](#) before getting started. Registered applications are assigned a unique Client ID and Client Secret that are required for authentication.
+The viagogo API uses [OAuth2][oauth2] for all authentication.
+OAuth2 is a protocol that lets external applications access public viagogo
+resources and private viagogo user details without getting their password.
+
+All developers need to [register their application](#) before getting started.
+Registered applications are assigned a unique Client ID and Client Secret that
+are required for authentication.
 
 <aside class="notice">
   <strong>Tokens are passwords.</strong>
@@ -17,7 +23,9 @@ All developers need to [register their application](#) before getting started. R
 
 ## Getting Access Tokens
 
-In order to make authenticated requests to the viagogo API, your application must first obtain an OAuth access token. The way you obtain an access token depends on your use case.
+In order to make authenticated requests to the viagogo API, your application
+must first obtain an OAuth access token. The way you obtain an access token
+depends on your use case.
 
 | **If you...** | **Use...** |
 | ------------- | ---------- |
@@ -26,7 +34,8 @@ In order to make authenticated requests to the viagogo API, your application mus
 
 ## Client Credentials Grant
 
-Applications can use the client credentials grant to get an access token that will provide access to public, non-user-specific data (events, listings, etc).
+Applications can use the client credentials grant to get an access token that
+will provide access to public, non-user-specific data (events, listings, etc).
 
 ~~~ shell
 curl -X POST "https://www.viagogo.co.uk/secure/oauth2/token"
@@ -36,21 +45,33 @@ curl -X POST "https://www.viagogo.co.uk/secure/oauth2/token"
 ~~~
 
 ~~~ csharp
-var api = new ViagogoClient("clientId", "clientSecret", "MyAwesomeApp");
-var token = await api.OAuth2.GetClientCredentialsAccessTokenAsync();
+var api = new ViagogoClient("clientId",
+                            "clientSecret",
+                            new ProductHeaderValue("MyAwesomeApp"));
+var token = await api.OAuth2.GetClientAccessTokenAsync();
+~~~
+
+~~~ ruby
+api = GogoKit::Client.new(client_id: CLIENT_ID, client_secret: CLIENT_SECRET)
+token = api.get_client_access_token
 ~~~
 
 ### 1. Create a Basic Authorization header
 
-* URL encode your application's client id and client secret according to [RFC 1738](http://www.ietf.org/rfc/rfc1738.txt)
-* Concatenate the encoded client id, a colon character “:” and the encoded consumer secret into a single string
+[rfc1738]: http://www.ietf.org/rfc/rfc1738.txt
+
+* URL encode your application's client id and client secret according to
+[RFC 1738][rfc1738]
+* Concatenate the encoded client id, a colon character “:” and the encoded
+consumer secret into a single string
 * Base64 encode the string from the previous step
 
 <%= json(:client_credentials_token) %>
 
 ### 2. Obtain an access token
 
-* The value calculated in [Step 1](#create-a-basic-authorization-header) must be exchanged for an access token:
+* The value calculated in [Step 1](#create-a-basic-authorization-header) must be
+exchanged for an access token:
 
 ### HTTP Request
 
@@ -76,17 +97,27 @@ var token = await api.OAuth2.GetClientCredentialsAccessTokenAsync();
 <%= curl('GET', 'https://api.viagogo.net/v2/search?query=lady%20gaga') %>
 
 ~~~ csharp
-var tokenStore = new InMemoryOAuth2TokenStore();
-await tokenStore.SetTokenAsync(token);
 var api = new ViagogoClient("clientId",
                             "clientSecret",
-                            new ProductHeaderValue("MyAwesomeApp", "1.0"),
-                            GogoKit.Configuration.Configuration.Default,
-                            tokenStore);
-var genres = await api.Search.GetAllAsync("lady gaga");
+                            new ProductHeaderValue("MyAwesomeApp"));
+var token = await api.OAuth2.GetClientAccessTokenAsync();
+await api.TokenStore.SetTokenAsync(token);
+
+var searchResults = await api.Search.GetAllAsync("lady gaga");
 ~~~
 
-Access tokens should be included in a `Bearer` authorization header when making API requests. The `expires_in` property in a token response represents the number of seconds before the token expires. Tokens can be re-used in multiple requests up until they expire.
+~~~ ruby
+api = GogoKit::Client.new(client_id: CLIENT_ID, client_secret: CLIENT_SECRET)
+token = api.get_client_access_token
+api.access_token = token.access_token
+
+search_results = api.search 'lady gaga'
+~~~
+
+Access tokens should be included in a `Bearer` authorization header when making
+API requests. The `expires_in` property in a token response represents the
+number of seconds before the token expires. Tokens can be re-used in multiple
+requests up until they expire.
 
 
 ## Scopes

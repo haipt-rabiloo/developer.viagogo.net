@@ -8,7 +8,14 @@
 var api = new ViagogoClient("clientId",
                             "clientSecret",
                             new ProductHeaderValue("MyAwesomeApp"));
-var root = await api.Root.GetAsync();
+var root = await api.Hypermedia.GetRootAsync();
+~~~
+
+~~~ ruby
+api = GogoKit::Client.new(client_id: CLIENT_ID,
+                          client_secret: CLIENT_SECRET,
+                          access_token: ACCESS_TOKEN)
+root = api.get_root
 ~~~
 
 > **2. Get the Genres:**
@@ -19,6 +26,10 @@ var root = await api.Root.GetAsync();
 var genres = await api.Categories.GetAllGenresAsync();
 ~~~
 
+~~~ ruby
+genres = api.get_genres
+~~~
+
 > **3. Page through the Events in the Genre**
 
 <%= curl('GET', CATEGORY_GENRE['_links']['category:events']['href']) %>
@@ -27,18 +38,31 @@ var genres = await api.Categories.GetAllGenresAsync();
 var events = await api.Events.GetAllByCategoryAsync(genres[0].Id);
 ~~~
 
+~~~ ruby
+events = api.get_events_by_category genres.items[0].id
+~~~
+
 <%= json_paged_resource(:event, "category:events", 50000) %>
 
-Retrieving all of the events in a particular genre (e.g. "Concert Tickets", "Theatre Tickets") is simple if you use the hyperlinks available in API responses.
+Retrieving all of the events in a particular genre (e.g. "Concert Tickets",
+"Theatre Tickets") is simple if you use the hyperlinks available in API
+responses.
 
 ### 1. Start at the Root
 
-As is the case when retrieving most data in API v2, you should start by getting the [`Root`](#root) resource to find the hyperlink to the resource you care about.
+As is the case when retrieving most data in API v2, you should start by getting
+the [`Root`](#root) resource to find the hyperlink to the resource you care
+about.
 
 ### 2. Find the Genre(s) that you care about
 
-Follow the [`viagogo:genres`](#viagogogenres) link to get the genre you are interested in.
+Follow the [`viagogo:genres`](#viagogogenres) link to get the genre you are
+interested in.
 
 ### 3. Page through the Events in the Genre
 
-Follow the [`category:events`](#categoryevents) link to get the first page of events. Once we have the first page, we can follow the `next` links to retrieve all pages (see [pagination](#pagination)). Since there will be lots of events under a genre, we suggest using a large `page_size` to reduce the total number of requests your application has to make.
+Follow the [`category:events`](#categoryevents) link to get the first page of
+events. Once we have the first page, we can follow the `next` links to retrieve
+all pages (see [pagination](#pagination)). Since there will be lots of events
+under a genre, we suggest using a large `page_size` to reduce the total number
+of requests your application has to make.
