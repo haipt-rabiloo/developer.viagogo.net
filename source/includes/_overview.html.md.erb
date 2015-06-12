@@ -207,7 +207,7 @@ var request = new EventRequest();
 request.Parameters.Add("fields", "id,name,_embedded");
 request.Parameters.Add("fields[venue]", "city");
 
-var @event = api.Events.GetAsync(735139, request);
+var @event = api.Events.GetAsync(<%= EVENT['id'] %>, request);
 var root = await api.Hypermedia.GetRootAsync();
 ~~~
 
@@ -215,7 +215,7 @@ var root = await api.Hypermedia.GetRootAsync();
 api = GogoKit::Client.new(client_id: CLIENT_ID,
                           client_secret: CLIENT_SECRET,
                           access_token: ACCESS_TOKEN)
-event = event = api.get_event(735139,
+event = event = api.get_event(<%= EVENT['id'] %>,
                               params: {
                                 'fields' => 'id,name,_embedded',
                                 'fields[venue]' => 'city'

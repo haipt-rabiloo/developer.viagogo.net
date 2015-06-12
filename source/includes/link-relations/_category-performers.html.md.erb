@@ -10,6 +10,25 @@ var performers = await client.Connection.GetAsync<PagedResource<Category>>(
                                           null);
 ~~~
 
+
+~~~ csharp
+var api = new ViagogoClient("clientId",
+                            "clientSecret",
+                            new ProductHeaderValue("MyAwesomeApp"));
+var category = await client.Categories.GetAsync(<%= CATEGORY_GENRE['id'] %>);
+var performers = await client.Hypermedia.GetAsync<PagedResource<Category>>(
+                                          category.PerformersLink,
+                                          null);
+~~~
+
+~~~ ruby
+api = GogoKit::Client.new(client_id: CLIENT_ID,
+                          client_secret: CLIENT_SECRET,
+                          access_token: ACCESS_TOKEN)
+category = api.get_category <%= CATEGORY_GENRE['id'] %>
+performers = api.get category.links['category:performers']
+~~~
+
 <%= json_paged_resource(:category_performer, "category:performers") %>
 
 You can `GET` the href of this link to retrieve the [`Categories`](#categories) resource that contains the leaf-descendants of a category.
