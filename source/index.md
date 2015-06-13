@@ -74,6 +74,17 @@ includes:
   - link-relations/searchresult-event
   - link-relations/searchresult-metroarea
   - link-relations/searchresult-venue
+  - link-relations/sellerlisting-constraints
+  - link-relations/sellerlisting-publish
+  - link-relations/sellerlisting-ticketlocation
+  - link-relations/sellerlisting-unpublish
+  - link-relations/sellerlisting-updatefacevalue
+  - link-relations/sellerlisting-updatenotes
+  - link-relations/sellerlisting-updatenumberoftickets
+  - link-relations/sellerlisting-updatesplittype
+  - link-relations/sellerlisting-updateticketlocation
+  - link-relations/sellerlisting-updateticketprice
+  - link-relations/sellerlisting-updatetickettype
   - link-relations/venue-events
   - link-relations/venue-metroarea
   - link-relations/viagogo-countries

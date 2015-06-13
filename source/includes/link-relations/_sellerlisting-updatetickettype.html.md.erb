@@ -1,0 +1,27 @@
+## sellerlisting:updatetickettype
+
+<%= curl('GET', SELLER_LISTING['_links']['sellerlisting:updatetickettype']['href']) %>
+
+~~~ csharp
+// TODO
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+<%= json(:seller_listing) %>
+
+You can use a PATCH request on the href of this link to update the type of
+tickets in a listing.
+
+
+### Parameters
+
+| **Name** | **Type** | **Required** | **Description** |
+| `ticket_type` | `string` | No | The type of ticket(s) in this listing. Can be `PaperTicket`, `ETicket`, `PaperTicketNameChange`, `TesseraDelTifoso`, `SeasonCard`, `PaperTicketNameChange`, `ETicketNameChange` or `ETicketThirdPartyPreUpload`. |
+
+
+### Response
+
+The updated [`SellerListing`](#sellerlisting) resource.

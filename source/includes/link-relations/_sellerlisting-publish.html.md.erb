@@ -1,0 +1,28 @@
+## sellerlisting:publish
+
+<%= curl('GET', SELLER_LISTING['_links']['sellerlisting:unpublish']['href']) %>
+
+~~~ csharp
+// TODO
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+<%= json(:seller_listing) %>
+
+You can use a PATCH request on the href of this link to make a
+[`SellerListing`](#sellerlisting) available for purchase on the viagogo
+marketplace.
+
+
+### Parameters
+
+| **Name** | **Type** | **Required** | **Description** |
+| `published` | `boolean` | No | True when the listing should be published; Otherwise, false. |
+
+
+### Response
+
+The updated [`SellerListing`](#sellerlisting) resource.

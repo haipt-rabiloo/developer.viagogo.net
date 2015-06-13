@@ -230,6 +230,38 @@ module ResourceHelpers
     }
   }
 
+  ADDRESS ||= {
+    "id" => 34115,
+    "full_name" => ADDRESS_SNAPSHOT["full_name"],
+    "default" => true,
+    "address_1" => ADDRESS_SNAPSHOT["address_1"],
+    "address_2" => ADDRESS_SNAPSHOT["address_2"],
+    "address_3" => ADDRESS_SNAPSHOT["address_3"],
+    "city" => ADDRESS_SNAPSHOT["city"],
+    "state_province" => ADDRESS_SNAPSHOT["state_province"],
+    "postal_code" => ADDRESS_SNAPSHOT["postal_code"],
+    "_links" => {
+      "self" => {
+        "href" => "https://api.viagogo.net/v2/addresses/34115",
+        "title" => nil,
+        "templated" => false
+      },
+      "address:update" => {
+        "href" => "https://api.viagogo.net/v2/addresses/34115",
+        "title" => nil,
+        "templated" => false
+      },
+      "address:delete" => {
+        "href" => "https://api.viagogo.net/v2/addresses/34115",
+        "title" => nil,
+        "templated" => false
+      }
+    },
+    "_embedded" => {
+      "country" => COUNTRY
+    }
+  }
+
   METRO_AREA ||={
     "id" =>  65,
     "name" =>  "London",

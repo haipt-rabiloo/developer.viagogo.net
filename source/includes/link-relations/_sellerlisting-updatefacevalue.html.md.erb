@@ -1,0 +1,27 @@
+## sellerlisting:updatefacevalue
+
+<%= curl('GET', SELLER_LISTING['_links']['sellerlisting:updatefacevalue']['href']) %>
+
+~~~ csharp
+// TODO
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+<%= json(:seller_listing) %>
+
+You can use a PATCH request on the href of this link to update the face value of
+each ticket in a listing.
+
+
+### Parameters
+
+| **Name** | **Type** | **Required** | **Description** |
+| `face_value` | [`money`](#money) | No | The price printed on the ticket, not including any booking fees. |
+
+
+### Response
+
+The updated [`SellerListing`](#sellerlisting) resource.
