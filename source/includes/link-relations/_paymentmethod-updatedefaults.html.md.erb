@@ -1,0 +1,28 @@
+## paymentmethod:updatedefaults
+
+<%= curl('PUT', PAYMENT_METHOD['_links']['paymentmethod:updatedefaults']['href']) %>
+
+~~~ csharp
+// TODO
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+<%= json(:payment_method) %>
+
+You can use a `PATHCH` request on the href of this link to update whether a
+payment method is the default for the current user.
+
+
+### Parameters
+
+| **Name** | **Type** | **Required** | **Description** |
+| `default_buyer_method` | `boolean` | No | If set to true, this will update the specified payment method to be the user's default payment method for purchases. If set to false or null, this will field will be ignored. |
+| `default_seller_method` | `boolean` | No | If set to true, this will update the specified payment method to be the user's default payment method for sales. If set to false or null, this will field will be ignored. |
+
+
+### Response
+
+The updated [`PaymentMethod`](#paymentmethod).

@@ -24,6 +24,8 @@ includes:
   - basic-types
 
   - resources
+  - resources/address
+  - resources/addresses
   - resources/categories
   - resources/category
   - resources/countries
@@ -41,6 +43,8 @@ includes:
   - resources/listings
   - resources/metro-area
   - resources/metro-areas
+  - resources/payment-method
+  - resources/payment-methods
   - resources/root
   - resources/search-result
   - resources/search-results
@@ -49,10 +53,14 @@ includes:
   - resources/split-type
   - resources/ticket-type
   - resources/ticket-types
+  - resources/user
   - resources/venue
   - resources/venues
 
   - link-relations
+  - link-relations/address-create
+  - link-relations/address-delete
+  - link-relations/address-update
   - link-relations/category-children
   - link-relations/category-events
   - link-relations/category-image
@@ -70,6 +78,12 @@ includes:
   - link-relations/listing-webpage
   - link-relations/metroarea-events
   - link-relations/metroarea-venues
+  - link-relations/paymentmethod-createcreditcard
+  - link-relations/paymentmethod-createpaypal
+  - link-relations/paymentmethod-delete
+  - link-relations/paymentmethod-updatecreditcard
+  - link-relations/paymentmethod-updatedefaults
+  - link-relations/paymentmethod-updatepaypal
   - link-relations/searchresult-category
   - link-relations/searchresult-event
   - link-relations/searchresult-metroarea
@@ -85,6 +99,9 @@ includes:
   - link-relations/sellerlisting-updateticketlocation
   - link-relations/sellerlisting-updateticketprice
   - link-relations/sellerlisting-updatetickettype
+  - link-relations/user-addresses
+  - link-relations/user-paymentmethods
+  - link-relations/user-sellerlistings
   - link-relations/venue-events
   - link-relations/venue-metroarea
   - link-relations/viagogo-countries
@@ -93,6 +110,7 @@ includes:
   - link-relations/viagogo-languages
   - link-relations/viagogo-metroareas
   - link-relations/viagogo-search
+  - link-relations/viagogo-user
   - link-relations/viagogo-venues
 
 search: true

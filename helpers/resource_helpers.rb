@@ -230,6 +230,50 @@ module ResourceHelpers
     }
   }
 
+  USER ||= {
+    "full_name" => ADDRESS_SNAPSHOT["full_name"],
+    "email" => "joe.smith@email.com",
+    "primary_phone" => "+447654321098",
+    "email_optin" => false,
+    "_links" => {
+      "self" => {
+        "href" => "https://api.viagogo.net/v2/user",
+        "title" => "Account Settings",
+        "templated" => false
+      },
+      "user:update" => {
+        "href" => "https://api.viagogo.net/v2/user",
+        "title" => nil,
+        "templated" => false
+      },
+      "user:addresses" => {
+        "href" => "https://api.viagogo.net/v2/addresses",
+        "title" => "Addresses",
+        "templated" => false
+      },
+      "user:paymentmethods" => {
+        "href" => "https://api.viagogo.net/v2/paymentmethods",
+        "title" => "Payment Methods",
+        "templated" => false
+      },
+      "user:purchases" => {
+        "href" => "https://api.viagogo.net/v2/purchases",
+        "title" => "Purchases",
+        "templated" => false
+      },
+      "user:sales" => {
+        "href" => "https://api.viagogo.net/v2/sales",
+        "title" => "Sales",
+        "templated" => false
+      },
+      "user:sellerlistings" => {
+        "href" => "https://api.viagogo.net/v2/sellerlistings",
+        "title" => "Listings",
+        "templated" => false
+      }
+    }
+  }
+
   ADDRESS ||= {
     "id" => 34115,
     "full_name" => ADDRESS_SNAPSHOT["full_name"],
@@ -259,6 +303,42 @@ module ResourceHelpers
     },
     "_embedded" => {
       "country" => COUNTRY
+    }
+  }
+
+  PAYMENT_METHOD ||= {
+    "id" => 95698,
+    "details" => "************1111",
+    "type" => "CreditCard",
+    "type_description" => "Credit or Debit Card",
+    "buyer_method" => true,
+    "default_buyer_method" => false,
+    "seller_method" => false,
+    "default_seller_method" => false,
+    "_links" => {
+      "self" => {
+        "href" => "https://api.viagogo.net/v2/paymentmethods/95698",
+        "title" => nil,
+        "templated" => false
+      },
+      "paymentmethod:updatedefaults" => {
+        "href" => "https://api.viagogo.net/v2/paymentmethods/95698",
+        "title" => nil,
+        "templated" => false
+      },
+      "paymentmethod:updatecreditcard" => {
+        "href" => "https://api.viagogo.net/v2/paymentmethods/95698?paymentMethodType=CreditCard",
+        "title" => nil,
+        "templated" => false
+      },
+      "paymentmethod:delete" => {
+        "href" => "https://api.viagogo.net/v2/paymentmethods/95698",
+        "title" => nil,
+        "templated" => false
+      }
+    },
+    "_embedded" => {
+      "billing_address" => ADDRESS
     }
   }
 
@@ -755,5 +835,10 @@ module ResourceHelpers
     "viagogo:search" => ROOT["_links"]["viagogo:search"]["href"],
     "viagogo:user" => ROOT["_links"]["viagogo:user"]["href"],
     "viagogo:venues" => ROOT["_links"]["viagogo:venues"]["href"],
+    "user:addresses" => USER["_links"]["user:addresses"]["href"],
+    "user:paymentmethods" => USER["_links"]["user:paymentmethods"]["href"],
+    "user:purchases" => USER["_links"]["user:purchases"]["href"],
+    "user:sales" => USER["_links"]["user:sales"]["href"],
+    "user:sellerlistings" => USER["_links"]["user:sellerlistings"]["href"],
   }
 end

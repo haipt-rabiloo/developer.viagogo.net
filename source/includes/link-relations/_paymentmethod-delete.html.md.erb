@@ -1,0 +1,22 @@
+## paymentmethod:delete
+
+<%= curl('DELETE', PAYMENT_METHOD['_links']['paymentmethod:delete']['href']) %>
+
+~~~ csharp
+var api = new ViagogoClient("clientId",
+                            "clientSecret",
+                            new ProductHeaderValue("MyAwesomeApp"));
+await api.PaymentMethods.DeleteAsync(<%= PAYMENT_METHOD['id'] %>);
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+You can use a `DELETE` request on the href of this link to delete a
+payment_method for the current user.
+
+
+### Response
+
+No content (and `204` status code).

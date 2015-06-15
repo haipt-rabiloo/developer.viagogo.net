@@ -1,0 +1,24 @@
+## User
+
+An authenticated user.
+
+
+### Properties
+
+| **Name** | **Type** | **Description** |
+| `full_name` | `string` | The full name of the user. |
+| `email` | `string` | The email address of the user. |
+| `primary_phone` | `string` | The primary phone number of the user. |
+| `email_optin` | `boolean` | True if the user is signed up for the viagogo email newsletter; otherwise, false. |
+
+
+### Links
+
+| **Relation** | **Method** | **Templated** | **Description** |
+| `self` | `GET` | No | An authenticated user. |
+| [`user:update`](#userupdate) | `PATCH` | No | Update the settings for this user. |
+| [`user:addresses`](#useraddresses) | `GET` | No | The collection of [`Addresses`](#addresses) associated with this user. |
+| [`user:paymentmethods`](#userpaymentmethods) | `GET` | No | The collection of [`PaymentMethods`](#paymentmethods) associated with this user. |
+| [`user:purchases`](#userpurchases) | `GET` | No | The collection of [`Purchases`](#purchases) associated with this user. |
+| [`user:sales`](#usersales) | `GET` | No | The collection of [`Sales`](#sales) associated with this user. |
+| [`user:sellerlistings`](#usersellerlistings) | `GET` | No | The collection of [`SellerListings`](#sellerlistings) associated with this user. |

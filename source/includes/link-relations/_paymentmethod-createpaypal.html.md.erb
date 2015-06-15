@@ -1,0 +1,30 @@
+## paymentmethod:createpaypal
+
+<%= curl('POST', USER['_links']['user:paymentmethods']['href'] + '?paymentmethodtype=Paypal') %>
+
+~~~ csharp
+// TODO
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+<%= json(:payment_method) %>
+
+You can use a `POST` request on the href of this link to add PayPal account to
+the current user's payment methods.
+
+
+### Parameters
+
+| **Name** | **Type** | **Required** | **Description** |
+| `email` | `string` | Yes | The email address of the PayPal account. |
+| `billing_address_id` | `int` | Yes | The identifier of the billing address for the credit card. |
+| `default_buyer_method` | `boolean` | No | If set to true, this will update the specified payment method to be the user's default payment method for purchases. If set to false or null, this will field will be ignored. |
+| `default_seller_method` | `boolean` | No | If set to true, this will update the specified payment method to be the user's default payment method for sales. If set to false or null, this will field will be ignored. |
+
+
+### Response
+
+The newly created [`PaymentMethod`](#paymentmethod).

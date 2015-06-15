@@ -1,0 +1,30 @@
+## paymentmethod:updatepaypal
+
+<%= curl('PUT', PAYMENT_METHOD['_links']['self']['href'] + '?paymentmethodtype=Paypal') %>
+
+~~~ csharp
+// TODO
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+<%= json(:payment_method) %>
+
+You can use a `PUT` request on the href of this link to update the current
+user's PayPal account.
+
+
+### Parameters
+
+| **Name** | **Type** | **Required** | **Description** |
+| `email` | `string` | Yes | The email address of the PayPal account. |
+| `billing_address_id` | `int` | Yes | The identifier of the billing address for the credit card. |
+| `default_buyer_method` | `boolean` | No | If set to true, this will update the specified payment method to be the user's default payment method for purchases. If set to false or null, this will field will be ignored. |
+| `default_seller_method` | `boolean` | No | If set to true, this will update the specified payment method to be the user's default payment method for sales. If set to false or null, this will field will be ignored. |
+
+
+### Response
+
+The updated [`PaymentMethod`](#paymentmethod).

@@ -1,0 +1,25 @@
+## user:addresses
+
+<%= curl('GET', USER['_links']['user:addresses']['href']) %>
+
+~~~ csharp
+var api = new ViagogoClient("clientId",
+                            "clientSecret",
+                            new ProductHeaderValue("MyAwesomeApp"));
+var addresses = await api.Addresses.GetAllAsync();
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+<%= json_paged_resource(:address, "user:addresses") %>
+
+You can `GET` the href of this link to retrieve the [`Addresses`](#addresses)
+resource that contains the current user's addresses.
+
+
+### Response
+
+Returns the [`Addresses`](#addresses) resource that contains current user's
+addresses.

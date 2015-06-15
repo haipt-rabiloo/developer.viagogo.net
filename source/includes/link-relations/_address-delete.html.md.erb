@@ -1,0 +1,22 @@
+## address:delete
+
+<%= curl('DELETE', ADDRESS['_links']['address:delete']['href']) %>
+
+~~~ csharp
+var api = new ViagogoClient("clientId",
+                            "clientSecret",
+                            new ProductHeaderValue("MyAwesomeApp"));
+await api.Addresses.DeleteAsync(<%= ADDRESS['id'] %>);
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+You can use a `DELETE` request on the href of this link to delete an address for
+the current user.
+
+
+### Response
+
+No content (and `204` status code).
