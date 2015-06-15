@@ -20,6 +20,7 @@ includes:
   - getting-started/search-for-events
   - getting-started/direct-users-to-website
   - getting-started/creating-listings
+  - getting-started/updating-listings
 
   - authentication
   - basic-types
