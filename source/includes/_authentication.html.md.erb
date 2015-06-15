@@ -12,12 +12,15 @@ are required for authentication.
 
 <aside class="notice">
   <strong>Tokens are passwords.</strong>
-  <p>Keep in mind that your application's Client ID and Client Secret and all access tokens should be considered as sensitive as passwords and should not be shared.</p>
+  <p>Keep in mind that your application's Client ID and Client Secret and all
+access tokens should be considered as sensitive as passwords and should not be
+shared.</p>
 </aside>
 
 <aside class="notice">
   <strong>SSL absolutely required</strong>
-  <p>OAuth2 is only secure if it is used over SSL so all requests to authentication and API endpoints must use HTTPs.</p>
+  <p>OAuth2 is only secure if it is used over SSL so all requests to
+authentication and API endpoints must use HTTPs.</p>
 </aside>
 
 
@@ -130,3 +133,5 @@ Scopes allow your applications to specify exactly what type of access is needed.
 | `read:user` | Grants read access to the user’s account information, addresses, payment methods and purchases. |
 | `write:user` | Grants write access to the user’s account information, addresses and payment methods. |
 | `write:purchases` | Grants write access to the user's purchases. This allows user's to use your application to purchase listings. |
+| `read:sellerlistings` | Grants read access to the user’s listings. |
+| `write:sellerlistings` | Grants write access to the user’s listings. This allows user's to use your application to create and update listings. |

@@ -1,0 +1,64 @@
+## Creating Listings
+
+API v2 enables your application to create listings on behalf of users. This
+example assumes that your [application has an access token for a user](#) and
+that the token has the appropriate [scopes](#scopes) for read and write access
+to the user's listings.
+
+> **1. Find the Event that you want to list tickets for**
+
+<%= curl('GET', EVENT['_links']['self']['href']) %>
+
+~~~ csharp
+var @event = await api.Events.GetAsync(<%= EVENT['id'] %>);
+~~~
+
+~~~ ruby
+event = api.get_event <%= EVENT['id'] %>
+~~~
+
+> **2. Get the constraints for listings on that event**
+
+<%= curl('GET', EVENT['_links']['event:listingconstraints']['href']) %>
+
+~~~ csharp
+var constraints = await api.Hypermedia.GetAsync<ListingConstraints>(@event.ListingConstraintsLink);
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+> **3. Create the listing**
+
+~~~ shell
+curl -X POST "<%= EVENT['_links']['event:createsellerlisting']['href'] %>"
+     -H "User-Agent: MyAwesomeApp"
+     -H "Authorization: Bearer <%= ResourceHelpers::CLIENT_CREDENTIALS_TOKEN["access_token"] %>"
+     -d '{"seating":{"section":"107","row":"A","seat_from":"1","seat_to":"4"},"ticket_price":{"amount":25.65,"currency_code":"USD"},"face_value":{"amount":22.62,"currency_code":"EUR"},"ticket_type":"ETicket","split_type":"Any","number_of_tickets":2,"guarantee_payment_method_id":95698}'
+~~~
+
+~~~ csharp
+// TODO
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+<%= json(:seller_listing) %>
+
+### 1. Find the Event that you want to list tickets for
+
+Find the [`Event`](#event) you are interested in using the steps outlined
+[here](#searchforevents).
+
+### 2. Get the constraints for listings on that event
+
+Follow the [`event:listingconstraints`](#eventlistingconstraints) link to get
+the [`ListingConstraints`](#listingconstraints) that your listing must meet.
+
+### 3. Create the listing
+
+Follow the [`event:createsellerlisting`](#eventcreatesellerlisting) link on the
+[`Event`](#event) resource to create your listing.

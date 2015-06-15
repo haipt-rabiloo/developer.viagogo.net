@@ -57,3 +57,22 @@ Represents a snapshot of an Address resource at a particular point in time.
 | `postal_code` | `string` | The postal code for the address. |
 | `country_code` | `string` | The two-letter [ISO 3166](http://en.wikipedia.org/wiki/ISO_3166) code for the country where the address is located. |
 | `country_name` | `string` | The name of the country where the address is located. |
+
+
+## Section
+
+| **Name** | **Type** | **Description** |
+| `name` | `string` | The name of the section. |
+| `free_text_row` | `boolean` | True if this section allows any text for a row; Otherwise, false.
+| `rows` | [`Row`[]](#row) | The available rows in this section. |
+
+
+## Row
+
+| **Name** | **Type** | **Description** |
+| `name` | `string` | The name of the row. |
+
+
+## PaymentMethod Types
+
+A string that signifies the type of a [`PaymentMethod`](#paymentmethod). Can be one of `CreditCard`, or `PayPal`.

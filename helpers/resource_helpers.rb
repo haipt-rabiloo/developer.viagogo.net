@@ -100,6 +100,12 @@ module ResourceHelpers
     "display" => "$5.35"
   }
 
+  MONEY_PROCEEDS ||= {
+    "amount" => 22.58,
+    "currency_code" => "USD",
+    "display" => "$22.58"
+  }
+
   MONEY_ZERO ||= {
     "amount" => 0,
     "currency_code" => "USD",
@@ -224,6 +230,131 @@ module ResourceHelpers
     }
   }
 
+  USER ||= {
+    "full_name" => ADDRESS_SNAPSHOT["full_name"],
+    "email" => "joe.smith@email.com",
+    "primary_phone" => "+447654321098",
+    "email_optin" => false,
+    "_links" => {
+      "self" => {
+        "href" => "https://api.viagogo.net/v2/user",
+        "title" => "Account Settings",
+        "templated" => false
+      },
+      "user:update" => {
+        "href" => "https://api.viagogo.net/v2/user",
+        "title" => nil,
+        "templated" => false
+      },
+      "user:addresses" => {
+        "href" => "https://api.viagogo.net/v2/addresses",
+        "title" => "Addresses",
+        "templated" => false
+      },
+      "user:paymentmethods" => {
+        "href" => "https://api.viagogo.net/v2/paymentmethods",
+        "title" => "Payment Methods",
+        "templated" => false
+      },
+      "user:purchases" => {
+        "href" => "https://api.viagogo.net/v2/purchases",
+        "title" => "Purchases",
+        "templated" => false
+      },
+      "user:sales" => {
+        "href" => "https://api.viagogo.net/v2/sales",
+        "title" => "Sales",
+        "templated" => false
+      },
+      "user:sellerlistings" => {
+        "href" => "https://api.viagogo.net/v2/sellerlistings",
+        "title" => "Listings",
+        "templated" => false
+      }
+    }
+  }
+
+  ADDRESS ||= {
+    "id" => 34115,
+    "full_name" => ADDRESS_SNAPSHOT["full_name"],
+    "default" => true,
+    "address_1" => ADDRESS_SNAPSHOT["address_1"],
+    "address_2" => ADDRESS_SNAPSHOT["address_2"],
+    "address_3" => ADDRESS_SNAPSHOT["address_3"],
+    "city" => ADDRESS_SNAPSHOT["city"],
+    "state_province" => ADDRESS_SNAPSHOT["state_province"],
+    "postal_code" => ADDRESS_SNAPSHOT["postal_code"],
+    "_links" => {
+      "self" => {
+        "href" => "https://api.viagogo.net/v2/addresses/34115",
+        "title" => nil,
+        "templated" => false
+      },
+      "address:update" => {
+        "href" => "https://api.viagogo.net/v2/addresses/34115",
+        "title" => nil,
+        "templated" => false
+      },
+      "address:delete" => {
+        "href" => "https://api.viagogo.net/v2/addresses/34115",
+        "title" => nil,
+        "templated" => false
+      }
+    },
+    "_embedded" => {
+      "country" => COUNTRY
+    }
+  }
+
+  PAYMENT_METHOD ||= {
+    "id" => 95698,
+    "details" => "************1111",
+    "type" => "CreditCard",
+    "type_description" => "Credit or Debit Card",
+    "buyer_method" => true,
+    "default_buyer_method" => false,
+    "seller_method" => false,
+    "default_seller_method" => false,
+    "_links" => {
+      "self" => {
+        "href" => "https://api.viagogo.net/v2/paymentmethods/95698",
+        "title" => nil,
+        "templated" => false
+      },
+      "paymentmethod:updatedefaults" => {
+        "href" => "https://api.viagogo.net/v2/paymentmethods/95698",
+        "title" => nil,
+        "templated" => false
+      },
+      "paymentmethod:updatecreditcard" => {
+        "href" => "https://api.viagogo.net/v2/paymentmethods/95698?paymentMethodType=CreditCard",
+        "title" => nil,
+        "templated" => false
+      },
+      "paymentmethod:delete" => {
+        "href" => "https://api.viagogo.net/v2/paymentmethods/95698",
+        "title" => nil,
+        "templated" => false
+      }
+    },
+    "_embedded" => {
+      "billing_address" => ADDRESS
+    }
+  }
+
+  PAYMENT_METHOD_PAYPAL ||= {
+    "id" => PAYMENT_METHOD["id"],
+    "details" => USER["email"],
+    "type" => "PayPal",
+    "type_description" => "PayPal",
+    "buyer_method" => PAYMENT_METHOD["buyer_method"],
+    "default_buyer_method" => PAYMENT_METHOD["default_buyer_method"],
+    "seller_method" => PAYMENT_METHOD["seller_method"],
+    "default_seller_method" => PAYMENT_METHOD["default_seller_method"],
+    "_links" => PAYMENT_METHOD["_links"],
+    "_embedded" => PAYMENT_METHOD["_embedded"]
+  }
+
   METRO_AREA ||={
     "id" =>  65,
     "name" =>  "London",
@@ -324,10 +455,30 @@ module ResourceHelpers
         "href" => "http://www.viagogo.co.uk/E-735139",
         "title" => nil,
         "templated" => false
+      },
+      "event:listingconstraints" => {
+        "href" => "https://api.viagogo.net/v2/events/735139/listingconstraints",
+        "title" => nil,
+        "templated" => false
+      },
+      "event:createsellerlisting" => {
+        "href" => "https://api.viagogo.net/v2/events/735139/sellerlistings",
+        "title" => "Sell Tickets",
+        "templated" => false
       }
     },
     "_embedded" => {
       "venue" => EMBEDDED_VENUE
+    }
+  }
+
+  EMBEDDED_EVENT ||= {
+    "id" => EVENT["id"],
+    "name" => EVENT["name"],
+    "start_date" => EVENT["start_date"],
+    "date_confirmed" => EVENT["date_confirmed"],
+    "_links" => {
+      "self" => EVENT["_links"]["self"]
     }
   }
 
@@ -495,6 +646,12 @@ module ResourceHelpers
     }
   }
 
+  SPLIT_TYPE ||= {
+    "type" => "Any",
+    "name" => "Any",
+    "description" => "Allow the tickets to be split up in any way"
+  }
+
   LISTING ||= {
     "id" => 22096065,
     "number_of_tickets" => 1,
@@ -538,6 +695,130 @@ module ResourceHelpers
     }
   }
 
+  SELLER_LISTING ||= {
+    "id" => 22096065,
+    "created_at" => "2015-06-12T15:05:35+01:00",
+    "number_of_tickets" => 2,
+    "display_number_of_tickets" => nil,
+    "seating" => SEATING,
+    "face_value" => MONEY_EURO,
+    "ticket_price" => MONEY,
+    "ticket_proceeds" => MONEY_PROCEEDS,
+    "_links" => {
+      "self" => {
+        "href" => "https://api.viagogo.net/v2/sellerlistings/22096065",
+        "title" => nil,
+        "templated" => false
+      },
+      "sellerlisting:constraints" => {
+        "href" => "https://api.viagogo.net/v2/sellerlistings/22096065/constraints",
+        "title" => nil,
+        "templated" => false
+      },
+      "sellerlisting:updatetickettype" => {
+        "href" => "https://api.viagogo.net/v2/sellerlistings/22096065",
+        "title" => nil,
+        "templated" => false
+      },
+      "sellerlisting:updateticketprice" => {
+        "href" => "https://api.viagogo.net/v2/sellerlistings/22096065",
+        "title" => nil,
+        "templated" => false
+      },
+      "sellerlisting:updatesplittype" => {
+        "href" => "https://api.viagogo.net/v2/sellerlistings/22096065",
+        "title" => nil,
+        "templated" => false
+      },
+      "sellerlisting:updatenumberoftickets" => {
+        "href" => "https://api.viagogo.net/v2/sellerlistings/22096065",
+        "title" => nil,
+        "templated" => false
+      },
+      "sellerlisting:updateseating" => {
+        "href" => "https://api.viagogo.net/v2/sellerlistings/22096065",
+        "title" => nil,
+        "templated" => false
+      },
+      "sellerlisting:updateticketlocation" => {
+        "href" => "https://api.viagogo.net/v2/sellerlistings/22096065",
+        "title" => nil,
+        "templated" => false
+      },
+      "sellerlisting:updatenotes" => {
+        "href" => "https://api.viagogo.net/v2/sellerlistings/22096065",
+        "title" => nil,
+        "templated" => false
+      },
+      "sellerlisting:unpublish" => {
+        "href" => "https://api.viagogo.net/v2/sellerlistings/22096065",
+        "title" => nil,
+        "templated" => false
+      },
+      "sellerlisting:delete" => {
+        "href" => "https://api.viagogo.net/v2/sellerlistings/22096065",
+        "title" => "Delete Listing",
+        "templated" => false
+      },
+      "sellerlisting:updatefacevalue" => {
+        "href" => "https://api.viagogo.net/v2/sellerlistings/22096065",
+        "title" => nil,
+        "templated" => false
+      },
+      "sellerlisting:ticketlocation" => {
+        "href" => "https://api.viagogo.net/v2/addresses/34115",
+        "title" => "Ticket Location Address",
+        "templated" => false
+      }
+    },
+    "_embedded" => {
+      "event" => EMBEDDED_EVENT,
+      "venue" => EMBEDDED_VENUE,
+      "ticket_type" => TICKET_TYPE,
+      "split_type" => SPLIT_TYPE,
+      "listing_notes" => [
+        LISTING_NOTE
+      ]
+    }
+  }
+
+  LISTING_CONSTRAINTS ||= {
+    "min_ticket_price" => MONEY,
+    "max_ticket_price" => MONEY,
+    "min_number_of_tickets" => 1,
+    "max_number_of_tickets" => 99,
+    "ticket_location_required" => true,
+    "seats_required" => false,
+    "sections" => [
+      {
+        "name" => "General Admission",
+        "free_text_row" => false,
+        "rows" => []
+      }
+    ],
+    "_links" => {
+      "self" => {
+        "href" => "https://api.viagogo.net/v2/events/#{EVENT["id"]}/listingconstraints",
+        "title" => nil,
+        "templated" => false
+      }
+    },
+    "_embedded" => {
+      "ticket_types" => [
+        TICKET_TYPE
+      ],
+      "split_types" => [
+        SPLIT_TYPE
+      ],
+      "listing_notes" => [
+        LISTING_NOTE
+      ],
+      "currencies" => [
+        CURRENCY
+      ]
+    }
+  }
+
   SEARCH_RESULT ||= {
     "title" => "One Direction",
     "type" => "Category",
@@ -567,5 +848,10 @@ module ResourceHelpers
     "viagogo:search" => ROOT["_links"]["viagogo:search"]["href"],
     "viagogo:user" => ROOT["_links"]["viagogo:user"]["href"],
     "viagogo:venues" => ROOT["_links"]["viagogo:venues"]["href"],
+    "user:addresses" => USER["_links"]["user:addresses"]["href"],
+    "user:paymentmethods" => USER["_links"]["user:paymentmethods"]["href"],
+    "user:purchases" => USER["_links"]["user:purchases"]["href"],
+    "user:sales" => USER["_links"]["user:sales"]["href"],
+    "user:sellerlistings" => USER["_links"]["user:sellerlistings"]["href"],
   }
 end

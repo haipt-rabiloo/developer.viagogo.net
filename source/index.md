@@ -19,11 +19,15 @@ includes:
   - getting-started/get-events-in-genre
   - getting-started/search-for-events
   - getting-started/direct-users-to-website
+  - getting-started/creating-listings
+  - getting-started/updating-listings
 
   - authentication
   - basic-types
 
   - resources
+  - resources/address
+  - resources/addresses
   - resources/categories
   - resources/category
   - resources/countries
@@ -34,21 +38,31 @@ includes:
   - resources/events
   - resources/language
   - resources/languages
+  - resources/listing-constraints
   - resources/listing-note
   - resources/listing-notes
   - resources/listing
   - resources/listings
   - resources/metro-area
   - resources/metro-areas
+  - resources/payment-method
+  - resources/payment-methods
   - resources/root
   - resources/search-result
   - resources/search-results
+  - resources/seller-listing
+  - resources/seller-listings
+  - resources/split-type
   - resources/ticket-type
   - resources/ticket-types
+  - resources/user
   - resources/venue
   - resources/venues
 
   - link-relations
+  - link-relations/address-create
+  - link-relations/address-delete
+  - link-relations/address-update
   - link-relations/category-children
   - link-relations/category-events
   - link-relations/category-image
@@ -56,6 +70,8 @@ includes:
   - link-relations/category-performers
   - link-relations/category-webpage
   - link-relations/event-category
+  - link-relations/event-createsellerlisting
+  - link-relations/event-listingconstraints
   - link-relations/event-listings
   - link-relations/event-localwebpage
   - link-relations/event-webpage
@@ -64,10 +80,30 @@ includes:
   - link-relations/listing-webpage
   - link-relations/metroarea-events
   - link-relations/metroarea-venues
+  - link-relations/paymentmethod-createcreditcard
+  - link-relations/paymentmethod-createpaypal
+  - link-relations/paymentmethod-delete
+  - link-relations/paymentmethod-updatecreditcard
+  - link-relations/paymentmethod-updatedefaults
+  - link-relations/paymentmethod-updatepaypal
   - link-relations/searchresult-category
   - link-relations/searchresult-event
   - link-relations/searchresult-metroarea
   - link-relations/searchresult-venue
+  - link-relations/sellerlisting-constraints
+  - link-relations/sellerlisting-publish
+  - link-relations/sellerlisting-ticketlocation
+  - link-relations/sellerlisting-unpublish
+  - link-relations/sellerlisting-updatefacevalue
+  - link-relations/sellerlisting-updatenotes
+  - link-relations/sellerlisting-updatenumberoftickets
+  - link-relations/sellerlisting-updatesplittype
+  - link-relations/sellerlisting-updateticketlocation
+  - link-relations/sellerlisting-updateticketprice
+  - link-relations/sellerlisting-updatetickettype
+  - link-relations/user-addresses
+  - link-relations/user-paymentmethods
+  - link-relations/user-sellerlistings
   - link-relations/venue-events
   - link-relations/venue-metroarea
   - link-relations/viagogo-countries
@@ -76,6 +112,7 @@ includes:
   - link-relations/viagogo-languages
   - link-relations/viagogo-metroareas
   - link-relations/viagogo-search
+  - link-relations/viagogo-user
   - link-relations/viagogo-venues
 
 search: true

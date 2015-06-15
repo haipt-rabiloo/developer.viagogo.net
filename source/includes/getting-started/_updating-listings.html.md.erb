@@ -1,0 +1,74 @@
+## Updating Listings
+
+API v2 enables your application to update listings on behalf of users. This
+example assumes that your [application has an access token for a user](#) and
+that the token has the appropriate [scopes](#scopes) for read and write access
+to the user's listings.
+
+> **1. Find the SellerListing that you want to edit**
+
+<%= curl('GET', SELLER_LISTING['_links']['self']['href']) %>
+
+~~~ csharp
+// TODO
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+> **2. Get the constraints for updating the listing**
+
+<%= curl('GET', SELLER_LISTING['_links']['sellerlisting:constraints']['href']) %>
+
+~~~ csharp
+// TODO
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+> **3. Update the listing**
+
+~~~ shell
+curl -X PATCH "<%= SELLER_LISTING['_links']['sellerlisting:updateticketprice']['href'] %>"
+     -H "User-Agent: MyAwesomeApp"
+     -H "Authorization: Bearer <%= ResourceHelpers::CLIENT_CREDENTIALS_TOKEN["access_token"] %>"
+     -d '{"ticket_price":{"amount":25.65,"currency_code":"USD"}}'
+~~~
+
+~~~ csharp
+// TODO
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+<%= json(:seller_listing) %>
+
+### 1. Find the SellerListing that you want to edit
+
+Find the [`SellerListing`](#sellerlisting) you want to update.
+
+<aside class="notice">
+  <strong>Use <code>SellerListing</code> links to see what properties can be updated.</strong>
+  <p>The API returns links on a <code>SellerListing</code> resource that tell
+your application whether particular properties can be updated. For example,
+<code>listing.ticket_price</code> can only be updated when the resource has a
+<a href="#sellerlistingupdateticketprice"><code>sellerlisting:updateticketprice</code></a>
+link on it.</p>
+</aside>
+
+### 2.  Get the constraints for updating the listing
+
+Follow the [`sellerlisting:constraints`](#sellerlistingconstraints) link to get
+the [`ListingConstraints`](#listingconstraints) that your listing must meet.
+
+### 3. Update the listing
+
+Follow the link on the [`SellerListing`](#sellerlisting) resource that
+corresponds to the update you want to make. For example, follow the
+[`sellerlisting:updateseating`](#sellerlistingupdateseating) to update the
+seating information of a listing.

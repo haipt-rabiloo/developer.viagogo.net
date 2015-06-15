@@ -1,0 +1,35 @@
+## address:create
+
+<%= curl('POST', USER['_links']['user:addresses']['href']) %>
+
+~~~ csharp
+// TODO
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+<%= json(:address) %>
+
+You can use a `POST` request on the href of this link to add an address to the
+current user's addresses.
+
+
+### Parameters
+
+| **Name** | **Type** | **Required** | **Description** |
+| `full_name` | `string` | Yes | The full name of the recipient. |
+| `default` | `boolean` | No | Specifies whether the address is the default address for this user. |
+| `address_1` | `string` | Yes | The first line of the address. |
+| `address_2` | `string` | No | The second line of the address. |
+| `address_3` | `string` | No | The third line of the address. |
+| `city` | `string` | Yes | The name of the city where the address is located. |
+| `state_province` | `string` | Yes |  The name of the State or Province where the address is located. |
+| `postal_code` | `string` | Yes | The postal code for the address. |
+| `country_code` | `string` | Yes | The 2 character ISO code that identifies the country in which the address is located. |
+
+
+### Response
+
+The newly created [`Address`](#address).

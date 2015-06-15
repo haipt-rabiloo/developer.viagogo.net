@@ -1,0 +1,30 @@
+## PaymentMethod
+
+
+### Properties
+
+| **Name** | **Type** | **Description** |
+| `id` | `int` | The payment method identifier |
+| `details` | `string` | The obfuscated details of the payment method |
+| `type` | `string` | The type of the payment method. See [PaymentMethod Types](#paymentmethodtypes). |
+| `type_description` | `string` | A localised string describing the type of payment method. |
+| `buyer_method` | `boolean` | True if the payment method can be used for purchasing listings; otherwise, false. |
+| `default_buyer_method` | `boolean` | True if the payment method is the user's default payment method for purchasing listings. |
+| `seller_method` | `boolean` | True if the payment method can be used for receiving payments; otherwise, false. |
+| `default_seller_method` | `boolean` | True if the payment method is the user's default payment method for receiving payments. |
+
+
+### Links
+
+| **Relation** | **Method** | **Templated** | **Description** |
+| `self` | `GET` | No | A user's payment method. |
+| [`paymentmethod:updatecreditcard`](#paymentmethodupdatecreditcard) | `PUT` | No | Update the current user's credit card details. |
+| [`paymentmethod:updatepaypal`](#paymentmethodupdatepaypal) | `PUT` | No | Update the current user's PayPal details. |
+| [`paymentmethod:updatedefaults`](#paymentmethodupdatedefaults) | `PATCH` | No | Update the default payment methods for the current user. |
+| [`paymentmethod:delete`](#paymentmethoddelete) | `DELETE` | No | Delete the current user's payment method. | 
+
+
+### Embedded
+
+| **Relation** | **Type** | **Optional** | **Description** |
+| `billing_address` | [`Address`](#address) | No | The billing address for this payment method. |

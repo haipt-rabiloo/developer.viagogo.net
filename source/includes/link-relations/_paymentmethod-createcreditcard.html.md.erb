@@ -1,0 +1,36 @@
+## paymentmethod:createcreditcard
+
+<%= curl('POST', USER['_links']['user:paymentmethods']['href'] + '?paymentmethodtype=CreditCard') %>
+
+~~~ csharp
+// TODO
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+<%= json(:payment_method) %>
+
+You can use a `POST` request on the href of this link to add credit card to the
+current user's payment methods.
+
+
+### Parameters
+
+| **Name** | **Type** | **Required** | **Description** |
+| `full_name` | `string` | Yes | The card holder's full name. |
+| `card_number` | `string` | Yes | The long card number of the credit card. |
+| `expiry_month` | `int` | Yes | The month that the card expires. Must be a value between 1 and 12. |
+| `expiry_year` | `int` | Yes | The year that the card expires. |
+| `start_month` | `int` | No | The month that the card was issued. Must be a value between 1 and 12. |
+| `start_year` | `int` | No | The year that the card was issued. |
+| `issue_number` | `string` | No | The credit card's issue number. |
+| `billing_address_id` | `int` | Yes | The identifier of the billing address for the credit card. |
+| `default_buyer_method` | `boolean` | No | If set to true, this will update the specified payment method to be the user's default payment method for purchases. If set to false or null, this will field will be ignored. |
+| `default_seller_method` | `boolean` | No | If set to true, this will update the specified payment method to be the user's default payment method for sales. If set to false or null, this will field will be ignored. |
+
+
+### Response
+
+The newly created [`PaymentMethod`](#paymentmethod).

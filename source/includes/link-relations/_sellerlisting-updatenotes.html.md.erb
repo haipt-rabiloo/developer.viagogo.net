@@ -1,0 +1,27 @@
+## sellerlisting:updateticketlocation
+
+<%= curl('GET', SELLER_LISTING['_links']['sellerlisting:updatenotes']['href']) %>
+
+~~~ csharp
+// TODO
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+<%= json(:seller_listing) %>
+
+You can use a PATCH request on the href of this link to update the listing notes
+for a [`SellerListing`](#sellerlisting).
+
+
+### Parameters
+
+| **Name** | **Type** | **Required** | **Description** |
+| `listing_note_ids` | `int`[] | No | The identifiers of the [`ListingNote`] resources for this listing. |
+
+
+### Response
+
+The updated [`SellerListing`](#sellerlisting) resource.

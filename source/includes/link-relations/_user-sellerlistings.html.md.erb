@@ -1,0 +1,23 @@
+## user:sellerlistings
+
+<%= curl('GET', USER['_links']['user:sellerlistings']['href']) %>
+
+~~~ csharp
+// TODO
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+<%= json_paged_resource(:seller_listing, "user:sellerlistings") %>
+
+You can `GET` the href of this link to retrieve the
+[`SellerListings`](#sellerlistings) resource that contains the current user's
+listings.
+
+
+### Response
+
+Returns the [`SellerListings`](#sellerlistings) resource that contains current 
+user's listings.

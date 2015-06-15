@@ -1,0 +1,32 @@
+## user:paymentmethods
+
+<%= curl('GET', USER['_links']['user:paymentmethods']['href']) %>
+
+~~~ csharp
+var api = new ViagogoClient("clientId",
+                            "clientSecret",
+                            new ProductHeaderValue("MyAwesomeApp"));
+var paymentMethods = await api.PaymentMethods.GetAllAsync();
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+<%= json_paged_resource(:payment_method, "user:paymentmethods") %>
+
+You can `GET` the href of this link to retrieve the
+[`PaymentMethods`](#paymentmethods) resource that contains the current user's
+payment methods.
+
+
+### Parameters
+
+| **Name**  **Type** | **Description** |
+| `type` | `string` | Filters results to only include payment methods with the specified comma-separated list of types. See [Payment Method Types](#paymentmethodtypes). |
+
+
+### Response
+
+Returns the [`PaymentMethods`](#paymentmethods) resource that contains current 
+user's payment methods.

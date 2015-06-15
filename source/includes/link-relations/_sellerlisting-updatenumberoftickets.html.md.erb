@@ -1,0 +1,28 @@
+## sellerlisting:updatenumberoftickets
+
+<%= curl('GET', SELLER_LISTING['_links']['sellerlisting:updatenumberoftickets']['href']) %>
+
+~~~ csharp
+// TODO
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+<%= json(:seller_listing) %>
+
+You can use a PATCH request on the href of this link to update the number of
+tickets available for purchase.
+
+
+### Parameters
+
+| **Name** | **Type** | **Required** | **Description** |
+| `number_of_tickets` | `int` | No | The number of tickets available for purchase. |
+| `display_number_of_tickets` | `int` | No | The number of tickets that should be displayed to buyers as available for purchase. |
+
+
+### Response
+
+The updated [`SellerListing`](#sellerlisting) resource.

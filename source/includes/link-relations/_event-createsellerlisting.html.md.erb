@@ -1,0 +1,41 @@
+## event:createsellerlisting
+
+~~~ shell
+curl -X POST "<%= EVENT['_links']['event:createsellerlisting']['href'] %>"
+     -H "User-Agent: MyAwesomeApp"
+     -H "Authorization: Bearer <%= ResourceHelpers::CLIENT_CREDENTIALS_TOKEN["access_token"] %>"
+     -d '{"seating":{"section":"107","row":"A","seat_from":"1","seat_to":"4"},"ticket_price":{"amount":25.65,"currency_code":"USD"},"face_value":{"amount":22.62,"currency_code":"EUR"},"ticket_type":"ETicket","split_type":"Any","number_of_tickets":2,"guarantee_payment_method_id":95698}'
+~~~
+
+~~~ csharp
+// TODO
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+<%= json(:seller_listing) %>
+
+You can use a `POST` request on the href of this link to create a
+[`SellerListing`](#sellerlisting) for this event.
+
+
+### Parameters
+
+| **Name** | **Type** | **Required** | **Description** |
+| `number_of_tickets` | `int` | Yes | The number of tickets available for purchase. |
+| `seating` | [`seating`](#seating) | Yes | The seating information for the ticket(s) in this listing. |
+| `ticket_price` | [`money`](#money) | Yes | The price of each ticket in the listing. |
+| `ticket_type` | `string` | Yes | The type of ticket(s) in this listing. Can be `PaperTicket`, `ETicket`, `PaperTicketNameChange`, `TesseraDelTifoso`, `SeasonCard`, `PaperTicketNameChange`, `ETicketNameChange` or `ETicketThirdPartyPreUpload`. |
+| `split_type` | `string` | Yes | The way that the ticket(s) are allowed to be split up when sold. Can be `Any`, `None`, `AvoidOne`, `AvoidOneAndThree`, or `Pairs`. |
+| `guarantee_payment_method_id` | `int` | Yes | The identifier of the credit card that should be used to guarantee your tickets. |
+| `listing_note_ids` | `int`[] | No | The identifiers of the [`ListingNote`] resources for this listing. |
+| `face_value` | [`money`](#money) | No | The price printed on the ticket, not including any booking fees. |
+| `display_number_of_tickets` | `int` | No | The number of tickets that should be displayed to buyers as available for purchase. |
+| `ticket_location_address_id` | `int` | No | The identifier of the address where the ticket(s) are located. |
+
+### Response
+
+Returns the [`SellerListing`](#sellerlisting) resource that is created for the
+event.

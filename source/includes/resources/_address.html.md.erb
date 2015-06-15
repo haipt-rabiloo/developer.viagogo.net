@@ -1,0 +1,30 @@
+## Address
+
+An address is a delivery, pickup or billing address associated with the current user.
+
+
+### Properties
+
+| **Name** | **Type** | **Description** |
+| `id` | `int` | The address identifier. |
+| `full_name` | `string` | The full name of the recipient. |
+| `address_1` | `string` | The first line of the address. |
+| `address_2` | `string` | The second line of the address. |
+| `address_3` | `string` | The third line of the address. |
+| `city` | `string` | The name of the city where the address is located. |
+| `state_province` | `string` | The name of the State or Province where the address is located. |
+| `postal_code` | `string` | The postal code for the address. |
+
+
+### Links
+
+| **Relation** | **Method** | **Templated** | **Description** |
+| `self` | `GET` | No | A user's address. |
+| [`address:update`](#addressupdate) | `PATCH` | No | Update the details of the current user's address. |
+| [`address:delete`](#addressdelete) | `DELETE` | No | Delete the current user's address. |
+
+
+### Embedded
+
+| **Relation** | **Type** | **Optional** | **Description** |
+| `country` | [`Country`](#country) | No | The Country where the address is located. |

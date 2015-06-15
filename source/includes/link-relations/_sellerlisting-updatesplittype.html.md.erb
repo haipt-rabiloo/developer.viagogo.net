@@ -1,0 +1,27 @@
+## sellerlisting:updatesplittype
+
+<%= curl('GET', SELLER_LISTING['_links']['sellerlisting:updatesplittype']['href']) %>
+
+~~~ csharp
+// TODO
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+<%= json(:seller_listing) %>
+
+You can use a PATCH request on the href of this link to update the way that
+tickets in the listing are allowed be split.
+
+
+### Parameters
+
+| **Name** | **Type** | **Required** | **Description** |
+| `split_type` | `string` | No | The way that the ticket(s) are allowed to be split up when sold. Can be `Any`, `None`, `AvoidOne`, `AvoidOneAndThree`, or `Pairs`. |
+
+
+### Response
+
+The updated [`SellerListing`](#sellerlisting) resource.

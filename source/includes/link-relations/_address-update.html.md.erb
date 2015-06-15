@@ -1,0 +1,35 @@
+## address:update
+
+<%= curl('PATCH', ADDRESS['_links']['address:update']['href']) %>
+
+~~~ csharp
+// TODO
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+<%= json(:address) %>
+
+You can use a `PATCH` request on the href of this link to update one of the
+current user's addresses.
+
+
+### Parameters
+
+| **Name** | **Type** | **Required** | **Description** |
+| `full_name` | `string` | No | The full name of the recipient. |
+| `default` | `boolean` | No | Specifies whether the address is the default address for this user. |
+| `address_1` | `string` | No | The first line of the address. |
+| `address_2` | `string` | No | The second line of the address. |
+| `address_3` | `string` | No | The third line of the address. |
+| `city` | `string` | No | The name of the city where the address is located. |
+| `state_province` | `string` | No |  The name of the State or Province where the address is located. |
+| `postal_code` | `string` | No | The postal code for the address. |
+| `country_code` | `string` | No | The 2 character ISO code that identifies the country in which the address is located. |
+
+
+### Response
+
+The updated [`Address`](#address).

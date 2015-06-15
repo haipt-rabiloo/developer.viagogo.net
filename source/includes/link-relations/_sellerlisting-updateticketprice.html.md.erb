@@ -1,0 +1,27 @@
+## sellerlisting:updateticketprice
+
+<%= curl('GET', SELLER_LISTING['_links']['sellerlisting:updateticketprice']['href']) %>
+
+~~~ csharp
+// TODO
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+<%= json(:seller_listing) %>
+
+You can use a PATCH request on the href of this link to update the price of each
+ticket in a listing.
+
+
+### Parameters
+
+| **Name** | **Type** | **Required** | **Description** |
+| `ticket_price` | [`money`](#money) | No | The price of each ticket in the listing. |
+
+
+### Response
+
+The updated [`SellerListing`](#sellerlisting) resource.
