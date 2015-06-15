@@ -1,6 +1,11 @@
 ## event:createsellerlisting
 
-<%= curl('POST', EVENT['_links']['event:createsellerlisting']['href']) %>
+~~~ shell
+curl -X POST "<%= EVENT['_links']['event:createsellerlisting']['href'] %>"
+     -H "User-Agent: MyAwesomeApp"
+     -H "Authorization: Bearer <%= ResourceHelpers::CLIENT_CREDENTIALS_TOKEN["access_token"] %>"
+     -d '{"seating":{"section":"107","row":"A","seat_from":"1","seat_to":"4"},"ticket_price":{"amount":25.65,"currency_code":"USD"},"face_value":{"amount":22.62,"currency_code":"EUR"},"ticket_type":"ETicket","split_type":"Any","number_of_tickets":2,"guarantee_payment_method_id":95698}'
+~~~
 
 ~~~ csharp
 // TODO

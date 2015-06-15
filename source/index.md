@@ -19,6 +19,7 @@ includes:
   - getting-started/get-events-in-genre
   - getting-started/search-for-events
   - getting-started/direct-users-to-website
+  - getting-started/creating-listings
 
   - authentication
   - basic-types

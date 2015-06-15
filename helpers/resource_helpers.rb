@@ -342,6 +342,19 @@ module ResourceHelpers
     }
   }
 
+  PAYMENT_METHOD_PAYPAL ||= {
+    "id" => PAYMENT_METHOD["id"],
+    "details" => USER["email"],
+    "type" => "PayPal",
+    "type_description" => "PayPal",
+    "buyer_method" => PAYMENT_METHOD["buyer_method"],
+    "default_buyer_method" => PAYMENT_METHOD["default_buyer_method"],
+    "seller_method" => PAYMENT_METHOD["seller_method"],
+    "default_seller_method" => PAYMENT_METHOD["default_seller_method"],
+    "_links" => PAYMENT_METHOD["_links"],
+    "_embedded" => PAYMENT_METHOD["_embedded"]
+  }
+
   METRO_AREA ||={
     "id" =>  65,
     "name" =>  "London",

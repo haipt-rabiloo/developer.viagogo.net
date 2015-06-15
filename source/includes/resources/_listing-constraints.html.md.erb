@@ -13,8 +13,9 @@ associated [`Event`](#event) must meet these constraints.
 | `min_number_of_tickets` | `int` | The minimum number of tickets available for purchase. |
 | `max_number_of_tickets` | `int` | The maximum number of tickets available for purchase. |
 | `ticket_location_required` | `boolean` | True if a ticket location is required for tickets; Otherwise, false. |
-| `seats_required` | `boolean` | True if seat-level information is required; Otherwise, false. |
+| `seats_required` | `boolean` | True if seat-level information (`seat_to` and `seat_from`) is required; Otherwise, false. |
 | `sections` | [`Section`[]](#section) | The valid section and row information. If no sections are specified then any text will be accepted for `section` and `row`. |
+
 
 ### Links
 
@@ -28,3 +29,17 @@ associated [`Event`](#event) must meet these constraints.
 | `split_type` | [`SplitType`](#splittype) | No | The way that tickets are allowed to be split up when sold. |
 | `listing_notes` | [`ListingNote`[]](#listingnotes) | No | The available notes for this listing. |
 | `currencies` | [`Currency`[]](#currency) | No | The valid currencies for the listing ticket price. |
+
+
+<aside id="sections-explained" class="notice">
+  <strong><code>sections</code> property explained.</strong>
+  <ul>
+    <li>If <code>sections</code> is null, then any <code>listing.section</code>
+text can be entered; Otherwise, <code>listing.section</code> must equal the
+<code>name</code> of one of the listed sections.</li>
+    <li>If <code>section.free_text_row</code> for the chosen is true for the
+chosen <a href="#section"><code>Section</code></a> then <code>listing.row</code>
+can be any text; Otherwise, <code>listing.row</code> must be equal the
+<code>name</code> of one of the <code>rows</code> for that section.</li>
+  </ul>
+</aside>
