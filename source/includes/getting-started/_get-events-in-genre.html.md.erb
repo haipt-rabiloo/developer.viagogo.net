@@ -18,6 +18,20 @@ api = GogoKit::Client.new(client_id: CLIENT_ID,
 root = api.get_root
 ~~~
 
+~~~ php
+$api = new Viagogo\ViagogoClient($clientId, $clientSecret);
+$api->setToken($api->getOAuthClient()->getClientAccessToken());
+
+root = api->getHalClient()->getRoot()
+~~~
+
+~~~ python
+api = ViagogoClient(YOUR_CLIENT_ID, YOUR_CLIENT_SECRET)
+api.set_token(api.oauth.get_client_access_token())
+
+root = api.hal.get_root()
+~~~
+
 > **2. Get the Genres:**
 
 <%= curl('GET', ROOT['_links']['viagogo:genres']['href']) %>
@@ -30,6 +44,14 @@ var genres = await api.Categories.GetAllGenresAsync();
 genres = api.get_genres
 ~~~
 
+~~~ php
+$genres = api->getCategoryClient()->getAllGenres()
+~~~
+
+~~~ python
+genres = api.category.get_genres()
+~~~
+
 > **3. Page through the Events in the Genre**
 
 <%= curl('GET', CATEGORY_GENRE['_links']['category:events']['href']) %>
@@ -40,6 +62,14 @@ var events = await api.Events.GetAllByCategoryAsync(genres[0].Id);
 
 ~~~ ruby
 events = api.get_events_by_category genres.items[0].id
+~~~
+
+~~~ php
+$events = api->getEventClient()->getEventsByCategory($genres->getItems()[0]->getId())
+~~~
+
+~~~ python
+events = api.event.get_events_by_category(genres.items[0].id)
 ~~~
 
 <%= json_paged_resource(:event, "category:events", 50000) %>

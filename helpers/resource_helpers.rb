@@ -4,7 +4,7 @@
 require 'json'
 
 module ResourceHelpers
-  def json(key, text = 'The above command returns JSON structured like this:')
+  def json(key, text = 'The above command returns an object structured like this:')
     hash = get_resource(key)
     hash = yield hash if block_given?
 
@@ -47,7 +47,7 @@ module ResourceHelpers
       }
     }
 
-    write_json(paged_resource, 'The above command returns JSON structured like this:')
+    write_json(paged_resource, 'The above command returns an object structured like this:')
   end
 
   def write_json(resource, text)

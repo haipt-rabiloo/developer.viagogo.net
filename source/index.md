@@ -5,6 +5,8 @@ language_tabs:
   - shell: cURL
   - csharp: C#
   - ruby: Ruby
+  - php: PHP
+  - python: Python
 
 toc_footers:
   - <a href='https://github.com/viagogo/developer.viagogo.net'>Source code</a>

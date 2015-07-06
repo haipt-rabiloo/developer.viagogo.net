@@ -93,6 +93,21 @@ api = GogoKit::Client.new(client_id: CLIENT_ID,
 root = api.get_root
 ~~~
 
+~~~ php
+$api = new Viagogo\ViagogoClient($clientId, $clientSecret);
+$api->setToken($api->getOAuthClient()->getClientAccessToken());
+
+root = api->getHalClient()->getRoot()
+~~~
+
+~~~ python
+api = ViagogoClient(YOUR_CLIENT_ID, YOUR_CLIENT_SECRET)
+api.set_token(api.oauth.get_client_access_token())
+
+root = api.hal.get_root()
+~~~
+
+
 <%= json(:root) %>
 
 The only URL that your application needs to know is the root endpoint, which is
@@ -115,7 +130,7 @@ for each action.
 | `GET` | Used for retrieving resources. |
 | `POST` | Used for creating resources. |
 | `PATCH` | Used for updating resources with partial JSON data. |
-| `PUT` | Used for replacing resources |
+| `PUT` | Used for replacing resources. |
 | `DELETE` | Used for deleting resources. |
 
 
@@ -222,6 +237,18 @@ event = event = api.get_event(<%= EVENT['id'] %>,
                                 'fields' => 'id,name,_embedded',
                                 'fields[venue]' => 'city'
                               })
+~~~
+
+~~~ python
+api = ViagogoClient(YOUR_CLIENT_ID, YOUR_CLIENT_SECRET)
+api.set_token(api.oauth.get_client_access_token())
+
+root = api.event.get_event(eventId, 
+  {
+    "fields": "id,name"
+    "fields[venue]": "city"
+  })
+
 ~~~
 
 <%= json(:sparse_event) %>
