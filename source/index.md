@@ -94,6 +94,7 @@ includes:
   - link-relations/searchresult-metroarea
   - link-relations/searchresult-venue
   - link-relations/sellerlisting-constraints
+  - link-relations/sellerlisting-delete
   - link-relations/sellerlisting-publish
   - link-relations/sellerlisting-ticketlocation
   - link-relations/sellerlisting-unpublish

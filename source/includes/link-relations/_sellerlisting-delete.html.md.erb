@@ -1,0 +1,25 @@
+## sellerlisting:delete
+
+<%= curl('DELETE', SELLER_LISTING['_links']['sellerlisting:delete']['href']) %>
+
+~~~ csharp
+var api = new ViagogoClient("clientId",
+                            "clientSecret",
+                            new ProductHeaderValue("MyAwesomeApp"));
+await api.PaymentMethods.DeleteAsync(<%= SELLER_LISTING['id'] %>);
+~~~
+
+~~~ ruby
+api = GogoKit::Client.new(client_id: CLIENT_ID,
+                          client_secret: CLIENT_SECRET,
+                          access_token: ACCESS_TOKEN)
+api.delete_seller_listing <%= SELLER_LISTING['id'] %>
+~~~
+
+You can use a `DELETE` request on the href of this link to delete a
+payment_method for the current user.
+
+
+### Response
+
+No content (and `204` status code).
