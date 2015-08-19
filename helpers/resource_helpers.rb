@@ -50,6 +50,41 @@ module ResourceHelpers
     write_json(paged_resource, 'The above command returns an object structured like this:')
   end
 
+  def json_paged_versioned_resource(key, embedded_key, rel, total_items = 100)
+    resource = get_resource(key)
+    embedded_resource = get_resource(embedded_key)
+
+    url = LINK_RELATION_HREFS[rel]
+
+    paged_versioned_resource = {
+      "total_items" => total_items,
+      "page" => 1,
+      "page_size" => 1,
+      "_links" => {
+        "self" => {
+          "href" => url + "?sort=resource_version&page_size=1",
+          "title" => nil,
+          "templated" => false
+        },
+        "next" => {
+          "href" => url + "?resource_version&min_resource_version=1234567890&page_size=1",
+          "title" => nil,
+          "templated" => false
+        }
+      },
+      "_embedded" => {
+        "deleted_items" => [
+          embedded_resource
+        ],
+        "items" => [
+          resource
+        ]
+      }
+    }
+
+    write_json(paged_versioned_resource, 'The above command returns an object structured like this:')
+  end
+
   def write_json(resource, text)
     "> #{text}\n\n" << "~~~ json\n#{JSON.pretty_generate(resource)}\n~~~"
   end
@@ -474,11 +509,25 @@ module ResourceHelpers
 
   EMBEDDED_EVENT ||= {
     "id" => EVENT["id"],
-    "name" => EVENT["name"],
+    "name" => "One Direction",
     "start_date" => EVENT["start_date"],
     "date_confirmed" => EVENT["date_confirmed"],
     "_links" => {
       "self" => EVENT["_links"]["self"]
+    }
+  }
+
+  DELETED_EMBEDDED_EVENT ||= {
+    "id" => 635139,
+    "name" => EVENT["name"],
+    "start_date" => "2015-01-24T18:30:00+01:00",
+    "date_confirmed" => EVENT["date_confirmed"],
+    "_links" => {
+      "self" => {
+        "href" => "https://api.viagogo.net/v2/events/635139",
+        "title" => nil,
+        "templated" => false
+      }
     }
   }
 
