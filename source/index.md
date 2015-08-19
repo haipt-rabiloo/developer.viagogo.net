@@ -20,6 +20,7 @@ includes:
   - getting-started/entities
   - getting-started/get-events-in-genre
   - getting-started/search-for-events
+  - getting-started/get-resource-changes
   - getting-started/direct-users-to-website
   - getting-started/affiliate-commission-tiers
   - getting-started/creating-listings

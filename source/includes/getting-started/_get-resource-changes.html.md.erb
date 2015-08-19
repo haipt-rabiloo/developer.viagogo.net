@@ -1,0 +1,63 @@
+## Getting Resource Changes Since Your Last Request
+
+
+> **1. Check whether the Resource supports sorting by `resource_version`**
+
+> **2. Request the resource sorted by `resource_version`**
+
+<%= curl('GET', CATEGORY_GENRE['_links']['category:events']['href'] + 'sort=resource_version') %>
+
+~~~ csharp
+// TODO
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+~~~ php
+// TODO
+~~~
+
+~~~ python
+# TODO
+~~~
+
+<%= json_paged_versioned_resource(:event, :deleted_embedded_event, "category:events", 50000) %>
+
+> **3. Follow the `next` link to get resources that have changed since your last request**
+
+> **4. Store the `next` link in your database until the next time you want to get updates**
+
+API v2 makes it simple to request only the data that has changed since a
+previous request made by your application. This functionality is particularly
+useful for applications that are storing API response data in a database and can
+help any application to reduce the number of requests required to retrieve
+viagogo data.
+
+### 1. Check whether the resource supports sorting by `resource_version`
+
+Only certain resources such as [`Category`](#category), [`Event`](#event) and
+[`SellerListing`](#seller-listing) resources support requesting data changes.
+Check the resource documentation to see whether the resource can be sorted by
+`resource_version`.
+
+### 2. Request the resource sorted by `resource_version`
+
+Request the resources you are interested in with the [`sort`](#sorting) query
+parameter set to `resource_version`. This will cause the resources returned in
+the `items` property of the response to be ordered by the time they were last
+updated (the oldest resource will be first). The `deleted_items` property will
+contain items that have been deleted within the same time frame.
+
+### 3. Follow the `next` link to get resources that have changed since your last request
+
+With the items sorted by the time they were updated, the `next` link in the
+response will always represent a request for resources that have changed since
+your last request.
+
+### 4. Store the `next` link in your database until the next time you want to get updates
+
+The `next` link can be stored and used later (e.g. the next time your
+application runs) to continue retrieving resources that have changed since the
+last time you requested data.
