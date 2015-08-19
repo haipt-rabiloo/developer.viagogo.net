@@ -1009,6 +1009,196 @@ information about the entity (see <a href="#searchresultcategory"><code>searchre
 events under the category. Once we have the first page, we can follow the <code>next</code>
 links to retrieve all pages (see <a href="#pagination">pagination</a>).</p>
 
+          <h2 id="getting-resource-changes-since-your-last-request">Getting Resource Changes Since Your Last Request</h2>
+
+<blockquote>
+  <p><strong>1. Check whether the Resource supports sorting by <code>resource_version</code></strong></p>
+</blockquote>
+
+<blockquote>
+  <p><strong>2. Request the resource sorted by <code>resource_version</code></strong></p>
+</blockquote>
+
+<pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/categories/3/eventssort=resource_version"</span>
+  -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+</code></pre>
+
+<pre><code class="highlight csharp"><span class="c1">// TODO
+</span></code></pre>
+
+<pre><code class="highlight ruby"><span class="c1"># TODO</span>
+</code></pre>
+
+<pre><code class="highlight php">// TODO
+</code></pre>
+
+<pre><code class="highlight python"><span class="c"># TODO</span>
+</code></pre>
+
+<blockquote>
+  <p>The above command returns an object structured like this:</p>
+</blockquote>
+
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"total_items"</span><span class="p">:</span><span class="w"> </span><span class="mi">50000</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"page_size"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/categories/1207/events?sort=resource_version&amp;page_size=1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"next"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/categories/1207/events?resource_version&amp;min_resource_version=1234567890&amp;page_size=1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"_embedded"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"deleted_items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">635139</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One Direction"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-01-24T18:30:00+01:00"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"date_confirmed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/events/635139"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">735139</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One Direction"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T18:30:00+01:00"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"date_confirmed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"min_ticket_price"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">25.65</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"currency_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"display"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$25.65"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"notes_html"</span><span class="p">:</span><span class="w"> </span><span class="s2">"General Notes \n • All sales are final \n • Ticket prices are set by the seller and may be above or below face value \n • Event dates and times are subject to change, it is up to you to check local listings for updates \n • After your purchase, you will receive a confirmation email with your ticket delivery details and timing"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"restrictions_html"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Everyone &lt;strong&gt;under 15&lt;/strong&gt; must be accompanied by an adult."</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/events/735139"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"event:listings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/events/735139/listings"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"View Tickets"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"event:category"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/categories/20746"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"event:webpage"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.viagogo.com/E-735139"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"event:localwebpage"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://www.viagogo.co.uk/E-735139"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"event:listingconstraints"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/events/735139/listingconstraints"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"event:createsellerlisting"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/events/735139/sellerlistings"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sell Tickets"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"_embedded"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"venue"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1364</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The O2 arena"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"London"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">51.5025</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0024</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/venues/1364"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"_embedded"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GB"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"United Kingdom"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                  </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/countries/GB"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+                  </span><span class="p">}</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<blockquote>
+  <p><strong>3. Follow the <code>next</code> link to get resources that have changed since your last request</strong></p>
+</blockquote>
+
+<blockquote>
+  <p><strong>4. Store the <code>next</code> link in your database until the next time you want to get updates</strong></p>
+</blockquote>
+
+<p>API v2 makes it simple to request only the data that has changed since a
+previous request made by your application. This functionality is particularly
+useful for applications that are storing API response data in a database and can
+help any application to reduce the number of requests required to retrieve
+viagogo data.</p>
+
+<h3 id="check-whether-the-resource-supports-sorting-by-resourceversion">1. Check whether the resource supports sorting by <code>resource_version</code></h3>
+
+<p>Only certain resources such as <a href="#category"><code>Category</code></a>, <a href="#event"><code>Event</code></a> and
+<a href="#seller-listing"><code>SellerListing</code></a> resources support requesting data changes.
+Check the resource documentation to see whether the resource can be sorted by
+<code>resource_version</code>.</p>
+
+<h3 id="request-the-resource-sorted-by-resourceversion">2. Request the resource sorted by <code>resource_version</code></h3>
+
+<p>Request the resources you are interested in with the <a href="#sorting"><code>sort</code></a> query
+parameter set to <code>resource_version</code>. This will cause the resources returned in
+the <code>items</code> property of the response to be ordered by the time they were last
+updated (the oldest resource will be first). The <code>deleted_items</code> property will
+contain items that have been deleted within the same time frame.</p>
+
+<h3 id="follow-the-next-link-to-get-resources-that-have-changed-since-your-last-request">3. Follow the <code>next</code> link to get resources that have changed since your last request</h3>
+
+<p>With the items sorted by the time they were updated, the <code>next</code> link in the
+response will always represent a request for resources that have changed since
+your last request.</p>
+
+<h3 id="store-the-next-link-in-your-database-until-the-next-time-you-want-to-get-updates">4. Store the <code>next</code> link in your database until the next time you want to get updates</h3>
+
+<p>The <code>next</code> link can be stored and used later (e.g. the next time your
+application runs) to continue retrieving resources that have changed since the
+last time you requested data.</p>
+
           <h2 id="direct-users-to-the-viagogo-website">Direct Users to the viagogo Website</h2>
 
 <p>Your application can use links on <a href="#category"><code>Category</code></a>, <a href="#event"><code>Event</code></a> and
