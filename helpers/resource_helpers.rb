@@ -108,6 +108,13 @@ module ResourceHelpers
     "scope" => ""
   }
 
+  ACCESS_TOKEN ||= {
+    "access_token" => CLIENT_CREDENTIALS_TOKEN["access_token"],
+    "token_type" => CLIENT_CREDENTIALS_TOKEN["token_type"],
+    "expires_in" => 3600,
+    "scope" => "read:user write:user"
+  }
+
   VALIDATION_ERROR ||= {
     "code" => "validation_failed",
     "message" => nil,
