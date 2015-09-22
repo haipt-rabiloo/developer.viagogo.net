@@ -38,6 +38,7 @@ includes:
   - resources/country
   - resources/currencies
   - resources/currency
+  - resources/delivery-method
   - resources/event
   - resources/events
   - resources/language
@@ -92,6 +93,8 @@ includes:
   - link-relations/paymentmethod-updatecreditcard
   - link-relations/paymentmethod-updatedefaults
   - link-relations/paymentmethod-updatepaypal
+  - link-relations/sale-autotrackshipment
+  - link-relations/sale-trackshipment
   - link-relations/searchresult-category
   - link-relations/searchresult-event
   - link-relations/searchresult-metroarea
