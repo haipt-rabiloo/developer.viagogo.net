@@ -108,6 +108,22 @@ module ResourceHelpers
     "scope" => ""
   }
 
+  ACCESS_TOKEN ||= {
+    "access_token" => CLIENT_CREDENTIALS_TOKEN["access_token"],
+    "token_type" => CLIENT_CREDENTIALS_TOKEN["token_type"],
+    "expires_in" => 3600,
+    "refresh_token" => "tGzv3JOkF0XG5Qx2TlKWIA",
+    "scope" => "read:user write:user"
+  }
+
+  REFRESH_GRANT_ACCESS_TOKEN ||= {
+    "access_token" => "03807cb390319329bdf6c777d4dfae9c0d3b3c35",
+    "token_type" => CLIENT_CREDENTIALS_TOKEN["token_type"],
+    "expires_in" => ACCESS_TOKEN["expires_in"],
+    "refresh_token" => "2YotnFZFEjr1zCsicMWpAA",
+    "scope" => ACCESS_TOKEN["scope"]
+  }
+
   VALIDATION_ERROR ||= {
     "code" => "validation_failed",
     "message" => nil,

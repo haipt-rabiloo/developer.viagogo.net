@@ -33,6 +33,8 @@ depends on your use case.
 | **If you...** | **Use...** |
 | ------------- | ---------- |
 | Want to access public data like categories, events and listings... | [Client Credentials Grant](#client-credentials-grant) |
+| Want to manage user-specific data like payment methods, listings, purchases and sales... | [Authorization Code Grant](#authorization-code-grant) |
+| Have an access token for a user and want to get another access token... | [Refresh Token Grant](#refresh-token-grant) |
 
 
 ## Client Credentials Grant
@@ -41,7 +43,7 @@ Applications can use the client credentials grant to get an access token that
 will provide access to public, non-user-specific data (events, listings, etc).
 
 ~~~ shell
-curl -X POST "https://www.viagogo.co.uk/secure/oauth2/token"
+curl -X POST "https://account.viagogo.com/oauth2/token"
   -u "clientId:clientSecret" --basic
   -H "Content-Type: application/x-www-form-urlencoded"
   -d "grant_type=client_credentials"
@@ -78,7 +80,7 @@ exchanged for an access token:
 
 ### HTTP Request
 
-`POST https://www.viagogo.co.uk/secure/oauth2/token`
+`POST https://account.viagogo.com/oauth2/token`
 
 ### Headers
 
@@ -93,6 +95,154 @@ exchanged for an access token:
 | -------- | -------- | --------------- |
 | `grant_type` | `string` | *Required*. Value should be `client_credentials` |
 | `scope` | `string` | Space-delimited string of the [scopes](#scopes) you would like. |
+
+
+## Authorization Code Grant
+
+The authorization code grant allows your application to obtain an access token
+by redirecting a user to viagogo and having them authorize your application.
+Access tokens obtained using this grant type will provide access to
+user-specific data (purchases, sales, listings, etc) as well as public,
+non-user-specific data (events, listings, etc).
+
+> **Authorization Endpoint:** `https://account.viagogo.com/authorize`
+
+### 1. Obtain user's consent
+
+You obtain a user's consent to make API calls on their behalf by redirecting
+their user agent (browser, webview, etc) to the authorization endpoint with the
+parameters listed below.
+
+### HTTP Request
+
+`GET https://account.viagogo.com/authorize`
+
+### Parameters
+
+| **Name** | **Type** | **Description** |
+| -------- | -------- | --------------- |
+| `client_id` | `string` | *Required* Unique client identifier obtained through the application registration process |
+| `response_type` | `string` | Set to `code` to request that an authorization code be sent back to the application return URL |
+| `redirect_uri` | `string` | Application return URL where the authorization code is sent. This must match the URL registered for your application |
+| `scope` | `string` | Space-delimited string of the [scopes](#scopes) you would like |
+| `state` | `string` | An opaque value used to maintain state between the authorize request and the callback |
+
+### 2. Process the authorize callback
+
+Once the user authorizes your application, viagogo redirects (`HTTP 302`) the
+user's user-agent to the return URL with the authorization code appended in the
+`code` query parameter.
+
+### 3. Obtain an access token
+
+~~~ shell
+curl -X POST "https://account.viagogo.com/oauth2/token"
+  -u "clientId:clientSecret" --basic
+  -H "Content-Type: application/x-www-form-urlencoded"
+  -d "grant_type=authorization_code"
+  -d "code=cddgafgfvawe"
+  --data-urlencode "scope=read:user write:user"
+~~~
+
+~~~ csharp
+// TODO
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+~~~ php
+// TODO
+~~~
+
+~~~ python
+# TODO
+~~~
+
+<%= json(:access_token) %>
+
+The authorization code received above can then be exchanged for an access token.
+
+### HTTP Request
+
+`POST https://account.viagogo.com/oauth2/token`
+
+### Headers
+
+| **Name** | **Value** |
+| -------- | --------- |
+| `Authorization` | Basic {value from step 1} |
+| `Content-Type` | `application/x-www-form-urlencoded` |
+
+### Parameters
+
+| **Name** | **Type** | **Description** |
+| -------- | -------- | --------------- |
+| `grant_type` | `string` | *Required*. Value should be `authorization_code` |
+| `code` | `string` | The authorization code that was sent to your application's return URL |
+| `scope` | `string` | Space-delimited string of the [scopes](#scopes) you would like. |
+
+
+## Refresh Token Grant
+
+Applications can use the refresh token grant to obtain additional access tokens
+in order to prolong the application's access to a user's data.
+
+### 1. Obtain an access token
+
+Use the [Authorization Code Grant Type](#authorization-code-grant-type) to
+obtain an initial access token.
+
+### 2. Use the refresh token to obtain a new access token
+
+~~~ shell
+curl -X POST "https://account.viagogo.com/oauth2/token"
+  -u "clientId:clientSecret" --basic
+  -H "Content-Type: application/x-www-form-urlencoded"
+  -d "grant_type=refresh_token"
+  -d "refresh_token=<%= ACCESS_TOKEN["refresh_token"]%>"
+  --data-urlencode "scope=read:user write:user"
+~~~
+
+~~~ csharp
+// TODO
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+~~~ php
+// TODO
+~~~
+
+~~~ python
+# TODO
+~~~
+
+<%= json(:refresh_grant_access_token) %>
+
+The refresh token from the previous access token can be exchanged for new one.
+
+### HTTP Request
+
+`POST https://account.viagogo.com/oauth2/token`
+
+### Headers
+
+| **Name** | **Value** |
+| -------- | --------- |
+| `Authorization` | Basic {value from step 1} |
+| `Content-Type` | `application/x-www-form-urlencoded` |
+
+### Parameters
+
+| **Name** | **Type** | **Description** |
+| -------- | -------- | --------------- |
+| `grant_type` | `string` | *Required*. Value should be `refresh_token` |
+| `refresh_token` | `string` | The refresh token received with a previous access token |
+| `scope` | `string` | Space-delimited string of the [scopes](#scopes) you would like |
 
 
 ## Authenticating API requests with Access Tokens
