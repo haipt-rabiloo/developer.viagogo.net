@@ -8,7 +8,7 @@ gem "rouge", "1.7.2"                        # for syntax highlighting
 gem 'kramdown', '~> 1.6.0'                  # for advanced markdown
 gem 'json', '~> 1.8.2'                      # for parsing JSON
 gem "rake", "~> 10.4.0"                     # for build and deployment tasks
-gem 'wdm', '>= 0.1.0' if Gem.win_platform?  # for faster file watcher updates on Windows
+gem 'wdm', '>= 0.1.1' if Gem.win_platform?  # for faster file watcher updates on Windows
 gem 'therubyracer', :platforms => :ruby     # for manipulating Javascript from Ruby
 
 # Cross-templating language block fix for Ruby 1.8
