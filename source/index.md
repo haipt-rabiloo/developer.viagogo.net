@@ -52,6 +52,8 @@ includes:
   - resources/payment-method
   - resources/payment-methods
   - resources/root
+  - resources/sale
+  - resources/sales
   - resources/search-result
   - resources/search-results
   - resources/seller-listing

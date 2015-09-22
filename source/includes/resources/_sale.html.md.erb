@@ -1,0 +1,19 @@
+## Sale
+
+A sale on the viagogo marketplace that belongs to the currently authenticated
+user.
+
+
+### Properties
+
+| **Name** | **Type** | **Description** |
+| `id` | `int` | The sale identifier. |
+| `created_at` | [`datetime`](#datetime) | The date when the sale was created. |
+| `status` | `string` | A short localised string describing the current status of the sale |
+| `status_description` | `string` | A localised in-depth description of the current status of the sale |
+| `number_of_tickets` | `int` | The number of tickets that have been sold. |
+| `seating` | [`seating`](#seating) | The seating information for the ticket(s) that have been sold. |
+| `proceeds` | [`money`](#money) | The total amount that the seller will receive for the sale. |
+| `payment_type` | `string` | The type of the payment method used for this sale. (see [PaymentMethod Types](#paymentmethodtypes)) |
+| `payment_type_description` | `string` | A localised description of the type of [PaymentMethod](#paymentmethod) used for this sale |
+| `payment_details` | `string` | A string showing the obscured details of the [PaymentMethod](#paymentmethod) used for this sale |
