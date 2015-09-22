@@ -884,6 +884,49 @@ module ResourceHelpers
     }
   }
 
+  SALE ||= {
+    "id" => 1017322,
+    "created_at" => "2015-09-21T16:02:39+00:00",
+    "seating" => SEATING,
+    "proceeds" => MONEY_PROCEEDS,
+    "number_of_tickets" => 2,
+    "status" => "Confirm Sales",
+    "status_description" => nil,
+    "confirm_by" => "2015-09-23T16:02:43+00:00",
+    "ship_by" => nil,
+    "payment_details" => "************1111",
+    "payment_type" => "CreditCard",
+    "payment_type_description" => "Credit or Debit Card",
+    "_links" => {
+      "self" => {
+        "href" => "https://api.viagogo.net/v2/sales/1017322",
+        "title" => nil,
+        "templated" => false
+      },
+      "sale:confirm" => {
+        "href" => "https://api.viagogo.net/v2/sales/1017322",
+        "title" => "Confirm",
+        "templated" => false
+      },
+      "sale:reject" => {
+        "href" => "https://api.viagogo.net/v2/sales/1017322",
+        "title" => "Report a problem",
+        "templated" => false
+      },
+      "sale:listing" => SELLER_LISTING["_links"]["self"],
+    },
+    "_embedded" => {
+      "delivery_method" => {
+        "id" => 0,
+        "name" => "E-Ticket",
+        "type" => "ETicket"
+      },
+      "event" => EMBEDDED_EVENT,
+      "ticket_type" => TICKET_TYPE,
+      "venue" => EMBEDDED_VENUE
+    }
+  }
+
   SEARCH_RESULT ||= {
     "title" => "One Direction",
     "type" => "Category",
