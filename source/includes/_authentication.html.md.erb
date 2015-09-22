@@ -34,6 +34,7 @@ depends on your use case.
 | ------------- | ---------- |
 | Want to access public data like categories, events and listings... | [Client Credentials Grant](#client-credentials-grant) |
 | Want to manage user-specific data like payment methods, listings, purchases and sales... | [Authorization Code Grant](#authorization-code-grant) |
+| Have an access token for a user and want to get another access token... | [Refresh Token Grant](#refresh-token-grant) |
 
 
 ## Client Credentials Grant
@@ -181,6 +182,67 @@ The authorization code received above can then be exchanged for an access token.
 | `grant_type` | `string` | *Required*. Value should be `authorization_code` |
 | `code` | `string` | The authorization code that was sent to your application's return URL |
 | `scope` | `string` | Space-delimited string of the [scopes](#scopes) you would like. |
+
+
+## Refresh Token Grant
+
+Applications can use the refresh token grant to obtain additional access tokens
+in order to prolong the application's access to a user's data.
+
+### 1. Obtain an access token
+
+Use the [Authorization Code Grant Type](#authorization-code-grant-type) to
+obtain an initial access token.
+
+### 2. Use the refresh token to obtain a new access token
+
+~~~ shell
+curl -X POST "https://account.viagogo.com/oauth2/token"
+  -u "clientId:clientSecret" --basic
+  -H "Content-Type: application/x-www-form-urlencoded"
+  -d "grant_type=refresh_token"
+  -d "refresh_token=<%= ACCESS_TOKEN["refresh_token"]%>"
+  --data-urlencode "scope=read:user write:user"
+~~~
+
+~~~ csharp
+// TODO
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+~~~ php
+// TODO
+~~~
+
+~~~ python
+# TODO
+~~~
+
+<%= json(:refresh_grant_access_token) %>
+
+The refresh token from the previous access token can be exchanged for new one.
+
+### HTTP Request
+
+`POST https://account.viagogo.com/oauth2/token`
+
+### Headers
+
+| **Name** | **Value** |
+| -------- | --------- |
+| `Authorization` | Basic {value from step 1} |
+| `Content-Type` | `application/x-www-form-urlencoded` |
+
+### Parameters
+
+| **Name** | **Type** | **Description** |
+| -------- | -------- | --------------- |
+| `grant_type` | `string` | *Required*. Value should be `refresh_token` |
+| `refresh_token` | `string` | The refresh token received with a previous access token |
+| `scope` | `string` | Space-delimited string of the [scopes](#scopes) you would like |
 
 
 ## Authenticating API requests with Access Tokens
