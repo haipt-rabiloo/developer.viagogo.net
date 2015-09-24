@@ -1,0 +1,27 @@
+## sale:reject
+
+<%= curl('PATCH', SALE['_links']['sale:reject']['href']) %>
+
+~~~ csharp
+// TODO
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+<%= json(:sale) %>
+
+You can use a PATCH request on the href of this link to report a problem with a
+sale of tickets.
+
+
+### Parameters
+
+| **Name** | **Type** | **Required** | **Description** |
+| `confirmed` | `boolean` | No | False when the sale should be rejected; Otherwise, true. |
+
+
+### Response
+
+The updated [`Sale`](#sale) resource.

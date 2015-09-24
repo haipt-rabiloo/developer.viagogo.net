@@ -19,7 +19,6 @@ user.
 | `payment_type` | `string` | The type of the payment method used for this sale. (see [PaymentMethod Types](#paymentmethod-types)) |
 | `payment_type_description` | `string` | A localised description of the type of [PaymentMethod](#paymentmethod) used for this sale. |
 | `payment_details` | `string` | A string showing the obscured details of the [PaymentMethod](#paymentmethod) used for this sale. |
-| `tracking_number` | `string` | The identifier used to track the shipment of the ticket(s) |
 
 
 ### Links
@@ -27,6 +26,9 @@ user.
 | **Relation** | **Method** | **Templated** | **Description** |
 | `self` | `GET` | No | A sale of some tickets |
 | [`sale:autotrackshipment`](#saleautotrackshipment) | `GET` | No | The webpage where a shipment of tickets can be tracked automatically. |
+| [`sale:confirm`](#saleconfirm) | `PATCH` | No | Confirm the sale. |
+| [`sale:reject`](#salereject) | `PATCH` | No | Report a problem with the sale. |
+| [`sale:shipments`](#saleshipments) | `GET` | No | The shipments related to a sale. |
 | [`sale:trackshipment`](#saletrackshipment) | `GET` | No | The webpage where a shipment of tickets can be tracked after entering the `tracking_number`. |
 
 

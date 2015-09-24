@@ -1,0 +1,21 @@
+## shipment:create
+
+<%= curl('PUT', LINK_RELATION_HREFS['sale:shipments']) %>
+
+~~~ csharp
+// TODO
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+<%= json(:shipment) %>
+
+You can use a `PUT` request on the href of this link to create a shipping label
+for the ticket(s) of a sale.
+
+
+### Response
+
+The newly created [`Shipment`](#shipment).

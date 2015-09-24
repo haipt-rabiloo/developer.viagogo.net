@@ -1,0 +1,27 @@
+## sale:confirm
+
+<%= curl('PATCH', SALE['_links']['sale:confirm']['href']) %>
+
+~~~ csharp
+// TODO
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+<%= json(:sale) %>
+
+You can use a PATCH request on the href of this link to confirm a sale of
+tickets.
+
+
+### Parameters
+
+| **Name** | **Type** | **Required** | **Description** |
+| `confirmed` | `boolean` | No | True when the sale should be confirmed; Otherwise, false. |
+
+
+### Response
+
+The updated [`Sale`](#sale) resource.

@@ -884,6 +884,12 @@ module ResourceHelpers
     }
   }
 
+  SELLER_DELIVERY_METHOD = {
+    "id" => 0,
+    "name" => "UPS (Express Saver) - United Kingdom Domestic",
+    "type" => "Pickup"
+  }
+
   SALE ||= {
     "id" => 1017322,
     "created_at" => "2015-09-21T16:02:39+00:00",
@@ -894,9 +900,9 @@ module ResourceHelpers
     "status_description" => nil,
     "confirm_by" => "2015-09-23T16:02:43+00:00",
     "ship_by" => nil,
-    "payment_details" => "************1111",
-    "payment_type" => "CreditCard",
-    "payment_type_description" => "Credit or Debit Card",
+    "payment_details" => PAYMENT_METHOD["details"],
+    "payment_type" => PAYMENT_METHOD["type"],
+    "payment_type_description" => PAYMENT_METHOD["type_description"],
     "_links" => {
       "self" => {
         "href" => "https://api.viagogo.net/v2/sales/1017322",
@@ -916,11 +922,7 @@ module ResourceHelpers
       "sale:listing" => SELLER_LISTING["_links"]["self"],
     },
     "_embedded" => {
-      "delivery_method" => {
-        "id" => 0,
-        "name" => "E-Ticket",
-        "type" => "ETicket"
-      },
+      "delivery_method" => SELLER_DELIVERY_METHOD,
       "event" => EMBEDDED_EVENT,
       "ticket_type" => TICKET_TYPE,
       "venue" => EMBEDDED_VENUE
@@ -937,6 +939,49 @@ module ResourceHelpers
         "title" => nil,
         "templated" => false
       }
+    }
+  }
+
+  PICKUP ||= {
+    "id" => 2109,
+    "start_date" => "2015-09-24T09:00:00+00:00",
+    "end_date" => "2015-09-24T17:00:00+00:00",
+    "address" => ADDRESS_SNAPSHOT,
+    "_links" => {
+      "self" => {
+        "href" => "https://api.viagogo.net/v2/pickups/2109",
+        "title" => nil,
+        "templated" => false
+      },
+      "pickup:delete" => {
+        "href" => "https://api.viagogo.net/v2/pickups/2109",
+        "title" => nil,
+        "templated" => false
+      }
+    }
+  }
+
+  SHIPMENT ||= {
+    "id" => 1007247,
+    "tracking_number" => "1ZX0565R0490161406",
+    "delivery_address" => nil,
+    "_links" => {
+      "shipment:carrier" => {
+        "href" => "https://api.viagogo.net/v2/addresses/37073/carriers/2",
+        "title" => nil,
+        "templated" => false
+      },
+      "shipment:label" => {
+        "href" => "https://api.viagogo.net/v2/sales/1017898/shipments/1007247/label",
+        "title" => nil,
+        "templated" => false
+      }
+    },
+    "_embedded" => {
+      "delivery_method" => SELLER_DELIVERY_METHOD,
+      "pickups" => [
+        PICKUP
+      ]
     }
   }
 
@@ -961,5 +1006,6 @@ module ResourceHelpers
     "user:purchases" => USER["_links"]["user:purchases"]["href"],
     "user:sales" => USER["_links"]["user:sales"]["href"],
     "user:sellerlistings" => USER["_links"]["user:sellerlistings"]["href"],
+    "sale:shipments" => "#{SALE["_links"]["self"]["href"]}/shipments"
   }
 end

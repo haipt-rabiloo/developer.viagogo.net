@@ -52,6 +52,7 @@ includes:
   - resources/metro-areas
   - resources/payment-method
   - resources/payment-methods
+  - resources/pickup
   - resources/root
   - resources/sale
   - resources/sales
@@ -59,6 +60,8 @@ includes:
   - resources/search-results
   - resources/seller-listing
   - resources/seller-listings
+  - resources/shipment
+  - resources/shipments
   - resources/split-type
   - resources/ticket-type
   - resources/ticket-types
@@ -93,7 +96,11 @@ includes:
   - link-relations/paymentmethod-updatecreditcard
   - link-relations/paymentmethod-updatedefaults
   - link-relations/paymentmethod-updatepaypal
+  - link-relations/pickup-delete
   - link-relations/sale-autotrackshipment
+  - link-relations/sale-confirm
+  - link-relations/sale-reject
+  - link-relations/sale-shipments
   - link-relations/sale-trackshipment
   - link-relations/searchresult-category
   - link-relations/searchresult-event
@@ -111,6 +118,8 @@ includes:
   - link-relations/sellerlisting-updateticketlocation
   - link-relations/sellerlisting-updateticketprice
   - link-relations/sellerlisting-updatetickettype
+  - link-relations/shipment-create
+  - link-relations/shipment-label
   - link-relations/user-addresses
   - link-relations/user-paymentmethods
   - link-relations/user-sellerlistings

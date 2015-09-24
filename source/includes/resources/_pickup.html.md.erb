@@ -1,0 +1,18 @@
+## Pickup
+
+A scheduled courier pickup for a package.
+
+### Properties
+
+| **Name** | **Type** | **Description** |
+| `id` | `int` | The pickup identifier. |
+| `start_date` | [`datetime`](#datetime) | The earliest date that the courier will pickup the package. |
+| `end_date` | [`datetime`](#datetime) | The latest date that the courier will pickup the package. |
+| `address` | `string` | The address where the courier will pickup the package. |
+
+
+### Links
+
+| **Relation** | **Method** | **Templated** | **Description** |
+| `self` | `GET` | No | A scheduled courier pickup. |
+| [`pickup:delete`](#pickupdelete) | `GET` | No | Cancel a scheduled courier pickup. |
