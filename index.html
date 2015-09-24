@@ -3158,6 +3158,35 @@ requests up until they expire.</p>
   </tbody>
 </table>
 
+          <h2 id="deliverymethod">DeliveryMethod</h2>
+
+<h3 id="properties">Properties</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Name</strong></td>
+      <td><strong>Type</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>id</code></td>
+      <td><code>int</code></td>
+      <td>The delivery method identifier</td>
+    </tr>
+    <tr>
+      <td><code>name</code></td>
+      <td><code>string</code></td>
+      <td>The localised name of the payment method</td>
+    </tr>
+    <tr>
+      <td><code>type</code></td>
+      <td><code>string</code></td>
+      <td>The type of delivery method. Can be <code>ETicket</code>, <code>Post</code> or <code>Pickup</code></td>
+    </tr>
+  </tbody>
+</table>
+
           <h2 id="event">Event</h2>
 
 <p>An event on the viagogo platform.</p>
@@ -4397,6 +4426,67 @@ can be any text; Otherwise, <code>listing.row</code> must be equal the
   </tbody>
 </table>
 
+          <h2 id="pickup">Pickup</h2>
+
+<p>A scheduled courier pickup for a package.</p>
+
+<h3 id="properties">Properties</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Name</strong></td>
+      <td><strong>Type</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>id</code></td>
+      <td><code>int</code></td>
+      <td>The pickup identifier.</td>
+    </tr>
+    <tr>
+      <td><code>start_date</code></td>
+      <td><a href="#datetime"><code>datetime</code></a></td>
+      <td>The earliest date that the courier will pickup the package.</td>
+    </tr>
+    <tr>
+      <td><code>end_date</code></td>
+      <td><a href="#datetime"><code>datetime</code></a></td>
+      <td>The latest date that the courier will pickup the package.</td>
+    </tr>
+    <tr>
+      <td><code>address</code></td>
+      <td><code>string</code></td>
+      <td>The address where the courier will pickup the package.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="links">Links</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Relation</strong></td>
+      <td><strong>Method</strong></td>
+      <td><strong>Templated</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>self</code></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>A scheduled courier pickup.</td>
+    </tr>
+    <tr>
+      <td><a href="#pickupdelete"><code>pickup:delete</code></a></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>Cancel a scheduled courier pickup.</td>
+    </tr>
+  </tbody>
+</table>
+
           <h2 id="root">Root</h2>
 
 <p>The root of the viagogo API service. Applications can use the links provided by this resource to find all other resources in the API.</p>
@@ -4464,6 +4554,264 @@ can be any text; Otherwise, <code>listing.row</code> must be equal the
       <td><code>GET</code></td>
       <td>No</td>
       <td>The available venues.</td>
+    </tr>
+  </tbody>
+</table>
+
+          <h2 id="sale">Sale</h2>
+
+<p>A sale on the viagogo marketplace that belongs to the currently authenticated
+user.</p>
+
+<h3 id="properties">Properties</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Name</strong></td>
+      <td><strong>Type</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>id</code></td>
+      <td><code>int</code></td>
+      <td>The sale identifier.</td>
+    </tr>
+    <tr>
+      <td><code>created_at</code></td>
+      <td><a href="#datetime"><code>datetime</code></a></td>
+      <td>The date when the sale was created.</td>
+    </tr>
+    <tr>
+      <td><code>status</code></td>
+      <td><code>string</code></td>
+      <td>A short localised string describing the current status of the sale.</td>
+    </tr>
+    <tr>
+      <td><code>status_description</code></td>
+      <td><code>string</code></td>
+      <td>A localised in-depth description of the current status of the sale.</td>
+    </tr>
+    <tr>
+      <td><code>number_of_tickets</code></td>
+      <td><code>int</code></td>
+      <td>The number of tickets that have been sold.</td>
+    </tr>
+    <tr>
+      <td><code>seating</code></td>
+      <td><a href="#seating"><code>seating</code></a></td>
+      <td>The seating information for the ticket(s) that have been sold.</td>
+    </tr>
+    <tr>
+      <td><code>proceeds</code></td>
+      <td><a href="#money"><code>money</code></a></td>
+      <td>The total amount that the seller will receive for the sale.</td>
+    </tr>
+    <tr>
+      <td><code>confirm_by</code></td>
+      <td><a href="#datetime"><code>datetime</code></a></td>
+      <td>The date by which the seller must confirm the sale.</td>
+    </tr>
+    <tr>
+      <td><code>ship_by</code></td>
+      <td><a href="#datetime"><code>datetime</code></a></td>
+      <td>The date by which the seller must ship the tickets.</td>
+    </tr>
+    <tr>
+      <td><code>payment_type</code></td>
+      <td><code>string</code></td>
+      <td>The type of the payment method used for this sale. (see <a href="#paymentmethod-types">PaymentMethod Types</a>)</td>
+    </tr>
+    <tr>
+      <td><code>payment_type_description</code></td>
+      <td><code>string</code></td>
+      <td>A localised description of the type of <a href="#paymentmethod">PaymentMethod</a> used for this sale.</td>
+    </tr>
+    <tr>
+      <td><code>payment_details</code></td>
+      <td><code>string</code></td>
+      <td>A string showing the obscured details of the <a href="#paymentmethod">PaymentMethod</a> used for this sale.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="links">Links</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Relation</strong></td>
+      <td><strong>Method</strong></td>
+      <td><strong>Templated</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>self</code></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>A sale of some tickets</td>
+    </tr>
+    <tr>
+      <td><a href="#saleautotrackshipment"><code>sale:autotrackshipment</code></a></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>The webpage where a shipment of tickets can be tracked automatically.</td>
+    </tr>
+    <tr>
+      <td><a href="#saleconfirm"><code>sale:confirm</code></a></td>
+      <td><code>PATCH</code></td>
+      <td>No</td>
+      <td>Confirm the sale.</td>
+    </tr>
+    <tr>
+      <td><a href="#salereject"><code>sale:reject</code></a></td>
+      <td><code>PATCH</code></td>
+      <td>No</td>
+      <td>Report a problem with the sale.</td>
+    </tr>
+    <tr>
+      <td><a href="#saleshipments"><code>sale:shipments</code></a></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>The shipments related to a sale.</td>
+    </tr>
+    <tr>
+      <td><a href="#saletrackshipment"><code>sale:trackshipment</code></a></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>The webpage where a shipment of tickets can be tracked after entering the <code>tracking_number</code>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="embedded">Embedded</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Relation</strong></td>
+      <td><strong>Type</strong></td>
+      <td><strong>Optional</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>event</code></td>
+      <td><a href="#event"><code>Event</code></a></td>
+      <td>No</td>
+      <td>The event for this sale.</td>
+    </tr>
+    <tr>
+      <td><code>venue</code></td>
+      <td><a href="#venue"><code>Venue</code></a></td>
+      <td>No</td>
+      <td>The venue where the event is taking place.</td>
+    </tr>
+    <tr>
+      <td><code>ticket_type</code></td>
+      <td><a href="#tickettype"><code>TicketType</code></a></td>
+      <td>No</td>
+      <td>The type of ticket(s) that was sold.</td>
+    </tr>
+    <tr>
+      <td><code>delivery_method</code></td>
+      <td><a href="#deliverymethod"><code>DeliveryMethod</code></a></td>
+      <td>No</td>
+      <td>The delivery method for the ticket(s).</td>
+    </tr>
+  </tbody>
+</table>
+
+          <h2 id="sales">Sales</h2>
+
+<p>The Sales resource is a collection resource that contains zero or more
+references to a set of sales, and links that guide you on ways to interact
+with the sales. The collection offers a paginated view of sales.</p>
+
+<h3 id="properties">Properties</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Name</strong></td>
+      <td><strong>Type</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>page</code></td>
+      <td><code>int</code></td>
+      <td>The number of the current page of items.</td>
+    </tr>
+    <tr>
+      <td><code>page_size</code></td>
+      <td><code>int</code></td>
+      <td>The number of items on each page.</td>
+    </tr>
+    <tr>
+      <td><code>total_items</code></td>
+      <td><code>int</code></td>
+      <td>The total number of items on every page.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="links">Links</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Relation</strong></td>
+      <td><strong>Method</strong></td>
+      <td><strong>Templated</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>self</code></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>The collection of the current sales.</td>
+    </tr>
+    <tr>
+      <td><code>next</code></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>The next page of items in a collection.</td>
+    </tr>
+    <tr>
+      <td><code>prev</code></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>The previous page of items in a collection.</td>
+    </tr>
+    <tr>
+      <td><code>first</code></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>The first page of items in a collection.</td>
+    </tr>
+    <tr>
+      <td><code>last</code></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>The last page of items in a collection.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="embedded">Embedded</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Relation</strong></td>
+      <td><strong>Type</strong></td>
+      <td><strong>Optional</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>items</code></td>
+      <td><a href="#sale"><code>Sale</code></a>[]</td>
+      <td>No</td>
+      <td>An array of the current page of <a href="#sale"><code>Sale</code></a> resources.</td>
     </tr>
   </tbody>
 </table>
@@ -4948,6 +5296,188 @@ with the listings. The collection offers a paginated view of listings.</p>
       <td><a href="#sellerlisting"><code>SellerListing</code></a>[]</td>
       <td>No</td>
       <td>An array of the current page of <a href="#sellerlisting"><code>SellerListing</code></a> resources.</td>
+    </tr>
+  </tbody>
+</table>
+
+          <h2 id="shipment">Shipment</h2>
+
+<p>A shipment of one or more tickets by a seller.</p>
+
+<h3 id="properties">Properties</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Name</strong></td>
+      <td><strong>Type</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>id</code></td>
+      <td><code>int</code></td>
+      <td>The shipment identifier.</td>
+    </tr>
+    <tr>
+      <td><code>tracking_number</code></td>
+      <td><code>string</code></td>
+      <td>The identifier used to track the shipment of the ticket(s)</td>
+    </tr>
+    <tr>
+      <td><code>delivery_address</code></td>
+      <td><code>string</code></td>
+      <td>The address that the seller must ship the tickets to</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="links">Links</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Relation</strong></td>
+      <td><strong>Method</strong></td>
+      <td><strong>Templated</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>self</code></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>A shipment.</td>
+    </tr>
+    <tr>
+      <td><a href="#shipmentlabel"><code>shipment:label</code></a></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>A courier shipping label.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="embedded">Embedded</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Relation</strong></td>
+      <td><strong>Type</strong></td>
+      <td><strong>Optional</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>delivery_method</code></td>
+      <td><a href="#deliverymethod"><code>DeliveryMethod</code></a></td>
+      <td>No</td>
+      <td>The delivery method for the ticket(s).</td>
+    </tr>
+    <tr>
+      <td><code>pickups</code></td>
+      <td><a href="#pickup"><code>Pickup</code>[]</a></td>
+      <td>No</td>
+      <td>The courier pickups that have been scheduled.</td>
+    </tr>
+  </tbody>
+</table>
+
+          <h2 id="shipments">Shipments</h2>
+
+<p>The Shipments resource is a collection resource that contains zero or more
+references to a set of shipments, and links that guide you on ways to interact
+with the shipments. The collection offers a paginated view of shipments.</p>
+
+<h3 id="properties">Properties</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Name</strong></td>
+      <td><strong>Type</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>page</code></td>
+      <td><code>int</code></td>
+      <td>The number of the current page of items.</td>
+    </tr>
+    <tr>
+      <td><code>page_size</code></td>
+      <td><code>int</code></td>
+      <td>The number of items on each page.</td>
+    </tr>
+    <tr>
+      <td><code>total_items</code></td>
+      <td><code>int</code></td>
+      <td>The total number of items on every page.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="links">Links</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Relation</strong></td>
+      <td><strong>Method</strong></td>
+      <td><strong>Templated</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>self</code></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>The collection of the shipments.</td>
+    </tr>
+    <tr>
+      <td><a href="#shipmentcreate"><code>shipment:create</code></a></td>
+      <td><code>PUT</code></td>
+      <td>No</td>
+      <td>Creates a new shipment for the ticket(s).</td>
+    </tr>
+    <tr>
+      <td><code>next</code></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>The next page of items in a collection.</td>
+    </tr>
+    <tr>
+      <td><code>prev</code></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>The previous page of items in a collection.</td>
+    </tr>
+    <tr>
+      <td><code>first</code></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>The first page of items in a collection.</td>
+    </tr>
+    <tr>
+      <td><code>last</code></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>The last page of items in a collection.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="embedded">Embedded</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Relation</strong></td>
+      <td><strong>Type</strong></td>
+      <td><strong>Optional</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>items</code></td>
+      <td><a href="#shipment"><code>Shipment</code></a>[]</td>
+      <td>No</td>
+      <td>An array of the current page of <a href="#shipment"><code>Shipment</code></a> resources.</td>
     </tr>
   </tbody>
 </table>
@@ -8205,6 +8735,448 @@ user’s PayPal account.</p>
 
 <p>The updated <a href="#paymentmethod"><code>PaymentMethod</code></a>.</p>
 
+          <h2 id="pickupdelete">pickup:delete</h2>
+
+<pre><code class="highlight shell">curl -X DELETE <span class="s2">"https://api.viagogo.net/v2/pickups/2109"</span>
+  -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+</code></pre>
+
+<pre><code class="highlight csharp"><span class="c1">// TODO
+</span></code></pre>
+
+<pre><code class="highlight ruby"><span class="c1"># TODO</span>
+</code></pre>
+
+<p>You can use a <code>DELETE</code> request on the href of this link to delete a scheduled
+courier pickup.</p>
+
+<h3 id="response">Response</h3>
+
+<p>No content (and <code>204</code> status code).</p>
+
+          <h2 id="saleautotrackshipment">sale:autotrackshipment</h2>
+
+<p>You can GET the href of this link to retrieve the webpage where the shipment of
+the ticket(s) for a sale can be tracked. The webpage provides automatic tracking
+information for the user’s order.</p>
+
+<h3 id="response">Response</h3>
+
+<p>An HTML web page.</p>
+
+          <h2 id="saleconfirm">sale:confirm</h2>
+
+<pre><code class="highlight shell">curl -X PATCH <span class="s2">"https://api.viagogo.net/v2/sales/1017322"</span>
+  -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+</code></pre>
+
+<pre><code class="highlight csharp"><span class="c1">// TODO
+</span></code></pre>
+
+<pre><code class="highlight ruby"><span class="c1"># TODO</span>
+</code></pre>
+
+<blockquote>
+  <p>The above command returns an object structured like this:</p>
+</blockquote>
+
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1017322</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-21T16:02:39+00:00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"seating"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"section"</span><span class="p">:</span><span class="w"> </span><span class="s2">"107"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"row"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"seat_from"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"seat_to"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"proceeds"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">22.58</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"currency_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"display"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$22.58"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Confirm Sales"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status_description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"confirm_by"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-23T16:02:43+00:00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ship_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"payment_details"</span><span class="p">:</span><span class="w"> </span><span class="s2">"************1111"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"payment_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CreditCard"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"payment_type_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Credit or Debit Card"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sales/1017322"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"sale:confirm"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sales/1017322"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Confirm"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"sale:reject"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sales/1017322"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Report a problem"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"sale:listing"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sellerlistings/22096065"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"_embedded"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"delivery_method"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UPS (Express Saver) - United Kingdom Domestic"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pickup"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"event"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">735139</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One Direction"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T18:30:00+01:00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"date_confirmed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/events/735139"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"ticket_type"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ETicket"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Print at home / E-tickets (PDF)"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/tickettypes/ETicket"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"venue"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1364</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The O2 arena"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"London"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">51.5025</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0024</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/venues/1364"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"_embedded"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GB"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"United Kingdom"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/countries/GB"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>You can use a PATCH request on the href of this link to confirm a sale of
+tickets.</p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Name</strong></td>
+      <td><strong>Type</strong></td>
+      <td><strong>Required</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>confirmed</code></td>
+      <td><code>boolean</code></td>
+      <td>No</td>
+      <td>True when the sale should be confirmed; Otherwise, false.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="response">Response</h3>
+
+<p>The updated <a href="#sale"><code>Sale</code></a> resource.</p>
+
+          <h2 id="salereject">sale:reject</h2>
+
+<pre><code class="highlight shell">curl -X PATCH <span class="s2">"https://api.viagogo.net/v2/sales/1017322"</span>
+  -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+</code></pre>
+
+<pre><code class="highlight csharp"><span class="c1">// TODO
+</span></code></pre>
+
+<pre><code class="highlight ruby"><span class="c1"># TODO</span>
+</code></pre>
+
+<blockquote>
+  <p>The above command returns an object structured like this:</p>
+</blockquote>
+
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1017322</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-21T16:02:39+00:00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"seating"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"section"</span><span class="p">:</span><span class="w"> </span><span class="s2">"107"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"row"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"seat_from"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"seat_to"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"proceeds"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">22.58</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"currency_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"display"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$22.58"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Confirm Sales"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status_description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"confirm_by"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-23T16:02:43+00:00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ship_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"payment_details"</span><span class="p">:</span><span class="w"> </span><span class="s2">"************1111"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"payment_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CreditCard"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"payment_type_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Credit or Debit Card"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sales/1017322"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"sale:confirm"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sales/1017322"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Confirm"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"sale:reject"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sales/1017322"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Report a problem"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"sale:listing"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sellerlistings/22096065"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"_embedded"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"delivery_method"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UPS (Express Saver) - United Kingdom Domestic"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pickup"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"event"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">735139</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One Direction"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T18:30:00+01:00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"date_confirmed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/events/735139"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"ticket_type"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ETicket"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Print at home / E-tickets (PDF)"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/tickettypes/ETicket"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"venue"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1364</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The O2 arena"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"London"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">51.5025</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0024</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/venues/1364"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"_embedded"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GB"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"United Kingdom"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/countries/GB"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>You can use a PATCH request on the href of this link to report a problem with a
+sale of tickets.</p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Name</strong></td>
+      <td><strong>Type</strong></td>
+      <td><strong>Required</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>confirmed</code></td>
+      <td><code>boolean</code></td>
+      <td>No</td>
+      <td>False when the sale should be rejected; Otherwise, true.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="response">Response</h3>
+
+<p>The updated <a href="#sale"><code>Sale</code></a> resource.</p>
+
+          <h2 id="saleshipments">sale:shipments</h2>
+
+<pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/sales/1017322/shipments"</span>
+  -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+</code></pre>
+
+<pre><code class="highlight csharp"><span class="c1">// TODO
+</span></code></pre>
+
+<pre><code class="highlight ruby"><span class="c1"># TODO</span>
+</code></pre>
+
+<blockquote>
+  <p>The above command returns an object structured like this:</p>
+</blockquote>
+
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"total_items"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"page_size"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sales/1017322/shipments?page=1&amp;page_size=1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"next"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sales/1017322/shipments?page=2&amp;page_size=1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"last"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sales/1017322/shipments?page=100&amp;page_size=1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"_embedded"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1007247</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"tracking_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1ZX0565R0490161406"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"delivery_address"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"shipment:carrier"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/addresses/37073/carriers/2"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"shipment:label"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sales/1017898/shipments/1007247/label"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"_embedded"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"delivery_method"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UPS (Express Saver) - United Kingdom Domestic"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pickup"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"pickups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2109</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T09:00:00+00:00"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T17:00:00+00:00"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"full_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Joe Smith"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"address_1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Flat 16, Waterman's Quay"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"address_2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"33 William Morris Way"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"address_3"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fulham"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"London"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"state_province"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Greater London"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"postal_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SW6 2UU"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"country_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GB"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"United Kingdom"</span><span class="w">
+              </span><span class="p">},</span><span class="w">
+              </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                  </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/pickups/2109"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="s2">"pickup:delete"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                  </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/pickups/2109"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>You can <code>GET</code> the href of this link to retrieve the <a href="#shipments"><code>Shipments</code></a>
+resource that contains shipments related to a sale.</p>
+
+<h3 id="response">Response</h3>
+
+<p>Returns the <a href="#shipments"><code>Shipments</code></a> resource related to a sale.</p>
+
+          <h2 id="saletrackshipment">sale:trackshipment</h2>
+
+<p>You can GET the href of this link to retrieve the webpage where the shipment of
+the ticket(s) for a sale can be tracked. The user will need to enter the
+tracking number manually on this page.</p>
+
+<h3 id="response">Response</h3>
+
+<p>An HTML web page.</p>
+
           <h2 id="searchresultcategory">searchresult:category</h2>
 
 <pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/categories/1207"</span>
@@ -10620,6 +11592,98 @@ tickets in a listing.</p>
 <h3 id="response">Response</h3>
 
 <p>The updated <a href="#sellerlisting"><code>SellerListing</code></a> resource.</p>
+
+          <h2 id="shipmentcreate">shipment:create</h2>
+
+<pre><code class="highlight shell">curl -X PUT <span class="s2">"https://api.viagogo.net/v2/sales/1017322/shipments"</span>
+  -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+</code></pre>
+
+<pre><code class="highlight csharp"><span class="c1">// TODO
+</span></code></pre>
+
+<pre><code class="highlight ruby"><span class="c1"># TODO</span>
+</code></pre>
+
+<blockquote>
+  <p>The above command returns an object structured like this:</p>
+</blockquote>
+
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1007247</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"tracking_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1ZX0565R0490161406"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"delivery_address"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"shipment:carrier"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/addresses/37073/carriers/2"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"shipment:label"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sales/1017898/shipments/1007247/label"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"_embedded"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"delivery_method"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UPS (Express Saver) - United Kingdom Domestic"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pickup"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"pickups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2109</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T09:00:00+00:00"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T17:00:00+00:00"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"full_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Joe Smith"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"address_1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Flat 16, Waterman's Quay"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"address_2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"33 William Morris Way"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"address_3"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fulham"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"London"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"state_province"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Greater London"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"postal_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SW6 2UU"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"country_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GB"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"United Kingdom"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/pickups/2109"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"pickup:delete"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/pickups/2109"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>You can use a <code>PUT</code> request on the href of this link to create a shipping label
+for the ticket(s) of a sale.</p>
+
+<h3 id="response">Response</h3>
+
+<p>The newly created <a href="#shipment"><code>Shipment</code></a>.</p>
+
+          <h2 id="shipmentlabel">shipment:label</h2>
+
+<p>You can <code>GET</code> the href of this link to download the courier shipping label. Once
+you have downloaded the shipping label the courier will expect to receive your
+package right away, so only download the label when your tickets are ready to be
+shipped.</p>
+
+<h3 id="response">Response</h3>
+
+<p>The associated shipping label file for this sale. The response will have
+content-type “application/pdf”.</p>
 
           <h2 id="useraddresses">user:addresses</h2>
 
