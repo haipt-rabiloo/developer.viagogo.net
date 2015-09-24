@@ -99,9 +99,13 @@ includes:
   - link-relations/pickup-delete
   - link-relations/sale-autotrackshipment
   - link-relations/sale-confirm
+  - link-relations/sale-etickets
+  - link-relations/sale-eticketuploads
   - link-relations/sale-reject
+  - link-relations/sale-saveetickets
   - link-relations/sale-shipments
   - link-relations/sale-trackshipment
+  - link-relations/sale-uploadetickets
   - link-relations/searchresult-category
   - link-relations/searchresult-event
   - link-relations/searchresult-metroarea

@@ -1,0 +1,22 @@
+## sale:eticketuploads
+
+<%= curl('GET', LINK_RELATION_HREFS['sale:eticketuploads']) %>
+
+~~~ csharp
+// TODO
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+<%= json_paged_resource(:eticketupload, "sale:eticketuploads") %>
+
+You can `GET` the href of this link to retrieve the
+[`ETicketUploads`](#eticketuploads) the uploaded files that contain E-Tickets
+that have not been assigned to the tickets that were sold.
+
+
+### Response
+
+Returns the [`ETicketUploads`](#eticketuploads) resource related to a sale.

@@ -27,10 +27,13 @@ user.
 | `self` | `GET` | No | A sale of some tickets |
 | [`sale:autotrackshipment`](#saleautotrackshipment) | `GET` | No | The webpage where a shipment of tickets can be tracked automatically. |
 | [`sale:confirm`](#saleconfirm) | `PATCH` | No | Confirm the sale. |
+| [`sale:etickets`](#saleetickets) | `GET` | No | The uploaded E-Tickets that have been assigned to the tickets that have been sold. |
+| [`sale:eticketuploads`](#saleeticketuploads) | `GET` | No | The uploaded files containing E-Tickets that have not been assigned to the tickets that have been sold. |
 | [`sale:reject`](#salereject) | `PATCH` | No | Report a problem with the sale. |
+| [`sale:saveetickets`](#salesaveetickets) | `PATCH` | No | Assign uploaded E-Tickets to the tickets that have been sold. |
 | [`sale:shipments`](#saleshipments) | `GET` | No | The shipments related to a sale. |
 | [`sale:trackshipment`](#saletrackshipment) | `GET` | No | The webpage where a shipment of tickets can be tracked after entering the `tracking_number`. |
-
+| [`sale:uploadetickets`](#saleuploadetickets) | `POST` | No | Upload a file containing E-Tickets. |
 
 ### Embedded
 

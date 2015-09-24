@@ -1,0 +1,22 @@
+## sale:etickets
+
+<%= curl('GET', LINK_RELATION_HREFS['sale:etickets']) %>
+
+~~~ csharp
+// TODO
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+<%= json_paged_resource(:eticket, "sale:etickets") %>
+
+You can `GET` the href of this link to retrieve the [`ETickets`](#etickets)
+resource that contains uploaded E-Tickets that have been assigned to tickets
+that have been sold.
+
+
+### Response
+
+Returns the [`ETickets`](#etickets) resource related to a sale.
