@@ -134,6 +134,7 @@ includes:
   - link-relations/shipment-label
   - link-relations/user-addresses
   - link-relations/user-paymentmethods
+  - link-relations/user-sales
   - link-relations/user-sellerlistings
   - link-relations/venue-events
   - link-relations/venue-metroarea
