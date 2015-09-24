@@ -1,0 +1,34 @@
+## sale:uploadetickets
+
+~~~ shell
+curl -X POST "<%= EVENT['_links']['sale:eticketuploads'] %>"
+     -H "User-Agent: MyAwesomeApp"
+     -H "Authorization: Bearer <%= ResourceHelpers::ACCESS_TOKEN["access_token"] %>"
+     -H "Content-Type: multipart/form-data; boundary=----CustomBoundary123456abcdef"
+     -F "File1=Ticket.pdf"
+~~~
+
+~~~ csharp
+// TODO
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+<%= json_paged_resource(:eticketupload, "sale:eticketuploads") %>
+
+You can use a `POST` request on the href of this link upload one or more files
+containing E-Tickets that will be assigned to the tickets that have been sold.
+
+
+### Request
+
+One or more PDF files containing E-Tickets must be uploaded using
+[Form-based File Upload in HTML](http://tools.ietf.org/html/rfc1867).
+
+
+### Response
+
+Returns the [`ETicketUploads`](#eticketuploads) resource for the newly created
+uploads.

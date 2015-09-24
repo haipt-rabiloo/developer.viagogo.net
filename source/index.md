@@ -39,6 +39,10 @@ includes:
   - resources/currencies
   - resources/currency
   - resources/delivery-method
+  - resources/eticket
+  - resources/etickets
+  - resources/eticket-upload
+  - resources/eticket-uploads
   - resources/event
   - resources/events
   - resources/language
@@ -79,6 +83,10 @@ includes:
   - link-relations/category-parent
   - link-relations/category-performers
   - link-relations/category-webpage
+  - link-relations/eticket-delete
+  - link-relations/eticket-document
+  - link-relations/eticket-thumbnail
+  - link-relations/eticketupload-document
   - link-relations/event-category
   - link-relations/event-createsellerlisting
   - link-relations/event-listingconstraints
@@ -99,9 +107,13 @@ includes:
   - link-relations/pickup-delete
   - link-relations/sale-autotrackshipment
   - link-relations/sale-confirm
+  - link-relations/sale-etickets
+  - link-relations/sale-eticketuploads
   - link-relations/sale-reject
+  - link-relations/sale-saveetickets
   - link-relations/sale-shipments
   - link-relations/sale-trackshipment
+  - link-relations/sale-uploadetickets
   - link-relations/searchresult-category
   - link-relations/searchresult-event
   - link-relations/searchresult-metroarea

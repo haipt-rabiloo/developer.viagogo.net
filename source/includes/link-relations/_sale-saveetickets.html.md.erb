@@ -1,0 +1,27 @@
+## sale:saveetickets
+
+<%= curl('PATCH', SALE['_links']['self']['href']) %>
+
+~~~ csharp
+// TODO
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+<%= json(:sale) %>
+
+You can use a PATCH request on the href of this link to assign uploaded
+E-Tickets to the tickets that have been sold.
+
+
+### Parameters
+
+| **Name** | **Type** | **Required** | **Description** |
+| `eticket_ids` | `boolean` | No | A comma-separated string of the identifiers of the E-Tickets to be assigned. |
+
+
+### Response
+
+The updated [`Sale`](#sale) resource.

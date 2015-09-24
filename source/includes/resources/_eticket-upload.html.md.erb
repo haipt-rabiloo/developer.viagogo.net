@@ -1,0 +1,25 @@
+## ETicketUpload
+
+Represents an uploaded file that contains one or more E-Tickets.
+
+
+### Properties
+
+| **Name** | **Type** | **Description** |
+| `id` | `int` | The identifier of the upload. |
+| `file_name` | `string` | The name of the file that was uploaded. |
+| `status_description` | `string` | A localised in-depth description of the current status of the upload. |
+| `processed_at` | `string` | The date when all of the E-Tickets in the uploaded file were processed. |
+| `original_number_of_tickets` | `int` | The original number of E-Tickets contained in the uploaded file. |
+
+
+### Links
+
+| **Relation** | **Method** | **Templated** | **Description** |
+| `self` | `GET` | No | An uploaded file containing one or more E-Tickets |
+| [`eticketupload:document`](#eticketuploaddocument) | `GET` | No | The original file that was uploaded. |
+
+### Embedded
+
+| **Relation** | **Type** | **Optional** | **Description** |
+| `etickets` | [`ETicket`](#eticket)[] | No | An array of the individual E-Tickets contained in the uploaded files. |

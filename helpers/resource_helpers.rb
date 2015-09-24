@@ -985,6 +985,47 @@ module ResourceHelpers
     }
   }
 
+  ETICKET ||= {
+    "id" => 25827,
+    "_links" => {
+      "eticket:delete" => {
+        "href" => "https://api.viagogo.net/v2/sales/1017322/etickets/25827",
+        "title" => nil,
+        "templated" => false
+      },
+      "eticket:document" => {
+        "href" => "https://api.viagogo.net/v2/etickets/25827/document",
+        "title" => nil,
+        "templated" => false
+      },
+      "eticket:thumbnail" => {
+        "href" => "https://api.viagogo.net/v2/etickets/25827/thumbnail",
+        "title" => nil,
+        "templated" => false
+      }
+    }
+  }
+
+  ETICKETUPLOAD ||= {
+    "id" => 4059,
+    "file_name" => "Ticket.pdf",
+    "processed_at" => "2015-09-24T11:51:44+00:00",
+    "original_number_of_etickets" => 1,
+    "status_description" => "Processing Complete",
+    "_links" => {
+      "eticketupload:document" => {
+        "href" => "https://api.viagogo.net/v2/eticketuploads/4059/document",
+        "title" => nil,
+        "templated" => false
+      }
+    },
+    "_embedded" => {
+      "etickets" => [
+        ETICKET
+      ]
+    }
+  }
+
   LINK_RELATION_HREFS ||= {
     "category:children" => CATEGORY["_links"]["category:children"]["href"],
     "category:events" => CATEGORY["_links"]["category:events"]["href"],
@@ -1006,6 +1047,8 @@ module ResourceHelpers
     "user:purchases" => USER["_links"]["user:purchases"]["href"],
     "user:sales" => USER["_links"]["user:sales"]["href"],
     "user:sellerlistings" => USER["_links"]["user:sellerlistings"]["href"],
-    "sale:shipments" => "#{SALE["_links"]["self"]["href"]}/shipments"
+    "sale:shipments" => "#{SALE["_links"]["self"]["href"]}/shipments",
+    "sale:etickets" => "#{SALE["_links"]["self"]["href"]}/etickets",
+    "sale:eticketuploads" => "#{SALE["_links"]["self"]["href"]}/eticketuploads"
   }
 end

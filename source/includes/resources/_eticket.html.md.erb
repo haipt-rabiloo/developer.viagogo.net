@@ -1,0 +1,18 @@
+## ETicket
+
+An electronic ticket that has been uploaded for a listing or a sale.
+
+
+### Properties
+
+| **Name** | **Type** | **Description** |
+| `id` | `int` | The identifier of the E-Ticket. |
+
+
+### Links
+
+| **Relation** | **Method** | **Templated** | **Description** |
+| `self` | `GET` | No | An electronic ticket |
+| [`eticket:delete`](#eticketdelete) | `GET` | No | Delete this E-Ticket. |
+| [`eticket:document`](#eticketdocument) | `GET` | No | A PDF file containing the E-Ticket. |
+| [`eticket:thumbnail`](#eticketthumbnail) | `GET` | No | An image file containing a thumbnail of the E-Ticket. |
