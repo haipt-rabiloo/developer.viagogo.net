@@ -1,0 +1,21 @@
+## sale:shipments
+
+<%= curl('GET', LINK_RELATION_HREFS['sale:shipments']) %>
+
+~~~ csharp
+// TODO
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+<%= json_paged_resource(:shipment, "sale:shipments") %>
+
+You can `GET` the href of this link to retrieve the [`Shipments`](#shipments)
+resource that contains shipments related to a sale.
+
+
+### Response
+
+Returns the [`Shipments`](#shipments) resource related to a sale.

@@ -884,6 +884,51 @@ module ResourceHelpers
     }
   }
 
+  SELLER_DELIVERY_METHOD = {
+    "id" => 0,
+    "name" => "UPS (Express Saver) - United Kingdom Domestic",
+    "type" => "Pickup"
+  }
+
+  SALE ||= {
+    "id" => 1017322,
+    "created_at" => "2015-09-21T16:02:39+00:00",
+    "seating" => SEATING,
+    "proceeds" => MONEY_PROCEEDS,
+    "number_of_tickets" => 2,
+    "status" => "Confirm Sales",
+    "status_description" => nil,
+    "confirm_by" => "2015-09-23T16:02:43+00:00",
+    "ship_by" => nil,
+    "payment_details" => PAYMENT_METHOD["details"],
+    "payment_type" => PAYMENT_METHOD["type"],
+    "payment_type_description" => PAYMENT_METHOD["type_description"],
+    "_links" => {
+      "self" => {
+        "href" => "https://api.viagogo.net/v2/sales/1017322",
+        "title" => nil,
+        "templated" => false
+      },
+      "sale:confirm" => {
+        "href" => "https://api.viagogo.net/v2/sales/1017322",
+        "title" => "Confirm",
+        "templated" => false
+      },
+      "sale:reject" => {
+        "href" => "https://api.viagogo.net/v2/sales/1017322",
+        "title" => "Report a problem",
+        "templated" => false
+      },
+      "sale:listing" => SELLER_LISTING["_links"]["self"],
+    },
+    "_embedded" => {
+      "delivery_method" => SELLER_DELIVERY_METHOD,
+      "event" => EMBEDDED_EVENT,
+      "ticket_type" => TICKET_TYPE,
+      "venue" => EMBEDDED_VENUE
+    }
+  }
+
   SEARCH_RESULT ||= {
     "title" => "One Direction",
     "type" => "Category",
@@ -894,6 +939,49 @@ module ResourceHelpers
         "title" => nil,
         "templated" => false
       }
+    }
+  }
+
+  PICKUP ||= {
+    "id" => 2109,
+    "start_date" => "2015-09-24T09:00:00+00:00",
+    "end_date" => "2015-09-24T17:00:00+00:00",
+    "address" => ADDRESS_SNAPSHOT,
+    "_links" => {
+      "self" => {
+        "href" => "https://api.viagogo.net/v2/pickups/2109",
+        "title" => nil,
+        "templated" => false
+      },
+      "pickup:delete" => {
+        "href" => "https://api.viagogo.net/v2/pickups/2109",
+        "title" => nil,
+        "templated" => false
+      }
+    }
+  }
+
+  SHIPMENT ||= {
+    "id" => 1007247,
+    "tracking_number" => "1ZX0565R0490161406",
+    "delivery_address" => nil,
+    "_links" => {
+      "shipment:carrier" => {
+        "href" => "https://api.viagogo.net/v2/addresses/37073/carriers/2",
+        "title" => nil,
+        "templated" => false
+      },
+      "shipment:label" => {
+        "href" => "https://api.viagogo.net/v2/sales/1017898/shipments/1007247/label",
+        "title" => nil,
+        "templated" => false
+      }
+    },
+    "_embedded" => {
+      "delivery_method" => SELLER_DELIVERY_METHOD,
+      "pickups" => [
+        PICKUP
+      ]
     }
   }
 
@@ -918,5 +1006,6 @@ module ResourceHelpers
     "user:purchases" => USER["_links"]["user:purchases"]["href"],
     "user:sales" => USER["_links"]["user:sales"]["href"],
     "user:sellerlistings" => USER["_links"]["user:sellerlistings"]["href"],
+    "sale:shipments" => "#{SALE["_links"]["self"]["href"]}/shipments"
   }
 end
