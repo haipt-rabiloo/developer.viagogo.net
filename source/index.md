@@ -39,6 +39,10 @@ includes:
   - resources/currencies
   - resources/currency
   - resources/delivery-method
+  - resources/eticket
+  - resources/etickets
+  - resources/eticket-upload
+  - resources/eticket-uploads
   - resources/event
   - resources/events
   - resources/language
@@ -79,6 +83,10 @@ includes:
   - link-relations/category-parent
   - link-relations/category-performers
   - link-relations/category-webpage
+  - link-relations/eticket-delete
+  - link-relations/eticket-document
+  - link-relations/eticket-thumbnail
+  - link-relations/eticketupload-document
   - link-relations/event-category
   - link-relations/event-createsellerlisting
   - link-relations/event-listingconstraints
