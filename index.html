@@ -3187,6 +3187,343 @@ requests up until they expire.</p>
   </tbody>
 </table>
 
+          <h2 id="eticket">ETicket</h2>
+
+<p>An electronic ticket that has been uploaded for a listing or a sale.</p>
+
+<h3 id="properties">Properties</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Name</strong></td>
+      <td><strong>Type</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>id</code></td>
+      <td><code>int</code></td>
+      <td>The identifier of the E-Ticket.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="links">Links</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Relation</strong></td>
+      <td><strong>Method</strong></td>
+      <td><strong>Templated</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>self</code></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>An electronic ticket</td>
+    </tr>
+    <tr>
+      <td><a href="#eticketdelete"><code>eticket:delete</code></a></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>Delete this E-Ticket.</td>
+    </tr>
+    <tr>
+      <td><a href="#eticketdocument"><code>eticket:document</code></a></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>A PDF file containing the E-Ticket.</td>
+    </tr>
+    <tr>
+      <td><a href="#eticketthumbnail"><code>eticket:thumbnail</code></a></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>An image file containing a thumbnail of the E-Ticket.</td>
+    </tr>
+  </tbody>
+</table>
+
+          <h2 id="etickets">ETickets</h2>
+
+<p>The ETickets resource is a collection resource that contains zero or more
+references to a set of E-Tickets, and links that guide you on ways to interact
+with the E-Tickets. The collection offers a paginated view of E-Tickets.</p>
+
+<h3 id="properties">Properties</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Name</strong></td>
+      <td><strong>Type</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>page</code></td>
+      <td><code>int</code></td>
+      <td>The number of the current page of items.</td>
+    </tr>
+    <tr>
+      <td><code>page_size</code></td>
+      <td><code>int</code></td>
+      <td>The number of items on each page.</td>
+    </tr>
+    <tr>
+      <td><code>total_items</code></td>
+      <td><code>int</code></td>
+      <td>The total number of items on every page.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="links">Links</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Relation</strong></td>
+      <td><strong>Method</strong></td>
+      <td><strong>Templated</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>self</code></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>The collection of the current E-Tickets.</td>
+    </tr>
+    <tr>
+      <td><code>next</code></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>The next page of items in a collection.</td>
+    </tr>
+    <tr>
+      <td><code>prev</code></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>The previous page of items in a collection.</td>
+    </tr>
+    <tr>
+      <td><code>first</code></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>The first page of items in a collection.</td>
+    </tr>
+    <tr>
+      <td><code>last</code></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>The last page of items in a collection.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="embedded">Embedded</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Relation</strong></td>
+      <td><strong>Type</strong></td>
+      <td><strong>Optional</strong></td>
+      <td><strong>Description</strong></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>items</code></td>
+      <td> </td>
+      <td><a href="#eticket"><code>ETicket</code></a>[]</td>
+      <td>No</td>
+      <td>An array of the current page of <a href="#eticket"><code>ETicket</code></a> resources.</td>
+    </tr>
+  </tbody>
+</table>
+
+          <h2 id="eticketupload">ETicketUpload</h2>
+
+<p>Represents an uploaded file that contains one or more E-Tickets.</p>
+
+<h3 id="properties">Properties</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Name</strong></td>
+      <td><strong>Type</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>id</code></td>
+      <td><code>int</code></td>
+      <td>The identifier of the upload.</td>
+    </tr>
+    <tr>
+      <td><code>file_name</code></td>
+      <td><code>string</code></td>
+      <td>The name of the file that was uploaded.</td>
+    </tr>
+    <tr>
+      <td><code>status_description</code></td>
+      <td><code>string</code></td>
+      <td>A localised in-depth description of the current status of the upload.</td>
+    </tr>
+    <tr>
+      <td><code>processed_at</code></td>
+      <td><code>string</code></td>
+      <td>The date when all of the E-Tickets in the uploaded file were processed.</td>
+    </tr>
+    <tr>
+      <td><code>original_number_of_tickets</code></td>
+      <td><code>int</code></td>
+      <td>The original number of E-Tickets contained in the uploaded file.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="links">Links</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Relation</strong></td>
+      <td><strong>Method</strong></td>
+      <td><strong>Templated</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>self</code></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>An uploaded file containing one or more E-Tickets</td>
+    </tr>
+    <tr>
+      <td><a href="#eticketuploaddocument"><code>eticketupload:document</code></a></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>The original file that was uploaded.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="embedded">Embedded</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Relation</strong></td>
+      <td><strong>Type</strong></td>
+      <td><strong>Optional</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>etickets</code></td>
+      <td><a href="#eticket"><code>ETicket</code></a>[]</td>
+      <td>No</td>
+      <td>An array of the individual E-Tickets contained in the uploaded files.</td>
+    </tr>
+  </tbody>
+</table>
+
+          <h2 id="eticketuploads">ETicketUploads</h2>
+
+<p>The ETicketUploads resource is a collection resource that contains zero or more
+references to a set of uploads, and links that guide you on ways to interact
+with the uploads. The collection offers a paginated view of uploads.</p>
+
+<h3 id="properties">Properties</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Name</strong></td>
+      <td><strong>Type</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>page</code></td>
+      <td><code>int</code></td>
+      <td>The number of the current page of items.</td>
+    </tr>
+    <tr>
+      <td><code>page_size</code></td>
+      <td><code>int</code></td>
+      <td>The number of items on each page.</td>
+    </tr>
+    <tr>
+      <td><code>total_items</code></td>
+      <td><code>int</code></td>
+      <td>The total number of items on every page.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="links">Links</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Relation</strong></td>
+      <td><strong>Method</strong></td>
+      <td><strong>Templated</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>self</code></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>The collection of the current uploads.</td>
+    </tr>
+    <tr>
+      <td><code>next</code></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>The next page of items in a collection.</td>
+    </tr>
+    <tr>
+      <td><code>prev</code></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>The previous page of items in a collection.</td>
+    </tr>
+    <tr>
+      <td><code>first</code></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>The first page of items in a collection.</td>
+    </tr>
+    <tr>
+      <td><code>last</code></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>The last page of items in a collection.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="embedded">Embedded</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Relation</strong></td>
+      <td><strong>Type</strong></td>
+      <td><strong>Optional</strong></td>
+      <td><strong>Description</strong></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code>items</code></td>
+      <td> </td>
+      <td><a href="#eticketupload"><code>ETicketUpload</code></a>[]</td>
+      <td>No</td>
+      <td>An array of the current page of <a href="#eticketupload"><code>ETicketUpload</code></a> resources.</td>
+    </tr>
+  </tbody>
+</table>
+
           <h2 id="event">Event</h2>
 
 <p>An event on the viagogo platform.</p>
@@ -4664,10 +5001,28 @@ user.</p>
       <td>Confirm the sale.</td>
     </tr>
     <tr>
+      <td><a href="#saleetickets"><code>sale:etickets</code></a></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>The uploaded E-Tickets that have been assigned to the tickets that have been sold.</td>
+    </tr>
+    <tr>
+      <td><a href="#saleeticketuploads"><code>sale:eticketuploads</code></a></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>The uploaded files containing E-Tickets that have not been assigned to the tickets that have been sold.</td>
+    </tr>
+    <tr>
       <td><a href="#salereject"><code>sale:reject</code></a></td>
       <td><code>PATCH</code></td>
       <td>No</td>
       <td>Report a problem with the sale.</td>
+    </tr>
+    <tr>
+      <td><a href="#salesaveetickets"><code>sale:saveetickets</code></a></td>
+      <td><code>PATCH</code></td>
+      <td>No</td>
+      <td>Assign uploaded E-Tickets to the tickets that have been sold.</td>
     </tr>
     <tr>
       <td><a href="#saleshipments"><code>sale:shipments</code></a></td>
@@ -4680,6 +5035,12 @@ user.</p>
       <td><code>GET</code></td>
       <td>No</td>
       <td>The webpage where a shipment of tickets can be tracked after entering the <code>tracking_number</code>.</td>
+    </tr>
+    <tr>
+      <td><a href="#saleuploadetickets"><code>sale:uploadetickets</code></a></td>
+      <td><code>POST</code></td>
+      <td>No</td>
+      <td>Upload a file containing E-Tickets.</td>
     </tr>
   </tbody>
 </table>
@@ -6874,6 +7235,54 @@ category.</p>
 
 <p>An HTML web page.</p>
 
+          <h2 id="eticketdelete">eticket:delete</h2>
+
+<pre><code class="highlight shell">curl -X DELETE <span class="s2">"https://api.viagogo.net/v2/sales/1017322/etickets/25827"</span>
+  -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+</code></pre>
+
+<pre><code class="highlight csharp"><span class="c1">// TODO
+</span></code></pre>
+
+<pre><code class="highlight ruby"><span class="c1"># TODO</span>
+</code></pre>
+
+<p>You can use a <code>DELETE</code> request on the href of this link to delete an E-Ticket.</p>
+
+<h3 id="response">Response</h3>
+
+<p>No content (and <code>204</code> status code).</p>
+
+          <h2 id="eticketdocument">eticket:document</h2>
+
+<p>You can GET the href of this link to download a PDF file containing an E-Ticket.</p>
+
+<h3 id="response">Response</h3>
+
+<p>The PDF file for an <a href="#eticket"><code>ETicket</code></a>. The response will have content-type
+<code>application/pdf</code>.</p>
+
+          <h2 id="eticketthumbnail">eticket:thumbnail</h2>
+
+<p>You can GET the href of this link to download an image file containing a
+thumbnail of an E-Ticket.</p>
+
+<h3 id="response">Response</h3>
+
+<p>The thumbnail for an <a href="#eticket"><code>ETicket</code></a>. The response will have content-type
+<code>image/jpeg</code> or <code>image/png</code>.</p>
+
+          <h2 id="eticketuploaddocument">eticketupload:document</h2>
+
+<p>You can GET the href of this link to download the original file that was
+uploaded for an <a href="#eticketupload"><code>ETicketUpload</code></a>.</p>
+
+<h3 id="response">Response</h3>
+
+<p>The file for an <a href="#eticketupload"><code>ETicketUpload</code></a>. The response will have
+content-type <code>application/pdf</code>.</p>
+
           <h2 id="eventcategory">event:category</h2>
 
 <pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/categories/20746"</span>
@@ -8913,6 +9322,170 @@ tickets.</p>
 
 <p>The updated <a href="#sale"><code>Sale</code></a> resource.</p>
 
+          <h2 id="saleetickets">sale:etickets</h2>
+
+<pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/sales/1017322/etickets"</span>
+  -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+</code></pre>
+
+<pre><code class="highlight csharp"><span class="c1">// TODO
+</span></code></pre>
+
+<pre><code class="highlight ruby"><span class="c1"># TODO</span>
+</code></pre>
+
+<blockquote>
+  <p>The above command returns an object structured like this:</p>
+</blockquote>
+
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"total_items"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"page_size"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sales/1017322/etickets?page=1&amp;page_size=1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"next"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sales/1017322/etickets?page=2&amp;page_size=1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"last"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sales/1017322/etickets?page=100&amp;page_size=1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"_embedded"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">25827</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"eticket:delete"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sales/1017322/etickets/25827"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"eticket:document"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/etickets/25827/document"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"eticket:thumbnail"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/etickets/25827/thumbnail"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>You can <code>GET</code> the href of this link to retrieve the <a href="#etickets"><code>ETickets</code></a>
+resource that contains uploaded E-Tickets that have been assigned to tickets
+that have been sold.</p>
+
+<h3 id="response">Response</h3>
+
+<p>Returns the <a href="#etickets"><code>ETickets</code></a> resource related to a sale.</p>
+
+          <h2 id="saleeticketuploads">sale:eticketuploads</h2>
+
+<pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/sales/1017322/eticketuploads"</span>
+  -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+</code></pre>
+
+<pre><code class="highlight csharp"><span class="c1">// TODO
+</span></code></pre>
+
+<pre><code class="highlight ruby"><span class="c1"># TODO</span>
+</code></pre>
+
+<blockquote>
+  <p>The above command returns an object structured like this:</p>
+</blockquote>
+
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"total_items"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"page_size"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sales/1017322/eticketuploads?page=1&amp;page_size=1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"next"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sales/1017322/eticketuploads?page=2&amp;page_size=1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"last"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sales/1017322/eticketuploads?page=100&amp;page_size=1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"_embedded"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">4059</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"file_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ticket.pdf"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"processed_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T11:51:44+00:00"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"original_number_of_etickets"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"status_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Processing Complete"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"eticketupload:document"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/eticketuploads/4059/document"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"_embedded"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"etickets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">25827</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"eticket:delete"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                  </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sales/1017322/etickets/25827"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="s2">"eticket:document"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                  </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/etickets/25827/document"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="s2">"eticket:thumbnail"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                  </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/etickets/25827/thumbnail"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>You can <code>GET</code> the href of this link to retrieve the
+<a href="#eticketuploads"><code>ETicketUploads</code></a> the uploaded files that contain E-Tickets
+that have not been assigned to the tickets that were sold.</p>
+
+<h3 id="response">Response</h3>
+
+<p>Returns the <a href="#eticketuploads"><code>ETicketUploads</code></a> resource related to a sale.</p>
+
           <h2 id="salereject">sale:reject</h2>
 
 <pre><code class="highlight shell">curl -X PATCH <span class="s2">"https://api.viagogo.net/v2/sales/1017322"</span>
@@ -9061,6 +9634,154 @@ sale of tickets.</p>
 
 <p>The updated <a href="#sale"><code>Sale</code></a> resource.</p>
 
+          <h2 id="salesaveetickets">sale:saveetickets</h2>
+
+<pre><code class="highlight shell">curl -X PATCH <span class="s2">"https://api.viagogo.net/v2/sales/1017322"</span>
+  -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+</code></pre>
+
+<pre><code class="highlight csharp"><span class="c1">// TODO
+</span></code></pre>
+
+<pre><code class="highlight ruby"><span class="c1"># TODO</span>
+</code></pre>
+
+<blockquote>
+  <p>The above command returns an object structured like this:</p>
+</blockquote>
+
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1017322</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-21T16:02:39+00:00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"seating"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"section"</span><span class="p">:</span><span class="w"> </span><span class="s2">"107"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"row"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"seat_from"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"seat_to"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"proceeds"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">22.58</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"currency_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"display"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$22.58"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Confirm Sales"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status_description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"confirm_by"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-23T16:02:43+00:00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ship_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"payment_details"</span><span class="p">:</span><span class="w"> </span><span class="s2">"************1111"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"payment_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CreditCard"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"payment_type_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Credit or Debit Card"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sales/1017322"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"sale:confirm"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sales/1017322"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Confirm"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"sale:reject"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sales/1017322"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Report a problem"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"sale:listing"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sellerlistings/22096065"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"_embedded"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"delivery_method"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UPS (Express Saver) - United Kingdom Domestic"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pickup"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"event"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">735139</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One Direction"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T18:30:00+01:00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"date_confirmed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/events/735139"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"ticket_type"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ETicket"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Print at home / E-tickets (PDF)"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/tickettypes/ETicket"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"venue"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1364</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The O2 arena"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"London"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">51.5025</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0024</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/venues/1364"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"_embedded"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GB"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"United Kingdom"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/countries/GB"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>You can use a PATCH request on the href of this link to assign uploaded
+E-Tickets to the tickets that have been sold.</p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Name</strong></td>
+      <td><strong>Type</strong></td>
+      <td><strong>Required</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>eticket_ids</code></td>
+      <td><code>boolean</code></td>
+      <td>No</td>
+      <td>A comma-separated string of the identifiers of the E-Tickets to be assigned.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="response">Response</h3>
+
+<p>The updated <a href="#sale"><code>Sale</code></a> resource.</p>
+
           <h2 id="saleshipments">sale:shipments</h2>
 
 <pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/sales/1017322/shipments"</span>
@@ -9176,6 +9897,104 @@ tracking number manually on this page.</p>
 <h3 id="response">Response</h3>
 
 <p>An HTML web page.</p>
+
+          <h2 id="saleuploadetickets">sale:uploadetickets</h2>
+
+<pre><code class="highlight shell">curl -X POST <span class="s2">""</span>
+     -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
+     -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+     -H <span class="s2">"Content-Type: multipart/form-data; boundary=----CustomBoundary123456abcdef"</span>
+     -F <span class="s2">"File1=Ticket.pdf"</span>
+</code></pre>
+
+<pre><code class="highlight csharp"><span class="c1">// TODO
+</span></code></pre>
+
+<pre><code class="highlight ruby"><span class="c1"># TODO</span>
+</code></pre>
+
+<blockquote>
+  <p>The above command returns an object structured like this:</p>
+</blockquote>
+
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"total_items"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"page_size"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sales/1017322/eticketuploads?page=1&amp;page_size=1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"next"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sales/1017322/eticketuploads?page=2&amp;page_size=1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"last"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sales/1017322/eticketuploads?page=100&amp;page_size=1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"_embedded"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">4059</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"file_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ticket.pdf"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"processed_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T11:51:44+00:00"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"original_number_of_etickets"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"status_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Processing Complete"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"eticketupload:document"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/eticketuploads/4059/document"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"_embedded"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"etickets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">25827</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"eticket:delete"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                  </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sales/1017322/etickets/25827"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="s2">"eticket:document"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                  </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/etickets/25827/document"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="s2">"eticket:thumbnail"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                  </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/etickets/25827/thumbnail"</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                  </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>You can use a <code>POST</code> request on the href of this link upload one or more files
+containing E-Tickets that will be assigned to the tickets that have been sold.</p>
+
+<h3 id="request">Request</h3>
+
+<p>One or more PDF files containing E-Tickets must be uploaded using
+<a href="http://tools.ietf.org/html/rfc1867">Form-based File Upload in HTML</a>.</p>
+
+<h3 id="response">Response</h3>
+
+<p>Returns the <a href="#eticketuploads"><code>ETicketUploads</code></a> resource for the newly created
+uploads.</p>
 
           <h2 id="searchresultcategory">searchresult:category</h2>
 
