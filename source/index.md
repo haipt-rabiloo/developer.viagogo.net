@@ -25,6 +25,7 @@ includes:
   - getting-started/affiliate-commission-tiers
   - getting-started/creating-listings
   - getting-started/updating-listings
+  - getting-started/managing-sales
 
   - authentication
   - basic-types
