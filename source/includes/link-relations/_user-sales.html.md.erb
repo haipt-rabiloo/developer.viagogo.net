@@ -1,0 +1,21 @@
+## user:sales
+
+<%= curl('GET', USER['_links']['user:sales']['href']) %>
+
+~~~ csharp
+// TODO
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+<%= json_paged_resource(:sale, "user:sales") %>
+
+You can `GET` the href of this link to retrieve the [`Sales`](#sales) resource
+that contains the current user's sales.
+
+
+### Response
+
+Returns the [`Sales`](#sales) resource that contains current user's sales.

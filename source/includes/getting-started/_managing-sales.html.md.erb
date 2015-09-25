@@ -1,0 +1,38 @@
+## Managing Sales
+
+Using API v2, your application can manage ticket sales on behalf of a user.
+This example assumes that your
+[application has an access token for a user](#authorization-code-grant) and that
+the token has the appropriate [scopes](#scopes) for read and write access to the
+user's sales. Please see our [Customer Service](http://www.viagogo.co.uk/help)
+page for answers to any non-API questions you may have about selling, or
+shipping tickets on the viagogo platform.
+
+
+### 1. Accessing your sales
+
+Follow the [`user:sales`](#usersales) link on the [`User`](#user) resource to
+get all of the [`Sale`](#sale) resources for your account.
+
+
+### 2. Confirming sales
+
+When your tickets have sold, you should confirm your sale promptly using by
+following the [`sale:confirm`](#saleconfirm) link. If there is a problem with
+your sale, you should use the [`sale:reject`](#salereject) link.
+
+
+### 3. Uploading E-Tickets for your sale
+
+As soon as you have your tickets and are ready to upload them, you can use the
+[`sale:uploadetickets`](#saleuploadetickets) link to upload one or more files
+containing one or more tickets. The files that you upload will be represented as
+[`ETicketUpload`](#eticketupload) resources that will contain separate
+[`ETicket`](#eticket) resources for each ticket in the file(s). You can then
+submit the `id`s of the [`ETicket`](#eticket) resources that you want to assign
+to the sale in the [`sale:saveetickets`](#salesaveetickets) link.
+
+
+### 4. Shipping your tickets
+
+TODO
