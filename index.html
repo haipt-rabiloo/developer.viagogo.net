@@ -527,8 +527,8 @@ header, you will receive a <code>403 Forbidden</code> response.</p>
 
 <h2 id="localization">Localization</h2>
 
-<p>viagogo API v2 support various request headers to return locale-specific content
-in responses.</p>
+<p>viagogo API v2 supports various request headers to return locale-specific
+content in responses.</p>
 
 <h3 id="accept-language-header">Accept-Language Header</h3>
 
@@ -587,6 +587,118 @@ for. You don’t need to request a resource any more frequently than every
 make subsequent requests to those resources using the <code>If-None-Match</code> header.
 If the resource has not changed, the server will return a <code>304 Not Modified</code>
 response with an empty body.</p>
+
+<h2 id="idempotent-requests">Idempotent Requests</h2>
+
+<pre><code class="highlight shell">curl -X POST <span class="s2">"https://api.viagogo.net/v2/events/735139/sellerlistings"</span>
+     -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
+     -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+     -H <span class="s2">"Idempotency-Key: f6d66920-636d-11e5-80f5-0002a5d5c51b"</span>
+     -d <span class="s1">'{"seating":{"section":"107","row":"A","seat_from":"1","seat_to":"4"},"ticket_price":{"amount":25.65,"currency_code":"USD"},"face_value":{"amount":22.62,"currency_code":"EUR"},"ticket_type":"ETicket","split_type":"Any","number_of_tickets":2,"guarantee_payment_method_id":95698}'</span>
+</code></pre>
+
+<pre><code class="highlight csharp"><span class="c1">// TODO
+</span></code></pre>
+
+<pre><code class="highlight ruby"><span class="c1"># TODO</span>
+</code></pre>
+
+<p>To safely retry an API request without accidently performing the same operation
+twice, you can attach a unique key to any <code>POST</code> request via the
+<code>Idempotency-Key: &lt;key&gt;</code> header.</p>
+
+<p>For example, if a request to <a href="#eventcreatesellerlisting"><code>create a listing</code></a>
+fails due to a network connection error, you can retry the request with the same
+key to guarantee that only a single listing is created.</p>
+
+<p>The key can be any UUID value and the viagogo API will always send back the same
+response for requests made with the same key. Keys expire after 24 hours.</p>
+
+<h2 id="batching-requests">Batching Requests</h2>
+
+<blockquote>
+  <p>Example Batch Request</p>
+</blockquote>
+
+<pre><code class="highlight plaintext">POST /v2/batch HTTP/1.1
+Host: api.viagogo.net
+Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo
+User-Agent: MyAwesomeApp
+Content-Type: multipart/mixed; boundary="batch_c3ce9cd2-1358-4844-8b3a-765b582a713f"
+Cache-Control: no-cache
+
+
+--batch_c3ce9cd2-1358-4844-8b3a-765b582a713f
+Content-Type: application/http; msgtype=request
+
+GET /v2/currencies/GBP HTTP/1.1
+Content-Type: application/hal+json
+
+
+--batch_c3ce9cd2-1358-4844-8b3a-765b582a713f
+Content-Type: application/http; msgtype=request
+
+DELETE /v2/addresses/47177 HTTP/1.1
+
+
+--batch_c3ce9cd2-1358-4844-8b3a-765b582a713f--
+</code></pre>
+
+<blockquote>
+  <p>Example Batch Response</p>
+</blockquote>
+
+<pre><code class="highlight plaintext">HTTP/1.1 200
+Content-Length: 692
+Content-Type: multipart/mixed; boundary=batch_952f5df4-9e79-4fbe-8120-ceb188bc37a1
+
+batch_952f5df4-9e79-4fbe-8120-ceb188bc37a1
+Content-Type: application/http; msgtype=response
+
+HTTP/1.1 200 OK
+Vary: Accept-Currency, Content-Currency, VGG-Country, Accept-Language
+Cache-Control: no-transform, must-revalidate, max-age=0, private
+ETag: "FzEMwL83tpZ7OOqpAdUpfvjEQkI="
+Content-Type: application/hal+json; charset=utf-8
+Content-Language: en-US
+
+{"code":"GBP","name":"British Pound Sterling","symbol":"£","_links":{"self":{"href":"https://api.viagogo.net/v2/currencies/GBP","title":null,"templated":false}}}
+--batch_952f5df4-9e79-4fbe-8120-ceb188bc37a1
+Content-Type: application/http; msgtype=response
+
+HTTP/1.1 204 No Content
+
+
+--batch_952f5df4-9e79-4fbe-8120-ceb188bc37a1--
+</code></pre>
+
+<p>Each HTTP connection that your application makes results in a certain amount of
+overheader. viagogo API v2 supports batching, to allow your application to put
+several API calls into a single HTTP request.</p>
+
+<p>You may want to use batching when:</p>
+
+<ul>
+  <li>Your application needs to update the metadata of a lot of different resources</li>
+  <li>Your application needs to delete many resources</li>
+</ul>
+
+<p>You’re limited to 50 API calls in single batch request. If you need to make more
+calls than that, use multiple batch requests.</p>
+
+<h3 id="format-of-a-batch-request">Format of a batch request</h3>
+
+<p>A batch request is a single standard HTTP request with <code>multipart/mixed</code> content
+type that contains multiple nested HTTP requests within each part of its body.
+Each part begins with its own <code>Content-Type: application/http</code> HTTP header and
+the body of each part is a complete HTTP request with a verb, URL, headers and
+body.</p>
+
+<h3 id="format-of-a-batch-response">Format of a batch response</h3>
+
+<p>The server’s response is a single standard HTTP request with <code>multipart/mixed</code>
+content type; each part is the response to one of the requests in the batched
+request, in the same order as the requests.</p>
 
           <h1 id="getting-started">Getting Started</h1>
 
@@ -1241,9 +1353,10 @@ where viagogo is the official ticketing partner</li>
           <h2 id="creating-listings">Creating Listings</h2>
 
 <p>API v2 enables your application to create listings on behalf of users. This
-example assumes that your <a href="#">application has an access token for a user</a> and
-that the token has the appropriate <a href="#scopes">scopes</a> for read and write access
-to the user’s listings.</p>
+example assumes that your
+<a href="#authorization-code-grant">application has an access token for a user</a> and that
+the token has the appropriate <a href="#scopes">scopes</a> for read and write access to the
+user’s listings.</p>
 
 <blockquote>
   <p><strong>1. Find the Event that you want to list tickets for</strong></p>
@@ -1480,9 +1593,10 @@ the <a href="#listingconstraints"><code>ListingConstraints</code></a> that your 
           <h2 id="updating-listings">Updating Listings</h2>
 
 <p>API v2 enables your application to update listings on behalf of users. This
-example assumes that your <a href="#">application has an access token for a user</a> and
-that the token has the appropriate <a href="#scopes">scopes</a> for read and write access
-to the user’s listings.</p>
+example assumes that your
+<a href="#authorization-code-grant">application has an access token for a user</a> and that
+the token has the appropriate <a href="#scopes">scopes</a> for read and write access to the
+user’s listings.</p>
 
 <blockquote>
   <p><strong>1. Find the SellerListing that you want to edit</strong></p>
@@ -1725,6 +1839,41 @@ the <a href="#listingconstraints"><code>ListingConstraints</code></a> that your 
 corresponds to the update you want to make. For example, follow the
 <a href="#sellerlistingupdateseating"><code>sellerlisting:updateseating</code></a> to update the
 seating information of a listing.</p>
+
+          <h2 id="managing-sales">Managing Sales</h2>
+
+<p>Using API v2, your application can manage ticket sales on behalf of a user.
+This example assumes that your
+<a href="#authorization-code-grant">application has an access token for a user</a> and that
+the token has the appropriate <a href="#scopes">scopes</a> for read and write access to the
+user’s sales. Please see our <a href="http://www.viagogo.co.uk/help">Customer Service</a>
+page for answers to any non-API questions you may have about selling, or
+shipping tickets on the viagogo platform.</p>
+
+<h3 id="accessing-your-sales">1. Accessing your sales</h3>
+
+<p>Follow the <a href="#usersales"><code>user:sales</code></a> link on the <a href="#user"><code>User</code></a> resource to
+get all of the <a href="#sale"><code>Sale</code></a> resources for your account.</p>
+
+<h3 id="confirming-sales">2. Confirming sales</h3>
+
+<p>When your tickets have sold, you should confirm your sale promptly using by
+following the <a href="#saleconfirm"><code>sale:confirm</code></a> link. If there is a problem with
+your sale, you should use the <a href="#salereject"><code>sale:reject</code></a> link.</p>
+
+<h3 id="uploading-e-tickets-for-your-sale">3. Uploading E-Tickets for your sale</h3>
+
+<p>As soon as you have your tickets and are ready to upload them, you can use the
+<a href="#saleuploadetickets"><code>sale:uploadetickets</code></a> link to upload one or more files
+containing one or more tickets. The files that you upload will be represented as
+<a href="#eticketupload"><code>ETicketUpload</code></a> resources that will contain separate
+<a href="#eticket"><code>ETicket</code></a> resources for each ticket in the file(s). You can then
+submit the <code>id</code>s of the <a href="#eticket"><code>ETicket</code></a> resources that you want to assign
+to the sale in the <a href="#salesaveetickets"><code>sale:saveetickets</code></a> link.</p>
+
+<h3 id="shipping-your-tickets">4. Shipping your tickets</h3>
+
+<p>TODO</p>
 
           <h1 id="authentication">Authentication</h1>
 
@@ -2194,11 +2343,11 @@ requests up until they expire.</p>
     </tr>
     <tr>
       <td><code>read:user</code></td>
-      <td>Grants read access to the user’s account information, addresses, payment methods and purchases.</td>
+      <td>Grants read access to the user’s account information, addresses, payment methods, purchases and sales.</td>
     </tr>
     <tr>
       <td><code>write:user</code></td>
-      <td>Grants write access to the user’s account information, addresses and payment methods.</td>
+      <td>Grants write access to the user’s account information, addresses, payment methods and sales.</td>
     </tr>
     <tr>
       <td><code>write:purchases</code></td>
@@ -12749,6 +12898,161 @@ payment methods.</p>
 
 <p>Returns the <a href="#paymentmethods"><code>PaymentMethods</code></a> resource that contains current 
 user’s payment methods.</p>
+
+          <h2 id="usersales">user:sales</h2>
+
+<pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/sales"</span>
+  -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+</code></pre>
+
+<pre><code class="highlight csharp"><span class="c1">// TODO
+</span></code></pre>
+
+<pre><code class="highlight ruby"><span class="c1"># TODO</span>
+</code></pre>
+
+<blockquote>
+  <p>The above command returns an object structured like this:</p>
+</blockquote>
+
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"total_items"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"page_size"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sales?page=1&amp;page_size=1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"next"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sales?page=2&amp;page_size=1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"last"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sales?page=100&amp;page_size=1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"_embedded"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1017322</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-21T16:02:39+00:00"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"seating"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"section"</span><span class="p">:</span><span class="w"> </span><span class="s2">"107"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"row"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"seat_from"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"seat_to"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"proceeds"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">22.58</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"currency_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"display"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$22.58"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Confirm Sales"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"status_description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"confirm_by"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-23T16:02:43+00:00"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"ship_by"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"payment_details"</span><span class="p">:</span><span class="w"> </span><span class="s2">"************1111"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"payment_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CreditCard"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"payment_type_description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Credit or Debit Card"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sales/1017322"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"sale:confirm"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sales/1017322"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Confirm"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"sale:reject"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sales/1017322"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Report a problem"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"sale:listing"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sellerlistings/22096065"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"_embedded"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"delivery_method"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UPS (Express Saver) - United Kingdom Domestic"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pickup"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"event"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">735139</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One Direction"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T18:30:00+01:00"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"date_confirmed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/events/735139"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"ticket_type"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ETicket"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Print at home / E-tickets (PDF)"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/tickettypes/ETicket"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"venue"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1364</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The O2 arena"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"London"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">51.5025</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0024</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/venues/1364"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"_embedded"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GB"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"United Kingdom"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                  </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/countries/GB"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+                  </span><span class="p">}</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>You can <code>GET</code> the href of this link to retrieve the <a href="#sales"><code>Sales</code></a> resource
+that contains the current user’s sales.</p>
+
+<h3 id="response">Response</h3>
+
+<p>Returns the <a href="#sales"><code>Sales</code></a> resource that contains current user’s sales.</p>
 
           <h2 id="usersellerlistings">user:sellerlistings</h2>
 
