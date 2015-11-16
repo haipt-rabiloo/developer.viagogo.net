@@ -1033,7 +1033,7 @@ module ResourceHelpers
 
   WEBHOOK ||= {
     "id" => 48,
-    "name" => "Sales Callback",
+    "name" => "My Webhook",
     "created_at" => "2015-10-19T13:21:32+00:00",
     "topics" => [
       "Sales"
@@ -1079,6 +1079,7 @@ module ResourceHelpers
     "user:purchases" => USER["_links"]["user:purchases"]["href"],
     "user:sales" => USER["_links"]["user:sales"]["href"],
     "user:sellerlistings" => USER["_links"]["user:sellerlistings"]["href"],
+    "user:webhooks" => USER["_links"]["user:webhooks"]["href"],
     "sale:shipments" => "#{SALE["_links"]["self"]["href"]}/shipments",
     "sale:etickets" => "#{SALE["_links"]["self"]["href"]}/etickets",
     "sale:eticketuploads" => "#{SALE["_links"]["self"]["href"]}/eticketuploads"

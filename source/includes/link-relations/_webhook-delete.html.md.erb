@@ -1,0 +1,22 @@
+## webhook:delete
+
+<%= curl('DELETE', WEBHOOK['_links']['webhook:delete']['href']) %>
+
+~~~ csharp
+var api = new ViagogoClient("clientId",
+                            "clientSecret",
+                            new ProductHeaderValue("MyAwesomeApp"));
+await api.Webhooks.DeleteAsync(<%= WEBHOOK['id'] %>);
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+You can use a `DELETE` request on the href of this link to delete a webhook for
+the current user.
+
+
+### Response
+
+No content (and `204` status code).

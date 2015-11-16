@@ -139,6 +139,7 @@ includes:
   - link-relations/user-paymentmethods
   - link-relations/user-sales
   - link-relations/user-sellerlistings
+  - link-relations/user-webhooks
   - link-relations/venue-events
   - link-relations/venue-metroarea
   - link-relations/viagogo-countries
@@ -149,6 +150,8 @@ includes:
   - link-relations/viagogo-search
   - link-relations/viagogo-user
   - link-relations/viagogo-venues
+  - link-relations/webhook-delete
+  - link-relations/webhook-update
 
 search: true
 ---
