@@ -321,6 +321,11 @@ module ResourceHelpers
         "href" => "https://api.viagogo.net/v2/sellerlistings",
         "title" => "Listings",
         "templated" => false
+      },
+      "user:webhooks" => {
+        "href" => "https://api.viagogo.net/v2/webhooks",
+        "title" => "Webhooks",
+        "templated" => false
       }
     }
   }
@@ -1023,6 +1028,33 @@ module ResourceHelpers
       "etickets" => [
         ETICKET
       ]
+    }
+  }
+
+  WEBHOOK ||= {
+    "id" => 48,
+    "name" => "Sales Callback",
+    "created_at" => "2015-10-19T13:21:32+00:00",
+    "topics" => [
+      "Sales"
+    ],
+    "url" => "http://myapplication/viagogocallback",
+    "_links" => {
+      "self" => {
+        "href" => "https://api.viagogo.net/v2/webhooks/48",
+        "title" => nil,
+        "templated" => false
+      },
+      "webhook:delete" => {
+        "href" => "https://api.viagogo.net/v2/webhooks/48",
+        "title" => nil,
+        "templated" => false
+      },
+      "webhook:update" => {
+        "href" => "https://api.viagogo.net/v2/webhooks/48",
+        "title" => nil,
+        "templated" => false
+      }
     }
   }
 

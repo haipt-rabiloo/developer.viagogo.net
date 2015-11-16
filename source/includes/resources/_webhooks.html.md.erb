@@ -1,6 +1,8 @@
-## Venues
+## Webhooks
 
-The Venues resource is a collection resource that contains zero or more references to a set of venues, and links that guide you on ways to interact with the venues. The collection offers a paginated view of venues.
+The Webhooks resource is a collection resource that contains zero or more
+references to a set of webhooks, and links that guide you on ways to interact
+with the webhooks. The collection offers a paginated view of webhooks.
 
 
 ### Properties
@@ -14,7 +16,7 @@ The Venues resource is a collection resource that contains zero or more referenc
 ### Links
 
 | **Relation** | **Method** | **Templated** | **Description** |
-| `self` | `GET` | No | The collection of the current venues. |
+| `self` | `GET` | No | The collection of the current webhooks. |
 | `next` | `GET` | No | The next page of items in a collection. |
 | `prev` | `GET` | No | The previous page of items in a collection. |
 | `first` | `GET` | No | The first page of items in a collection. |
@@ -24,4 +26,4 @@ The Venues resource is a collection resource that contains zero or more referenc
 ### Embedded
 
 | **Relation** | **Type** | **Optional** | **Description** |
-| `items` | [`Venue`](#venue)[] | No | An array of the current page of [`Venue`](#venue) resources. |
+| `items` | [`Webhook`](#webhook)[] | No | An array of the current page of [`webhook`](#webhook) resources. |

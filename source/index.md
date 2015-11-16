@@ -73,6 +73,8 @@ includes:
   - resources/user
   - resources/venue
   - resources/venues
+  - resources/webhook
+  - resources/webhooks
 
   - link-relations
   - link-relations/address-create
