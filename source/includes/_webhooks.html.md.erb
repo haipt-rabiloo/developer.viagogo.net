@@ -1,0 +1,35 @@
+# Webhooks
+
+Webhooks allow you to build or set up integrations that subscribe to certain
+topics on the viagogo platform. When an occurrence of a topic happens we'll send
+a `POST` payload to the webhook's configured URL. Once a webhook is created, it
+will be triggered each time one or more of the subscribed topics occurs.
+
+
+## Topics
+
+When configuring a webhook, you can choose the topics you would like to receive
+payloads for. You should only subscribe to the specific topics that you plan on
+handling so that you can limit the number of HTTP requests to your server.
+
+The available topics are:
+
+| **Name** | **Description** |
+| [`Sales`](#salestopic) | Any time something happens that affects a [`Sale`](#sale) (e.g. you sell one or more tickets) |
+
+
+## Payloads
+
+The payload for each topic has a similar JSON schema, but a unique piece of data
+that is relevant to that topic.
+
+### Delivery Headers
+
+HTTP requests made to your webhook's configured URL endpoint will contain
+several specific headers:
+
+| **Header** | **Description** |
+| VGG-Topic | Name of the [`topic`](#topics) that triggered this delivery |
+| VGG-DeliveryId | Unique identifier for this delivery |
+
+Also, the `User-Agent` for the requests will have the prefix `Viagogo-Webhooks/`.

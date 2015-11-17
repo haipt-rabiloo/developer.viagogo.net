@@ -1,0 +1,29 @@
+## webhook:update
+
+<%= curl('PATCH', WEBHOOK['_links']['webhook:update']['href']) %>
+
+~~~ csharp
+// TODO
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+<%= json(:webhook) %>
+
+You can use a `PATCH` request on the href of this link to update one of the
+current user's webhooks.
+
+
+### Parameters
+
+| **Name** | **Type** | **Required** | **Description** |
+| `name` | `string` | No | The name of the webhook |
+| `url` | `string` | No | The server endpoint that will receive the webhook payload |
+| `topics` | `string`[] | No | An array of the topics the webhook is trigger for |
+
+
+### Response
+
+The updated [`Webhook`](#webhook).

@@ -1,0 +1,25 @@
+## user:webhooks
+
+<%= curl('GET', USER['_links']['user:webhooks']['href']) %>
+
+~~~ csharp
+var api = new ViagogoClient("clientId",
+                            "clientSecret",
+                            new ProductHeaderValue("MyAwesomeApp"));
+var webhooks = await api.Webhooks.GetAllAsync();
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+<%= json_paged_resource(:webhook, "user:webhooks") %>
+
+You can `GET` the href of this link to retrieve the [`Webhooks`](#webhooks)
+resource that contains the current user's webhooks.
+
+
+### Response
+
+Returns the [`Webhooks`](#webhooks) resource that contains current user's
+webhooks.

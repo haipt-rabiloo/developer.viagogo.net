@@ -4,11 +4,11 @@
 require 'json'
 
 module ResourceHelpers
-  def json(key, text = 'The above command returns an object structured like this:')
+  def json(key, text = 'The above command returns an object structured like this:', options = nil)
     hash = get_resource(key)
     hash = yield hash if block_given?
 
-    write_json(hash, text)
+    write_json(hash, text, options)
   end
 
   def json_paged_resource(key, rel, total_items = 100, query = nil)
@@ -85,8 +85,19 @@ module ResourceHelpers
     write_json(paged_versioned_resource, 'The above command returns an object structured like this:')
   end
 
-  def write_json(resource, text)
-    "> #{text}\n\n" << "~~~ json\n#{JSON.pretty_generate(resource)}\n~~~"
+  def write_json(resource, text, options = nil)
+    options ||= {}
+    json = text.nil? ? "" : "> #{text}\n\n"
+
+    unless options['method'].nil? || options['path'].nil?
+      json << "~~~\n#{options['method']} #{options['path']}\n~~~\n"
+    end
+
+    unless options['headers'].nil?
+      json << "~~~\n#{options['headers'].map{|k,v| "#{k}: #{v}"}.join("\n")}\n~~~\n"
+    end
+
+    json << "~~~ json\n#{JSON.pretty_generate(resource)}\n~~~"
   end
 
   def get_resource(key)
@@ -321,6 +332,11 @@ module ResourceHelpers
         "href" => "https://api.viagogo.net/v2/sellerlistings",
         "title" => "Listings",
         "templated" => false
+      },
+      "user:webhooks" => {
+        "href" => "https://api.viagogo.net/v2/webhooks",
+        "title" => "Webhooks",
+        "templated" => false
       }
     }
   }
@@ -477,6 +493,7 @@ module ResourceHelpers
     "name" => "One Direction",
     "start_date" => "2015-09-24T18:30:00+01:00",
     "end_date" => nil,
+    "on_sale_date" => "2014-12-24T08:30:00+01:00",
     "date_confirmed" => true,
     "min_ticket_price" => MONEY,
     "notes_html" => "General Notes \n • All sales are final \n • Ticket prices are set by the seller and may be above or below face value \n • Event dates and times are subject to change, it is up to you to check local listings for updates \n • After your purchase, you will receive a confirmation email with your ticket delivery details and timing",
@@ -527,6 +544,8 @@ module ResourceHelpers
     "id" => EVENT["id"],
     "name" => "One Direction",
     "start_date" => EVENT["start_date"],
+    "end_date" => EVENT["end_date"],
+    "on_sale_date" => EVENT["on_sale_date"],
     "date_confirmed" => EVENT["date_confirmed"],
     "_links" => {
       "self" => EVENT["_links"]["self"]
@@ -847,6 +866,16 @@ module ResourceHelpers
     }
   }
 
+  EMBEDDED_SELLER_LISTING ||= {
+    "id" => SELLER_LISTING["id"],
+    "created_at" => SELLER_LISTING["created_at"],
+    "number_of_tickets" => SELLER_LISTING["number_of_tickets"],
+    "ticket_price" => SELLER_LISTING["ticket_price"],
+    "_links" => {
+      "self" => SELLER_LISTING["_links"]["self"]
+    }
+  }
+
   LISTING_CONSTRAINTS ||= {
     "min_ticket_price" => MONEY,
     "max_ticket_price" => MONEY,
@@ -926,6 +955,17 @@ module ResourceHelpers
       "event" => EMBEDDED_EVENT,
       "ticket_type" => TICKET_TYPE,
       "venue" => EMBEDDED_VENUE
+    }
+  }
+
+  EMBEDDED_SALE ||= {
+    "id" => SALE["id"],
+    "created_at" => SALE["created_at"],
+    "seating" => SALE["seating"],
+    "proceeds" => SALE["proceeds"],
+    "number_of_tickets" => SALE["number_of_tickets"],
+    "_links" => {
+      "self" => SALE["_links"]["self"]
     }
   }
 
@@ -1026,6 +1066,43 @@ module ResourceHelpers
     }
   }
 
+  WEBHOOK ||= {
+    "id" => 48,
+    "name" => "My Webhook",
+    "created_at" => "2015-10-19T13:21:32+00:00",
+    "topics" => [
+      "Sales"
+    ],
+    "url" => "http://myapplication.com/payload",
+    "_links" => {
+      "self" => {
+        "href" => "https://api.viagogo.net/v2/webhooks/48",
+        "title" => nil,
+        "templated" => false
+      },
+      "webhook:delete" => {
+        "href" => "https://api.viagogo.net/v2/webhooks/48",
+        "title" => nil,
+        "templated" => false
+      },
+      "webhook:update" => {
+        "href" => "https://api.viagogo.net/v2/webhooks/48",
+        "title" => nil,
+        "templated" => false
+      }
+    }
+  }
+
+  SALES_TOPIC ||= {
+    "action" => "Created",
+    "_embedded" => {
+      "event" => EMBEDDED_EVENT,
+      "sale" => EMBEDDED_SALE,
+      "seller_listing" => EMBEDDED_SELLER_LISTING,
+      "venue" => EMBEDDED_VENUE
+    }
+  }
+
   LINK_RELATION_HREFS ||= {
     "category:children" => CATEGORY["_links"]["category:children"]["href"],
     "category:events" => CATEGORY["_links"]["category:events"]["href"],
@@ -1047,6 +1124,7 @@ module ResourceHelpers
     "user:purchases" => USER["_links"]["user:purchases"]["href"],
     "user:sales" => USER["_links"]["user:sales"]["href"],
     "user:sellerlistings" => USER["_links"]["user:sellerlistings"]["href"],
+    "user:webhooks" => USER["_links"]["user:webhooks"]["href"],
     "sale:shipments" => "#{SALE["_links"]["self"]["href"]}/shipments",
     "sale:etickets" => "#{SALE["_links"]["self"]["href"]}/etickets",
     "sale:eticketuploads" => "#{SALE["_links"]["self"]["href"]}/eticketuploads"
