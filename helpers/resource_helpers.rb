@@ -251,6 +251,16 @@ module ResourceHelpers
         "href" => "https://api.viagogo.net/v2/metroareas",
         "title" => "Metro Area",
         "templated" => false
+      },
+      "viagogo:listingconstraints" => {
+        "href" => "https://api.viagogo.net/v2/listingconstraints",
+        "title" => "Sell Tickets",
+        "templated" => false
+      },
+      "viagogo:createsellerlisting" => {
+        "href" => "https://api.viagogo.net/v2/sellerlistings",
+        "title" => "Sell Tickets",
+        "templated" => false
       }
     }
   }
