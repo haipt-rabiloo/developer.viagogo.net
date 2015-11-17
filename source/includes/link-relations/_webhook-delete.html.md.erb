@@ -14,7 +14,7 @@ await api.Webhooks.DeleteAsync(<%= WEBHOOK['id'] %>);
 ~~~
 
 You can use a `DELETE` request on the href of this link to delete a webhook for
-the current user.
+the current user. This endpoint requires the `write:webhooks` scope.
 
 
 ### Response

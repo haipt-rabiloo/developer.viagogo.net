@@ -19,6 +19,8 @@ api = GogoKit::Client.new(client_id: CLIENT_ID,
 <%= json(:user) %>
 
 You can `GET` the href of this link to retrieve the current authenticated user.
+This endpoint requires the `read:user` scope.
+
 
 
 ### Response
