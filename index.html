@@ -207,6 +207,16 @@ root = api-&gt;getHalClient()-&gt;getRoot()
       </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/metroareas"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Metro Area"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"viagogo:listingconstraints"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/listingconstraints"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sell Tickets"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"viagogo:createsellerlisting"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sellerlistings"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sell Tickets"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -2357,7 +2367,7 @@ requests up until they expire.</p>
     </tr>
     <tr>
       <td><code>write:purchases</code></td>
-      <td>Grants write access to the user’s purchases. This allows user’s to use your application to purchase listings.</td>
+      <td>Grants write access to the user’s purchases. This allows users to use your application to purchase listings.</td>
     </tr>
     <tr>
       <td><code>read:sellerlistings</code></td>
@@ -2365,7 +2375,19 @@ requests up until they expire.</p>
     </tr>
     <tr>
       <td><code>write:sellerlistings</code></td>
-      <td>Grants write access to the user’s listings. This allows user’s to use your application to create and update listings.</td>
+      <td>Grants write access to the user’s listings. This allows users to use your application to create and update listings.</td>
+    </tr>
+    <tr>
+      <td><code>read:webhooks</code></td>
+      <td>Grants read access to the user’s webhooks.</td>
+    </tr>
+    <tr>
+      <td><code>write:webhooks</code></td>
+      <td>Grants write access to the user’s webhooks.</td>
+    </tr>
+    <tr>
+      <td><code>write:requestedevents</code></td>
+      <td>Grants write access to the user’s requested events. This allows users to use your application to request an event to be added to the viagogo platform.</td>
     </tr>
   </tbody>
 </table>
@@ -5269,6 +5291,18 @@ can be any text; Otherwise, <code>listing.row</code> must be equal the
       <td>No</td>
       <td>The available venues.</td>
     </tr>
+    <tr>
+      <td><a href="#viagogocreatesellerlisting"><code>viagogo:createsellerlisting</code></a></td>
+      <td><code>POST</code></td>
+      <td>No</td>
+      <td>Create a listing for an event.</td>
+    </tr>
+    <tr>
+      <td><a href="#viagogolistingconstraints"><code>viagogo:listingconstraints</code></a></td>
+      <td><code>PUT</code></td>
+      <td>No</td>
+      <td>Retrieve the constraints for creating listings.</td>
+    </tr>
   </tbody>
 </table>
 
@@ -6828,6 +6862,12 @@ with the webhooks. The collection offers a paginated view of webhooks.</p>
       <td>The collection of the current webhooks.</td>
     </tr>
     <tr>
+      <td><a href="#webhookcreate"><code>webhook:create</code></a></td>
+      <td><code>POST</code></td>
+      <td>No</td>
+      <td>Add a new <a href="#webhook"><code>Webhook</code></a> for the current user.</td>
+    </tr>
+    <tr>
       <td><code>next</code></td>
       <td><code>GET</code></td>
       <td>No</td>
@@ -6938,7 +6978,7 @@ with the webhooks. The collection offers a paginated view of webhooks.</p>
 </span></code></pre>
 
 <p>You can use a <code>POST</code> request on the href of this link to add an address to the
-current user’s addresses.</p>
+current user’s addresses. This endpoint requires the <code>write:user</code> scope.</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -7028,7 +7068,7 @@ current user’s addresses.</p>
 </code></pre>
 
 <p>You can use a <code>DELETE</code> request on the href of this link to delete an address for
-the current user.</p>
+the current user.  This endpoint requires the <code>write:user</code> scope.</p>
 
 <h3 id="response">Response</h3>
 
@@ -7095,7 +7135,7 @@ the current user.</p>
 </span></code></pre>
 
 <p>You can use a <code>PATCH</code> request on the href of this link to update one of the
-current user’s addresses.</p>
+current user’s addresses. This endpoint requires the <code>write:user</code> scope.</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -7796,7 +7836,8 @@ category.</p>
 <pre><code class="highlight ruby"><span class="c1"># TODO</span>
 </code></pre>
 
-<p>You can use a <code>DELETE</code> request on the href of this link to delete an E-Ticket.</p>
+<p>You can use a <code>DELETE</code> request on the href of this link to delete an E-Ticket.
+ This endpoint requires the <code>write:user</code> scope.</p>
 
 <h3 id="response">Response</h3>
 
@@ -7804,7 +7845,8 @@ category.</p>
 
           <h2 id="eticketdocument">eticket:document</h2>
 
-<p>You can GET the href of this link to download a PDF file containing an E-Ticket.</p>
+<p>You can GET the href of this link to download a PDF file containing an E-Ticket.
+This endpoint requires the <code>read:user</code> scope.</p>
 
 <h3 id="response">Response</h3>
 
@@ -7814,7 +7856,7 @@ category.</p>
           <h2 id="eticketthumbnail">eticket:thumbnail</h2>
 
 <p>You can GET the href of this link to download an image file containing a
-thumbnail of an E-Ticket.</p>
+thumbnail of an E-Ticket. This endpoint requires the <code>read:user</code> scope.</p>
 
 <h3 id="response">Response</h3>
 
@@ -7824,7 +7866,8 @@ thumbnail of an E-Ticket.</p>
           <h2 id="eticketuploaddocument">eticketupload:document</h2>
 
 <p>You can GET the href of this link to download the original file that was
-uploaded for an <a href="#eticketupload"><code>ETicketUpload</code></a>.</p>
+uploaded for an <a href="#eticketupload"><code>ETicketUpload</code></a>. This endpoint requires the
+<code>read:user</code> scope.</p>
 
 <h3 id="response">Response</h3>
 
@@ -8092,7 +8135,8 @@ resource that contains an event.</p>
 </span></code></pre>
 
 <p>You can use a <code>POST</code> request on the href of this link to create a
-<a href="#sellerlisting"><code>SellerListing</code></a> for this event.</p>
+<a href="#sellerlisting"><code>SellerListing</code></a> for this event. This endpoint requires the
+<code>write:sellerlistings</code> scope.</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -9018,7 +9062,7 @@ metro area.</p>
 </span></code></pre>
 
 <p>You can use a <code>POST</code> request on the href of this link to add credit card to the
-current user’s payment methods.</p>
+current user’s payment methods. This endpoint requires the <code>write:user</code> scope.</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -9192,7 +9236,8 @@ current user’s payment methods.</p>
 </span></code></pre>
 
 <p>You can use a <code>POST</code> request on the href of this link to add PayPal account to
-the current user’s payment methods.</p>
+the current user’s payment methods. This endpoint requires the <code>write:user</code>
+scope.</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -9252,7 +9297,8 @@ the current user’s payment methods.</p>
 </code></pre>
 
 <p>You can use a <code>DELETE</code> request on the href of this link to delete a
-payment_method for the current user.</p>
+payment_method for the current user. This endpoint requires the <code>write:user</code>
+scope.</p>
 
 <h3 id="response">Response</h3>
 
@@ -9353,7 +9399,7 @@ payment_method for the current user.</p>
 </span></code></pre>
 
 <p>You can use a <code>PUT</code> request on the href of this link to update the current
-user’s credit card.</p>
+user’s credit card. This endpoint requires the <code>write:user</code> scope.</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -9527,7 +9573,8 @@ user’s credit card.</p>
 </span></code></pre>
 
 <p>You can use a <code>PATHCH</code> request on the href of this link to update whether a
-payment method is the default for the current user.</p>
+payment method is the default for the current user. This endpoint requires the
+<code>write:user</code> scope.</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -9653,7 +9700,7 @@ payment method is the default for the current user.</p>
 </span></code></pre>
 
 <p>You can use a <code>PUT</code> request on the href of this link to update the current
-user’s PayPal account.</p>
+user’s PayPal account. This endpoint requires the <code>write:user</code> scope.</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -9710,7 +9757,7 @@ user’s PayPal account.</p>
 </code></pre>
 
 <p>You can use a <code>DELETE</code> request on the href of this link to delete a scheduled
-courier pickup.</p>
+courier pickup. This endpoint requires the <code>write:user</code> scope.</p>
 
 <h3 id="response">Response</h3>
 
@@ -9851,7 +9898,7 @@ information for the user’s order.</p>
 </span></code></pre>
 
 <p>You can use a PATCH request on the href of this link to confirm a sale of
-tickets.</p>
+tickets. This endpoint requires the <code>write:user</code> scope.</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -9943,7 +9990,7 @@ tickets.</p>
 
 <p>You can <code>GET</code> the href of this link to retrieve the <a href="#etickets"><code>ETickets</code></a>
 resource that contains uploaded E-Tickets that have been assigned to tickets
-that have been sold.</p>
+that have been sold. This endpoint requires the <code>read:user</code> scope.</p>
 
 <h3 id="response">Response</h3>
 
@@ -10034,7 +10081,8 @@ that have been sold.</p>
 
 <p>You can <code>GET</code> the href of this link to retrieve the
 <a href="#eticketuploads"><code>ETicketUploads</code></a> the uploaded files that contain E-Tickets
-that have not been assigned to the tickets that were sold.</p>
+that have not been assigned to the tickets that were sold. This endpoint
+requires the <code>read:user</code> scope.</p>
 
 <h3 id="response">Response</h3>
 
@@ -10165,7 +10213,7 @@ that have not been assigned to the tickets that were sold.</p>
 </span></code></pre>
 
 <p>You can use a PATCH request on the href of this link to report a problem with a
-sale of tickets.</p>
+sale of tickets. This endpoint requires the <code>write:user</code> scope.</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -10315,7 +10363,8 @@ sale of tickets.</p>
 </span></code></pre>
 
 <p>You can use a PATCH request on the href of this link to assign uploaded
-E-Tickets to the tickets that have been sold.</p>
+E-Tickets to the tickets that have been sold. This endpoint requires the
+<code>write:user</code> scope.</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -10440,7 +10489,8 @@ E-Tickets to the tickets that have been sold.</p>
 </span></code></pre>
 
 <p>You can <code>GET</code> the href of this link to retrieve the <a href="#shipments"><code>Shipments</code></a>
-resource that contains shipments related to a sale.</p>
+resource that contains shipments related to a sale. This endpoint requires the
+<code>read:user</code> scope.</p>
 
 <h3 id="response">Response</h3>
 
@@ -10542,7 +10592,8 @@ tracking number manually on this page.</p>
 </span></code></pre>
 
 <p>You can use a <code>POST</code> request on the href of this link upload one or more files
-containing E-Tickets that will be assigned to the tickets that have been sold.</p>
+containing E-Tickets that will be assigned to the tickets that have been sold.
+This endpoint requires the <code>write:user</code> scope.</p>
 
 <h3 id="request">Request</h3>
 
@@ -10974,7 +11025,8 @@ that a search result represents.</p>
 
 <p>You can GET the href of this link to retrieve the
 <a href="#listingconstraints"><code>ListingConstraints</code></a> resource for updating a
-<a href="#sellerlisting"><code>SellerListing</code></a>.</p>
+<a href="#sellerlisting"><code>SellerListing</code></a>. This endpoint requires the
+<code>write:sellerlistings</code> scope.</p>
 
 <h3 id="response">Response</h3>
 
@@ -11000,7 +11052,8 @@ that a search result represents.</p>
 </code></pre>
 
 <p>You can use a <code>DELETE</code> request on the href of this link to delete a
-payment_method for the current user.</p>
+payment_method for the current user. This endpoint requires the
+<code>write:sellerlistings</code> scope.</p>
 
 <h3 id="response">Response</h3>
 
@@ -11194,7 +11247,7 @@ payment_method for the current user.</p>
 
 <p>You can use a PATCH request on the href of this link to make a
 <a href="#sellerlisting"><code>SellerListing</code></a> available for purchase on the viagogo
-marketplace.</p>
+marketplace. This endpoint requires the <code>write:sellerlistings</code> scope.</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -11280,7 +11333,8 @@ marketplace.</p>
 </span></code></pre>
 
 <p>You can GET the href of this link to retrieve the <a href="#address"><code>Address</code></a>
-resource where the tickets are located.</p>
+resource where the tickets are located. This endpoint requires the <code>read:user</code>
+scope.</p>
 
 <h3 id="response">Response</h3>
 
@@ -11474,7 +11528,7 @@ resource where the tickets are located.</p>
 
 <p>You can use a PATCH request on the href of this link to make a
 <a href="#sellerlisting"><code>SellerListing</code></a> unavailable for purchase on the viagogo
-marketplace.</p>
+marketplace. This endpoint requires the <code>write:sellerlistings</code> scope.</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -11686,7 +11740,8 @@ marketplace.</p>
 </span></code></pre>
 
 <p>You can use a PATCH request on the href of this link to update the face value of
-each ticket in a listing.</p>
+each ticket in a listing. This endpoint requires the <code>write:sellerlistings</code>
+scope.</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -11898,7 +11953,8 @@ each ticket in a listing.</p>
 </span></code></pre>
 
 <p>You can use a PATCH request on the href of this link to update the listing notes
-for a <a href="#sellerlisting"><code>SellerListing</code></a>.</p>
+for a <a href="#sellerlisting"><code>SellerListing</code></a>. This endpoint requires the
+<code>write:sellerlistings</code> scope.</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -12110,7 +12166,8 @@ for a <a href="#sellerlisting"><code>SellerListing</code></a>.</p>
 </span></code></pre>
 
 <p>You can use a PATCH request on the href of this link to update the number of
-tickets available for purchase.</p>
+tickets available for purchase. This endpoint requires the
+<code>write:sellerlistings</code> scope.</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -12328,7 +12385,8 @@ tickets available for purchase.</p>
 </span></code></pre>
 
 <p>You can use a PATCH request on the href of this link to update the way that
-tickets in the listing are allowed be split.</p>
+tickets in the listing are allowed be split. This endpoint requires the
+<code>write:sellerlistings</code> scope.</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -12540,7 +12598,8 @@ tickets in the listing are allowed be split.</p>
 </span></code></pre>
 
 <p>You can use a PATCH request on the href of this link to update the location
-where the tickets are located.</p>
+where the tickets are located. This endpoint requires the
+<code>write:sellerlistings</code> scope.</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -12752,7 +12811,7 @@ where the tickets are located.</p>
 </span></code></pre>
 
 <p>You can use a PATCH request on the href of this link to update the price of each
-ticket in a listing.</p>
+ticket in a listing. This endpoint requires the <code>write:sellerlistings</code> scope.</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -12964,7 +13023,7 @@ ticket in a listing.</p>
 </span></code></pre>
 
 <p>You can use a PATCH request on the href of this link to update the type of
-tickets in a listing.</p>
+tickets in a listing. This endpoint requires the <code>write:sellerlistings</code> scope.</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -13063,7 +13122,7 @@ tickets in a listing.</p>
 </span></code></pre>
 
 <p>You can use a <code>PUT</code> request on the href of this link to create a shipping label
-for the ticket(s) of a sale.</p>
+for the ticket(s) of a sale. This endpoint requires the <code>write:user</code> scope.</p>
 
 <h3 id="response">Response</h3>
 
@@ -13074,7 +13133,7 @@ for the ticket(s) of a sale.</p>
 <p>You can <code>GET</code> the href of this link to download the courier shipping label. Once
 you have downloaded the shipping label the courier will expect to receive your
 package right away, so only download the label when your tickets are ready to be
-shipped.</p>
+shipped. This endpoint requires the <code>read:user</code> scope.</p>
 
 <h3 id="response">Response</h3>
 
@@ -13171,7 +13230,8 @@ content-type “application/pdf”.</p>
 </span></code></pre>
 
 <p>You can <code>GET</code> the href of this link to retrieve the <a href="#addresses"><code>Addresses</code></a>
-resource that contains the current user’s addresses.</p>
+resource that contains the current user’s addresses. This endpoint requires the
+<code>read:user</code> scope.</p>
 
 <h3 id="response">Response</h3>
 
@@ -13303,7 +13363,7 @@ addresses.</p>
 
 <p>You can <code>GET</code> the href of this link to retrieve the
 <a href="#paymentmethods"><code>PaymentMethods</code></a> resource that contains the current user’s
-payment methods.</p>
+payment methods. This endpoint requires the <code>read:user</code> scope.</p>
 
 <h3 id="parameters">Parameters</h3>
 
@@ -13478,7 +13538,8 @@ user’s payment methods.</p>
 </span></code></pre>
 
 <p>You can <code>GET</code> the href of this link to retrieve the <a href="#sales"><code>Sales</code></a> resource
-that contains the current user’s sales.</p>
+that contains the current user’s sales. This endpoint requires the <code>read:user</code>
+scope.</p>
 
 <h3 id="response">Response</h3>
 
@@ -13698,7 +13759,7 @@ that contains the current user’s sales.</p>
 
 <p>You can <code>GET</code> the href of this link to retrieve the
 <a href="#sellerlistings"><code>SellerListings</code></a> resource that contains the current user’s
-listings.</p>
+listings. This endpoint requires the <code>read:sellerlistings</code> scope.</p>
 
 <h3 id="response">Response</h3>
 
@@ -13780,7 +13841,8 @@ user’s listings.</p>
 </span></code></pre>
 
 <p>You can <code>GET</code> the href of this link to retrieve the <a href="#webhooks"><code>Webhooks</code></a>
-resource that contains the current user’s webhooks.</p>
+resource that contains the current user’s webhooks. This endpoint requires the
+<code>read:webhooks</code> scope.</p>
 
 <h3 id="response">Response</h3>
 
@@ -14138,6 +14200,299 @@ resource that contains the available countries.</p>
 <p>Returns the <a href="#countries"><code>Countries</code></a> resource that contains the available
 countries.</p>
 
+          <h2 id="viagogocreatesellerlisting">viagogo:createsellerlisting</h2>
+
+<pre><code class="highlight shell">curl -X POST <span class="s2">"https://api.viagogo.net/v2/sellerlistings"</span>
+     -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
+     -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+     -d <span class="s1">'{"seating":{"section":"107","row":"A","seat_from":"1","seat_to":"4"},"ticket_price":{"amount":25.65,"currency_code":"USD"},"face_value":{"amount":22.62,"currency_code":"EUR"},"ticket_type":"ETicket","split_type":"Any","number_of_tickets":2,"guarantee_payment_method_id":95698,"event":{"name":"One Direction","start_date":"2015-09-24T18:30:00+01:00"},"venue":{"name":"The O2 arena","city":"London"},"country": {"code": "GB"}}'</span>
+</code></pre>
+
+<pre><code class="highlight csharp"><span class="c1">// TODO
+</span></code></pre>
+
+<pre><code class="highlight ruby"><span class="c1"># TODO</span>
+</code></pre>
+
+<blockquote>
+  <p>The above command returns an object structured like this:</p>
+</blockquote>
+
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">22096065</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-06-12T15:05:35+01:00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"display_number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"seating"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"section"</span><span class="p">:</span><span class="w"> </span><span class="s2">"107"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"row"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"seat_from"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"seat_to"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"face_value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">22.62</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"currency_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"display"</span><span class="p">:</span><span class="w"> </span><span class="s2">"€22.62"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"ticket_price"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">25.65</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"currency_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"display"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$25.65"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"ticket_proceeds"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">22.58</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"currency_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"display"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$22.58"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sellerlistings/22096065"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"sellerlisting:constraints"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sellerlistings/22096065/constraints"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"sellerlisting:updatetickettype"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sellerlistings/22096065"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"sellerlisting:updateticketprice"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sellerlistings/22096065"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"sellerlisting:updatesplittype"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sellerlistings/22096065"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"sellerlisting:updatenumberoftickets"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sellerlistings/22096065"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"sellerlisting:updateseating"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sellerlistings/22096065"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"sellerlisting:updateticketlocation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sellerlistings/22096065"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"sellerlisting:updatenotes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sellerlistings/22096065"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"sellerlisting:unpublish"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sellerlistings/22096065"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"sellerlisting:delete"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sellerlistings/22096065"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Delete Listing"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"sellerlisting:updatefacevalue"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sellerlistings/22096065"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"sellerlisting:ticketlocation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/addresses/34115"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ticket Location Address"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"_embedded"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"event"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">735139</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One Direction"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T18:30:00+01:00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"on_sale_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-12-24T08:30:00+01:00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"date_confirmed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/events/735139"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"venue"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1364</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The O2 arena"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"London"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">51.5025</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0024</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/venues/1364"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"_embedded"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GB"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"United Kingdom"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/countries/GB"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"ticket_type"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ETicket"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Print at home / E-tickets (PDF)"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/tickettypes/ETicket"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"split_type"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Any"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Any"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Allow the tickets to be split up in any way"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"listing_notes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"note"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Includes VIP pass"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/listingnotes/11"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>You can use a <code>POST</code> request on the href of this link to create a
+<a href="#sellerlisting"><code>SellerListing</code></a> for an event. If the event information in your
+request maps to an event already on the viagogo platform then the listing will be
+created for that event. Otherwise, the listing will be created against your
+“requested event” and it will automatically be mapped to an event on the viagogo
+platform when your “requested event” is accepted. This endpoint requires the
+<code>write:sellerlistings</code> and <code>write:requestedevents</code> scopes.</p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Name</strong></td>
+      <td><strong>Type</strong></td>
+      <td><strong>Required</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>event</code></td>
+      <td><a href="#event"><code>Event</code></a></td>
+      <td>Yes</td>
+      <td>The <code>name</code> and <code>start_date</code> of the event this listing is for.</td>
+    </tr>
+    <tr>
+      <td><code>venue</code></td>
+      <td><a href="#venue"><code>Venue</code></a></td>
+      <td>Yes</td>
+      <td>The <code>name</code> and <code>city</code> of the venue where the event is taking place.</td>
+    </tr>
+    <tr>
+      <td><code>country</code></td>
+      <td><a href="#country"><code>Country</code></a></td>
+      <td>Yes</td>
+      <td>The <code>code</code> of the country where the event is taking place.</td>
+    </tr>
+    <tr>
+      <td><code>number_of_tickets</code></td>
+      <td><code>int</code></td>
+      <td>Yes</td>
+      <td>The number of tickets available for purchase.</td>
+    </tr>
+    <tr>
+      <td><code>seating</code></td>
+      <td><a href="#seating"><code>seating</code></a></td>
+      <td>Yes</td>
+      <td>The seating information for the ticket(s) in this listing.</td>
+    </tr>
+    <tr>
+      <td><code>ticket_price</code></td>
+      <td><a href="#money"><code>money</code></a></td>
+      <td>Yes</td>
+      <td>The price of each ticket in the listing.</td>
+    </tr>
+    <tr>
+      <td><code>ticket_type</code></td>
+      <td><code>string</code></td>
+      <td>Yes</td>
+      <td>The type of ticket(s) in this listing. Can be <code>PaperTicket</code>, <code>ETicket</code>, <code>PaperTicketNameChange</code>, <code>TesseraDelTifoso</code>, <code>SeasonCard</code>, <code>PaperTicketNameChange</code>, <code>ETicketNameChange</code> or <code>ETicketThirdPartyPreUpload</code>.</td>
+    </tr>
+    <tr>
+      <td><code>split_type</code></td>
+      <td><code>string</code></td>
+      <td>Yes</td>
+      <td>The way that the ticket(s) are allowed to be split up when sold. Can be <code>Any</code>, <code>None</code>, <code>AvoidOne</code>, <code>AvoidOneAndThree</code>, or <code>Pairs</code>.</td>
+    </tr>
+    <tr>
+      <td><code>guarantee_payment_method_id</code></td>
+      <td><code>int</code></td>
+      <td>Yes</td>
+      <td>The identifier of the credit card that should be used to guarantee your tickets.</td>
+    </tr>
+    <tr>
+      <td><code>listing_note_ids</code></td>
+      <td><code>int</code>[]</td>
+      <td>No</td>
+      <td>The identifiers of the [<code>ListingNote</code>] resources for this listing.</td>
+    </tr>
+    <tr>
+      <td><code>face_value</code></td>
+      <td><a href="#money"><code>money</code></a></td>
+      <td>No</td>
+      <td>The price printed on the ticket, not including any booking fees.</td>
+    </tr>
+    <tr>
+      <td><code>display_number_of_tickets</code></td>
+      <td><code>int</code></td>
+      <td>No</td>
+      <td>The number of tickets that should be displayed to buyers as available for purchase.</td>
+    </tr>
+    <tr>
+      <td><code>ticket_location_address_id</code></td>
+      <td><code>int</code></td>
+      <td>No</td>
+      <td>The identifier of the address where the ticket(s) are located.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="response">Response</h3>
+
+<p>Returns the <a href="#sellerlisting"><code>SellerListing</code></a> resource that is created. If the
+event information in your request maps to an event on the viagogo platform, the 
+listing’s embedded <a href="#event"><code>event</code></a> <code>id</code> will be an <code>int</code>. Otherwise, it
+will be <code>null</code>.</p>
+
           <h2 id="viagogocurrencies">viagogo:currencies</h2>
 
 <pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/currencies"</span>
@@ -14468,6 +14823,147 @@ resource that contains the available languages.</p>
 <p>Returns the <a href="#languages"><code>Languages</code></a> resource that contains the available
 languages.</p>
 
+          <h2 id="viagogolistingconstraints">viagogo:listingconstraints</h2>
+
+<pre><code class="highlight shell">curl -X PUT <span class="s2">"https://api.viagogo.net/v2/listingconstraints"</span>
+     -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
+     -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+     -d <span class="s1">'{"event":{"name":"One Direction","start_date":"2015-09-24T18:30:00+01:00"},"venue":{"name":"The O2 arena","city":"London"},"country": {"code": "GB"}}'</span>
+</code></pre>
+
+<pre><code class="highlight csharp"><span class="c1">// TODO
+</span></code></pre>
+
+<pre><code class="highlight ruby"><span class="c1"># TODO</span>
+</code></pre>
+
+<blockquote>
+  <p>The above command returns an object structured like this:</p>
+</blockquote>
+
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"min_ticket_price"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">25.65</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"currency_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"display"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$25.65"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"max_ticket_price"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">25.65</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"currency_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"display"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$25.65"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"min_number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"max_number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="mi">99</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"ticket_location_required"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"seats_required"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"sections"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"General Admission"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"free_text_row"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"rows"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/events/735139/listingconstraints"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"_embedded"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"ticket_types"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ETicket"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Print at home / E-tickets (PDF)"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/tickettypes/ETicket"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"split_types"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Any"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Any"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Allow the tickets to be split up in any way"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"listing_notes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"note"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Includes VIP pass"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/listingnotes/11"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"currencies"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"United States Dollar"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/currencies/USD"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>You can use a <code>PUT</code> request on the href of this link to retrieve the
+<a href="#listingconstraints"><code>ListingConstraints</code></a> for an event. This endpoint requires
+the <code>write:sellerlistings</code> and <code>write:requestedevents</code> scopes.</p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Name</strong></td>
+      <td><strong>Type</strong></td>
+      <td><strong>Required</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>event</code></td>
+      <td><a href="#event"><code>Event</code></a></td>
+      <td>Yes</td>
+      <td>The <code>name</code> and <code>start_date</code> of the event this listing is for.</td>
+    </tr>
+    <tr>
+      <td><code>venue</code></td>
+      <td><a href="#venue"><code>Venue</code></a></td>
+      <td>Yes</td>
+      <td>The <code>name</code> and <code>city</code> of the venue where the event is taking place.</td>
+    </tr>
+    <tr>
+      <td><code>country</code></td>
+      <td><a href="#country"><code>Country</code></a></td>
+      <td>Yes</td>
+      <td>The <code>code</code> of the country where the event is taking place.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="response">Response</h3>
+
+<p>Returns the <a href="#listingconstraints"><code>ListingConstraints</code></a> resource for the
+specified event.</p>
+
           <h2 id="viagogometroareas">viagogo:metroareas</h2>
 
 <pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/metroareas"</span>
@@ -14718,7 +15214,8 @@ the query.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>You can <code>GET</code> the href of this link to retrieve the current authenticated user.</p>
+<p>You can <code>GET</code> the href of this link to retrieve the current authenticated user.
+This endpoint requires the <code>read:user</code> scope.</p>
 
 <h3 id="response">Response</h3>
 
@@ -14823,6 +15320,89 @@ that contains the available venues.</p>
 
 <p>Returns the <a href="#venues"><code>Venues</code></a> resource that contains the available venues.</p>
 
+          <h2 id="webhookcreate">webhook:create</h2>
+
+<pre><code class="highlight shell">curl -X POST <span class="s2">"https://api.viagogo.net/v2/webhooks"</span>
+  -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+</code></pre>
+
+<pre><code class="highlight csharp"><span class="c1">// TODO
+</span></code></pre>
+
+<pre><code class="highlight ruby"><span class="c1"># TODO</span>
+</code></pre>
+
+<blockquote>
+  <p>The above command returns an object structured like this:</p>
+</blockquote>
+
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">48</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Webhook"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-10-19T13:21:32+00:00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"topics"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"Sales"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://myapplication.com/payload"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/webhooks/48"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"webhook:delete"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/webhooks/48"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"webhook:update"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/webhooks/48"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>You can use a <code>POST</code> request on the href of this link to add an webhook to the
+current user’s webhooks. This endpoint requires the <code>write:webhooks</code> scope.</p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Name</strong></td>
+      <td><strong>Type</strong></td>
+      <td><strong>Required</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>name</code></td>
+      <td><code>string</code></td>
+      <td>Yes</td>
+      <td>The name of the webhook</td>
+    </tr>
+    <tr>
+      <td><code>url</code></td>
+      <td><code>string</code></td>
+      <td>Yes</td>
+      <td>The server endpoint that will receive the webhook payload</td>
+    </tr>
+    <tr>
+      <td><code>topics</code></td>
+      <td><code>string</code>[]</td>
+      <td>Yes</td>
+      <td>An array of the topics the webhook is trigger for</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="response">Response</h3>
+
+<p>The newly created <a href="#webhook"><code>Webhook</code></a>.</p>
+
           <h2 id="webhookdelete">webhook:delete</h2>
 
 <pre><code class="highlight shell">curl -X DELETE <span class="s2">"https://api.viagogo.net/v2/webhooks/48"</span>
@@ -14840,7 +15420,7 @@ that contains the available venues.</p>
 </code></pre>
 
 <p>You can use a <code>DELETE</code> request on the href of this link to delete a webhook for
-the current user.</p>
+the current user. This endpoint requires the <code>write:webhooks</code> scope.</p>
 
 <h3 id="response">Response</h3>
 
@@ -14892,7 +15472,7 @@ the current user.</p>
 </span></code></pre>
 
 <p>You can use a <code>PATCH</code> request on the href of this link to update one of the
-current user’s webhooks.</p>
+current user’s webhooks. This endpoint requires the <code>write:webhooks</code> scope.</p>
 
 <h3 id="parameters">Parameters</h3>
 
