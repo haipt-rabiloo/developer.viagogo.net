@@ -28,6 +28,10 @@ includes:
   - getting-started/managing-sales
 
   - authentication
+
+  - webhooks
+  - webhooks/salestopic
+
   - basic-types
 
   - resources
