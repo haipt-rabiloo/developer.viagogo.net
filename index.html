@@ -846,6 +846,7 @@ root = api-&gt;getHalClient()-&gt;getRoot()
         </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One Direction"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T18:30:00+01:00"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"on_sale_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-12-24T08:30:00+01:00"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"date_confirmed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
         </span><span class="s2">"min_ticket_price"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
           </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">25.65</span><span class="p">,</span><span class="w">
@@ -1190,6 +1191,7 @@ links to retrieve all pages (see <a href="#pagination">pagination</a>).</p>
         </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One Direction"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T18:30:00+01:00"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"on_sale_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-12-24T08:30:00+01:00"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"date_confirmed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
         </span><span class="s2">"min_ticket_price"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
           </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">25.65</span><span class="p">,</span><span class="w">
@@ -1506,6 +1508,8 @@ user’s listings.</p>
       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">735139</span><span class="p">,</span><span class="w">
       </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One Direction"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T18:30:00+01:00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"on_sale_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-12-24T08:30:00+01:00"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"date_confirmed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
       </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -1746,6 +1750,8 @@ user’s listings.</p>
       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">735139</span><span class="p">,</span><span class="w">
       </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One Direction"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T18:30:00+01:00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"on_sale_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-12-24T08:30:00+01:00"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"date_confirmed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
       </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -2360,6 +2366,223 @@ requests up until they expire.</p>
     <tr>
       <td><code>write:sellerlistings</code></td>
       <td>Grants write access to the user’s listings. This allows user’s to use your application to create and update listings.</td>
+    </tr>
+  </tbody>
+</table>
+
+          <h1 id="webhooks">Webhooks</h1>
+
+<p>Webhooks allow you to build or set up integrations that subscribe to certain
+topics on the viagogo platform. When an occurrence of a topic happens we’ll send
+a <code>POST</code> payload to the webhook’s configured URL. Once a webhook is created, it
+will be triggered each time one or more of the subscribed topics occurs.</p>
+
+<h2 id="topics">Topics</h2>
+
+<p>When configuring a webhook, you can choose the topics you would like to receive
+payloads for. You should only subscribe to the specific topics that you plan on
+handling so that you can limit the number of HTTP requests to your server.</p>
+
+<p>The available topics are:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Name</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><a href="#salestopic"><code>Sales</code></a></td>
+      <td>Any time something happens that affects a <a href="#sale"><code>Sale</code></a> (e.g. you sell one or more tickets)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="payloads">Payloads</h2>
+
+<p>The payload for each topic has a similar JSON schema, but a unique piece of data
+that is relevant to that topic.</p>
+
+<h3 id="delivery-headers">Delivery Headers</h3>
+
+<p>HTTP requests made to your webhook’s configured URL endpoint will contain
+several specific headers:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Header</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td>VGG-Topic</td>
+      <td>Name of the <a href="#topics"><code>topic</code></a> that triggered this delivery</td>
+    </tr>
+    <tr>
+      <td>VGG-DeliveryId</td>
+      <td>Unique identifier for this delivery</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Also, the <code>User-Agent</code> for the requests will have the prefix <code>Viagogo-Webhooks/</code>.</p>
+
+          <h2 id="salestopic">SalesTopic</h2>
+
+<blockquote>
+  <p>Webhook payload example:</p>
+</blockquote>
+
+<pre><code class="highlight plaintext">POST /payload
+</code></pre>
+<pre><code class="highlight plaintext">HOST: myapplication.com
+User-Agent: Viagogo-Webhooks/0.3.18.54687
+Content-Type: application/hal+json
+Content-Length: 1215
+VGG-Topic: Sales
+VGG-DeliveryId: 8033e621-cb8a-4d4c-abe1-f581f929698b
+</code></pre>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Created"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"_embedded"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"event"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">735139</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One Direction"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T18:30:00+01:00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"on_sale_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-12-24T08:30:00+01:00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"date_confirmed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/events/735139"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"sale"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1017322</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-21T16:02:39+00:00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"seating"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"section"</span><span class="p">:</span><span class="w"> </span><span class="s2">"107"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"row"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"seat_from"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"seat_to"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"proceeds"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">22.58</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"currency_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"display"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$22.58"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sales/1017322"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"seller_listing"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">22096065</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-06-12T15:05:35+01:00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"ticket_price"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">25.65</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"currency_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"display"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$25.65"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sellerlistings/22096065"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"venue"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1364</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The O2 arena"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"London"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">51.5025</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0024</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/venues/1364"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"_embedded"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GB"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"United Kingdom"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/countries/GB"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Triggered when something happens that affects a <a href="#sale"><code>Sale</code></a> (e.g. you sell one or more tickets).</p>
+
+<h3 id="properties">Properties</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Name</strong></td>
+      <td><strong>Type</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>action</code></td>
+      <td><code>string</code></td>
+      <td>The action that triggered this webhook. Can be <code>Created</code>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="embedded">Embedded</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Relation</strong></td>
+      <td><strong>Type</strong></td>
+      <td><strong>Optional</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>sale</code></td>
+      <td><a href="#sale"><code>Sale</code></a></td>
+      <td>No</td>
+      <td>The event for this sale.</td>
+    </tr>
+    <tr>
+      <td><code>seller_listing</code></td>
+      <td><a href="#sellerlisting"><code>SellerListing</code></a></td>
+      <td>No</td>
+      <td>The listing from which the tickets were sold.</td>
+    </tr>
+    <tr>
+      <td><code>event</code></td>
+      <td><a href="#event"><code>Event</code></a></td>
+      <td>No</td>
+      <td>The event for this sale.</td>
+    </tr>
+    <tr>
+      <td><code>venue</code></td>
+      <td><a href="#venue"><code>Venue</code></a></td>
+      <td>No</td>
+      <td>The venue where the event is taking place.</td>
     </tr>
   </tbody>
 </table>
@@ -3705,6 +3928,11 @@ with the uploads. The collection offers a paginated view of uploads.</p>
       <td><code>end_date</code></td>
       <td><a href="#datetime"><code>datetime</code></a></td>
       <td>The date when the event ends.</td>
+    </tr>
+    <tr>
+      <td><code>on_sale_date</code></td>
+      <td><a href="#datetime"><code>datetime</code></a></td>
+      <td>The date when tickets for the event will go onsale.</td>
     </tr>
     <tr>
       <td><code>min_ticket_price</code></td>
@@ -6268,6 +6496,12 @@ with the shipments. The collection offers a paginated view of shipments.</p>
       <td>No</td>
       <td>The collection of <a href="#sellerlistings"><code>SellerListings</code></a> associated with this user.</td>
     </tr>
+    <tr>
+      <td><a href="#userwebhooks"><code>user:webhooks</code></a></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>The collection of <a href="#webhooks"><code>Webhooks</code></a> associated with this user.</td>
+    </tr>
   </tbody>
 </table>
 
@@ -6398,7 +6632,7 @@ with the shipments. The collection offers a paginated view of shipments.</p>
     <tr>
       <td><code>page</code></td>
       <td><code>int</code></td>
-      <td>The number of the current page of itemsÍ.</td>
+      <td>The number of the current page of items.</td>
     </tr>
     <tr>
       <td><code>page_size</code></td>
@@ -6471,6 +6705,170 @@ with the shipments. The collection offers a paginated view of shipments.</p>
       <td><a href="#venue"><code>Venue</code></a>[]</td>
       <td>No</td>
       <td>An array of the current page of <a href="#venue"><code>Venue</code></a> resources.</td>
+    </tr>
+  </tbody>
+</table>
+
+          <h2 id="webhook">Webhook</h2>
+
+<p>A webhook is a subscription from a server application to certain topics on the
+viagogo platform. When an occurrence of a topic is triggered, we’ll <code>POST</code> a
+payload to the webhook’s configured <code>url</code>.</p>
+
+<h3 id="properties">Properties</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Name</strong></td>
+      <td><strong>Type</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>id</code></td>
+      <td><code>int</code></td>
+      <td>The webhook identifier</td>
+    </tr>
+    <tr>
+      <td><code>name</code></td>
+      <td><code>string</code></td>
+      <td>The name of the webhook</td>
+    </tr>
+    <tr>
+      <td><code>url</code></td>
+      <td><code>string</code></td>
+      <td>The server endpoint that will receive the webhook payload</td>
+    </tr>
+    <tr>
+      <td><code>topics</code></td>
+      <td><code>string</code>[]</td>
+      <td>An array of the topics the webhook is trigger for</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="links">Links</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Relation</strong></td>
+      <td><strong>Method</strong></td>
+      <td><strong>Templated</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>self</code></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>A webhook.</td>
+    </tr>
+    <tr>
+      <td><a href="#webhookdelete"><code>webhook:delete</code></a></td>
+      <td><code>DELETE</code></td>
+      <td>No</td>
+      <td>Update the details of a webhooks.</td>
+    </tr>
+    <tr>
+      <td><a href="#webhookupdate"><code>webhook:update</code></a></td>
+      <td><code>PATCH</code></td>
+      <td>No</td>
+      <td>Delete a webhook.</td>
+    </tr>
+  </tbody>
+</table>
+
+          <h2 id="webhooks">Webhooks</h2>
+
+<p>The Webhooks resource is a collection resource that contains zero or more
+references to a set of webhooks, and links that guide you on ways to interact
+with the webhooks. The collection offers a paginated view of webhooks.</p>
+
+<h3 id="properties">Properties</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Name</strong></td>
+      <td><strong>Type</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>page</code></td>
+      <td><code>int</code></td>
+      <td>The number of the current page of items.</td>
+    </tr>
+    <tr>
+      <td><code>page_size</code></td>
+      <td><code>int</code></td>
+      <td>The number of items on each page.</td>
+    </tr>
+    <tr>
+      <td><code>total_items</code></td>
+      <td><code>int</code></td>
+      <td>The total number of items on every page.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="links">Links</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Relation</strong></td>
+      <td><strong>Method</strong></td>
+      <td><strong>Templated</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>self</code></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>The collection of the current webhooks.</td>
+    </tr>
+    <tr>
+      <td><code>next</code></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>The next page of items in a collection.</td>
+    </tr>
+    <tr>
+      <td><code>prev</code></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>The previous page of items in a collection.</td>
+    </tr>
+    <tr>
+      <td><code>first</code></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>The first page of items in a collection.</td>
+    </tr>
+    <tr>
+      <td><code>last</code></td>
+      <td><code>GET</code></td>
+      <td>No</td>
+      <td>The last page of items in a collection.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="embedded">Embedded</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Relation</strong></td>
+      <td><strong>Type</strong></td>
+      <td><strong>Optional</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>items</code></td>
+      <td><a href="#webhook"><code>Webhook</code></a>[]</td>
+      <td>No</td>
+      <td>An array of the current page of <a href="#webhook"><code>webhook</code></a> resources.</td>
     </tr>
   </tbody>
 </table>
@@ -6976,6 +7374,7 @@ of a category.</p>
         </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One Direction"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T18:30:00+01:00"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"on_sale_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-12-24T08:30:00+01:00"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"date_confirmed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
         </span><span class="s2">"min_ticket_price"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
           </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">25.65</span><span class="p">,</span><span class="w">
@@ -7621,6 +8020,8 @@ resource that contains an event.</p>
       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">735139</span><span class="p">,</span><span class="w">
       </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One Direction"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T18:30:00+01:00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"on_sale_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-12-24T08:30:00+01:00"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"date_confirmed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
       </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -8105,6 +8506,7 @@ event. The domain of the viagogo webpage will match the
   </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One Direction"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T18:30:00+01:00"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"on_sale_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-12-24T08:30:00+01:00"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"date_confirmed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="s2">"min_ticket_price"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">25.65</span><span class="p">,</span><span class="w">
@@ -8263,6 +8665,7 @@ a listing can be purchased. The domain of the viagogo webpage will match the
         </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One Direction"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T18:30:00+01:00"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"on_sale_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-12-24T08:30:00+01:00"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"date_confirmed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
         </span><span class="s2">"min_ticket_price"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
           </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">25.65</span><span class="p">,</span><span class="w">
@@ -9394,6 +9797,8 @@ information for the user’s order.</p>
       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">735139</span><span class="p">,</span><span class="w">
       </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One Direction"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T18:30:00+01:00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"on_sale_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-12-24T08:30:00+01:00"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"date_confirmed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
       </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -9706,6 +10111,8 @@ that have not been assigned to the tickets that were sold.</p>
       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">735139</span><span class="p">,</span><span class="w">
       </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One Direction"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T18:30:00+01:00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"on_sale_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-12-24T08:30:00+01:00"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"date_confirmed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
       </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -9854,6 +10261,8 @@ sale of tickets.</p>
       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">735139</span><span class="p">,</span><span class="w">
       </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One Direction"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T18:30:00+01:00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"on_sale_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-12-24T08:30:00+01:00"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"date_confirmed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
       </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -10248,6 +10657,7 @@ resource that a search result represents.</p>
   </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One Direction"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T18:30:00+01:00"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"on_sale_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-12-24T08:30:00+01:00"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"date_confirmed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="s2">"min_ticket_price"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">25.65</span><span class="p">,</span><span class="w">
@@ -10711,6 +11121,8 @@ payment_method for the current user.</p>
       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">735139</span><span class="p">,</span><span class="w">
       </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One Direction"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T18:30:00+01:00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"on_sale_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-12-24T08:30:00+01:00"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"date_confirmed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
       </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -10989,6 +11401,8 @@ resource where the tickets are located.</p>
       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">735139</span><span class="p">,</span><span class="w">
       </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One Direction"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T18:30:00+01:00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"on_sale_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-12-24T08:30:00+01:00"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"date_confirmed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
       </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -11200,6 +11614,8 @@ marketplace.</p>
       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">735139</span><span class="p">,</span><span class="w">
       </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One Direction"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T18:30:00+01:00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"on_sale_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-12-24T08:30:00+01:00"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"date_confirmed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
       </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -11410,6 +11826,8 @@ each ticket in a listing.</p>
       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">735139</span><span class="p">,</span><span class="w">
       </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One Direction"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T18:30:00+01:00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"on_sale_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-12-24T08:30:00+01:00"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"date_confirmed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
       </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -11620,6 +12038,8 @@ for a <a href="#sellerlisting"><code>SellerListing</code></a>.</p>
       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">735139</span><span class="p">,</span><span class="w">
       </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One Direction"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T18:30:00+01:00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"on_sale_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-12-24T08:30:00+01:00"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"date_confirmed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
       </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -11836,6 +12256,8 @@ tickets available for purchase.</p>
       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">735139</span><span class="p">,</span><span class="w">
       </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One Direction"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T18:30:00+01:00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"on_sale_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-12-24T08:30:00+01:00"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"date_confirmed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
       </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -12046,6 +12468,8 @@ tickets in the listing are allowed be split.</p>
       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">735139</span><span class="p">,</span><span class="w">
       </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One Direction"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T18:30:00+01:00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"on_sale_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-12-24T08:30:00+01:00"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"date_confirmed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
       </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -12256,6 +12680,8 @@ where the tickets are located.</p>
       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">735139</span><span class="p">,</span><span class="w">
       </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One Direction"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T18:30:00+01:00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"on_sale_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-12-24T08:30:00+01:00"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"date_confirmed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
       </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -12466,6 +12892,8 @@ ticket in a listing.</p>
       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">735139</span><span class="p">,</span><span class="w">
       </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One Direction"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T18:30:00+01:00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"on_sale_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-12-24T08:30:00+01:00"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"date_confirmed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
       </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -12993,6 +13421,8 @@ user’s payment methods.</p>
             </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">735139</span><span class="p">,</span><span class="w">
             </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One Direction"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T18:30:00+01:00"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"on_sale_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-12-24T08:30:00+01:00"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"date_confirmed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
             </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
               </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -13192,6 +13622,8 @@ that contains the current user’s sales.</p>
             </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">735139</span><span class="p">,</span><span class="w">
             </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One Direction"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T18:30:00+01:00"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"on_sale_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-12-24T08:30:00+01:00"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"date_confirmed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
             </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
               </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -13273,6 +13705,88 @@ listings.</p>
 <p>Returns the <a href="#sellerlistings"><code>SellerListings</code></a> resource that contains current 
 user’s listings.</p>
 
+          <h2 id="userwebhooks">user:webhooks</h2>
+
+<pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/webhooks"</span>
+  -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+</code></pre>
+
+<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
+                            <span class="s">"clientSecret"</span><span class="p">,</span>
+                            <span class="k">new</span> <span class="nf">ProductHeaderValue</span><span class="p">(</span><span class="s">"MyAwesomeApp"</span><span class="p">));</span>
+<span class="n">var</span> <span class="n">webhooks</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Webhooks</span><span class="p">.</span><span class="nf">GetAllAsync</span><span class="p">();</span>
+</code></pre>
+
+<pre><code class="highlight ruby"><span class="c1"># TODO</span>
+</code></pre>
+
+<blockquote>
+  <p>The above command returns an object structured like this:</p>
+</blockquote>
+
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"total_items"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"page_size"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/webhooks?page=1&amp;page_size=1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"next"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/webhooks?page=2&amp;page_size=1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"last"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/webhooks?page=100&amp;page_size=1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"_embedded"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">48</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Webhook"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-10-19T13:21:32+00:00"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"topics"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"Sales"</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://myapplication.com/payload"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/webhooks/48"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"webhook:delete"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/webhooks/48"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="s2">"webhook:update"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/webhooks/48"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>You can <code>GET</code> the href of this link to retrieve the <a href="#webhooks"><code>Webhooks</code></a>
+resource that contains the current user’s webhooks.</p>
+
+<h3 id="response">Response</h3>
+
+<p>Returns the <a href="#webhooks"><code>Webhooks</code></a> resource that contains current user’s
+webhooks.</p>
+
           <h2 id="venueevents">venue:events</h2>
 
 <pre><code class="highlight shell">curl -X GET <span class="s2">"https://api.viagogo.net/v2/categories/0/events?venue_id=1364"</span>
@@ -13326,6 +13840,7 @@ user’s listings.</p>
         </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One Direction"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T18:30:00+01:00"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"on_sale_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-12-24T08:30:00+01:00"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"date_confirmed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
         </span><span class="s2">"min_ticket_price"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
           </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">25.65</span><span class="p">,</span><span class="w">
@@ -14193,6 +14708,11 @@ the query.</p>
       </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sellerlistings"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Listings"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"user:webhooks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/webhooks"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Webhooks"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -14302,6 +14822,112 @@ that contains the available venues.</p>
 <h3 id="response">Response</h3>
 
 <p>Returns the <a href="#venues"><code>Venues</code></a> resource that contains the available venues.</p>
+
+          <h2 id="webhookdelete">webhook:delete</h2>
+
+<pre><code class="highlight shell">curl -X DELETE <span class="s2">"https://api.viagogo.net/v2/webhooks/48"</span>
+  -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+</code></pre>
+
+<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
+                            <span class="s">"clientSecret"</span><span class="p">,</span>
+                            <span class="k">new</span> <span class="nf">ProductHeaderValue</span><span class="p">(</span><span class="s">"MyAwesomeApp"</span><span class="p">));</span>
+<span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">Webhooks</span><span class="p">.</span><span class="nf">DeleteAsync</span><span class="p">(</span><span class="m">48</span><span class="p">);</span>
+</code></pre>
+
+<pre><code class="highlight ruby"><span class="c1"># TODO</span>
+</code></pre>
+
+<p>You can use a <code>DELETE</code> request on the href of this link to delete a webhook for
+the current user.</p>
+
+<h3 id="response">Response</h3>
+
+<p>No content (and <code>204</code> status code).</p>
+
+          <h2 id="webhookupdate">webhook:update</h2>
+
+<pre><code class="highlight shell">curl -X PATCH <span class="s2">"https://api.viagogo.net/v2/webhooks/48"</span>
+  -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
+  -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
+</code></pre>
+
+<pre><code class="highlight csharp"><span class="c1">// TODO
+</span></code></pre>
+
+<pre><code class="highlight ruby"><span class="c1"># TODO</span>
+</code></pre>
+
+<blockquote>
+  <p>The above command returns an object structured like this:</p>
+</blockquote>
+
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">48</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Webhook"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-10-19T13:21:32+00:00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"topics"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"Sales"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="s2">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://myapplication.com/payload"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/webhooks/48"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"webhook:delete"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/webhooks/48"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"webhook:update"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/webhooks/48"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>You can use a <code>PATCH</code> request on the href of this link to update one of the
+current user’s webhooks.</p>
+
+<h3 id="parameters">Parameters</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Name</strong></td>
+      <td><strong>Type</strong></td>
+      <td><strong>Required</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>name</code></td>
+      <td><code>string</code></td>
+      <td>No</td>
+      <td>The name of the webhook</td>
+    </tr>
+    <tr>
+      <td><code>url</code></td>
+      <td><code>string</code></td>
+      <td>No</td>
+      <td>The server endpoint that will receive the webhook payload</td>
+    </tr>
+    <tr>
+      <td><code>topics</code></td>
+      <td><code>string</code>[]</td>
+      <td>No</td>
+      <td>An array of the topics the webhook is trigger for</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="response">Response</h3>
+
+<p>The updated <a href="#webhook"><code>Webhook</code></a>.</p>
 
       </div>
       <div class="dark-box">
