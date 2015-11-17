@@ -1,0 +1,29 @@
+## webhook:create
+
+<%= curl('POST', USER['_links']['user:webhooks']['href']) %>
+
+~~~ csharp
+// TODO
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+<%= json(:webhook) %>
+
+You can use a `POST` request on the href of this link to add an webhook to the
+current user's webhooks.
+
+
+### Parameters
+
+| **Name** | **Type** | **Required** | **Description** |
+| `name` | `string` | Yes | The name of the webhook |
+| `url` | `string` | Yes | The server endpoint that will receive the webhook payload |
+| `topics` | `string`[] | Yes | An array of the topics the webhook is trigger for |
+
+
+### Response
+
+The newly created [`Webhook`](#webhook).

@@ -154,6 +154,7 @@ includes:
   - link-relations/viagogo-search
   - link-relations/viagogo-user
   - link-relations/viagogo-venues
+  - link-relations/webhook-create
   - link-relations/webhook-delete
   - link-relations/webhook-update
 
