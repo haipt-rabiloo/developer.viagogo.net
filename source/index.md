@@ -147,9 +147,11 @@ includes:
   - link-relations/venue-events
   - link-relations/venue-metroarea
   - link-relations/viagogo-countries
+  - link-relations/viagogo-createsellerlisting
   - link-relations/viagogo-currencies
   - link-relations/viagogo-genres
   - link-relations/viagogo-languages
+  - link-relations/viagogo-listingconstraints
   - link-relations/viagogo-metroareas
   - link-relations/viagogo-search
   - link-relations/viagogo-user

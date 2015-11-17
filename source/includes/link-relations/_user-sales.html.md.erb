@@ -13,7 +13,8 @@
 <%= json_paged_resource(:sale, "user:sales") %>
 
 You can `GET` the href of this link to retrieve the [`Sales`](#sales) resource
-that contains the current user's sales.
+that contains the current user's sales. This endpoint requires the `read:user`
+scope.
 
 
 ### Response

@@ -16,7 +16,8 @@ var webhooks = await api.Webhooks.GetAllAsync();
 <%= json_paged_resource(:webhook, "user:webhooks") %>
 
 You can `GET` the href of this link to retrieve the [`Webhooks`](#webhooks)
-resource that contains the current user's webhooks.
+resource that contains the current user's webhooks. This endpoint requires the
+`read:webhooks` scope.
 
 
 ### Response

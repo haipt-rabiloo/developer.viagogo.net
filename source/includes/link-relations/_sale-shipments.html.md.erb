@@ -13,7 +13,8 @@
 <%= json_paged_resource(:shipment, "sale:shipments") %>
 
 You can `GET` the href of this link to retrieve the [`Shipments`](#shipments)
-resource that contains shipments related to a sale.
+resource that contains shipments related to a sale. This endpoint requires the
+`read:user` scope.
 
 
 ### Response
