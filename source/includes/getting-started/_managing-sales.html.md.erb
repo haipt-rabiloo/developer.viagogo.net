@@ -41,3 +41,13 @@ resource related to your sale. When you are ready to ship, follow the
 [`shipment:create`](#shipmentcreate) create a [`Shipment`](#shipment) and then
 follow the [`shipment:label`](#shipmentlabel) link to get the full details on
 how to ship the tickets.
+
+
+### 5. Arranging a courier collection
+
+For some delivery methods, such as UPS, it is necessary to arrange a courier
+collection. After creating a [`Shipment`](#shipment) (see [#4](#shipping-your-tickets)),
+choose the collection [`address`](#address) from the shipment's `pickup_addresses`
+property and follow the [`address:carrier`](#addresscarrier) link to view the [pickup windows](#pickupwindow)
+available for the courier. Use the [`carrier:createpickup`](#carriercreatepickup)
+link to create a [`Pickup`](#pickup) for the given window.

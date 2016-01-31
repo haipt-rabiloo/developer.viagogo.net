@@ -37,6 +37,7 @@ includes:
   - resources
   - resources/address
   - resources/addresses
+  - resources/carrier
   - resources/categories
   - resources/category
   - resources/countries
@@ -81,9 +82,11 @@ includes:
   - resources/webhooks
 
   - link-relations
+  - link-relations/address-carrier
   - link-relations/address-create
   - link-relations/address-delete
   - link-relations/address-update
+  - link-relations/carrier-createpickup
   - link-relations/category-children
   - link-relations/category-events
   - link-relations/category-image

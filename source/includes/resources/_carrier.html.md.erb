@@ -1,0 +1,17 @@
+## Carrier
+
+A carrier (e.g. UPS) that will collect tickets that are to be delivered.
+
+### Properties
+
+| **Name** | **Type** | **Description** |
+| `id` | `int` | The shipment identifier. |
+| `name` | `string` | The name of the carrier. |
+| `pickup_windows` | [`PickupWindow`](#pickupwindow)[] | The windows available for ticket collection. |
+
+
+### Links
+
+| **Relation** | **Method** | **Templated** | **Description** |
+| `self` | `GET` | No | A carrier. |
+| [`carrier:createpickup`](#carriercreatepickup) | `POST` | No | Creates a new [`pickup`](#pickup) for the ticket(s). |

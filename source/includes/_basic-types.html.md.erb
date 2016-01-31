@@ -61,6 +61,8 @@ Represents a snapshot of an Address resource at a particular point in time.
 
 ## Section
 
+### Properties
+
 | **Name** | **Type** | **Description** |
 | `name` | `string` | The name of the section. |
 | `free_text_row` | `boolean` | True if this section allows any text for a row; Otherwise, false.
@@ -69,8 +71,20 @@ Represents a snapshot of an Address resource at a particular point in time.
 
 ## Row
 
+### Properties
+
 | **Name** | **Type** | **Description** |
 | `name` | `string` | The name of the row. |
+
+## PickupWindow
+
+Represents a window of time when a courier pickup can be arranged.
+
+### Properties
+
+| **Name** | **Type** | **Description** |
+| `start_date` | [`datetime`](#datetime) | The date when the window starts. |
+| `end_date` | [`datetime`](#datetime) | The date when the window ends. |
 
 
 ## PaymentMethod Types
