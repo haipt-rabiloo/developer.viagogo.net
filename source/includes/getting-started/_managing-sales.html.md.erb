@@ -17,8 +17,8 @@ get all of the [`Sale`](#sale) resources for your account.
 
 ### 2. Confirming sales
 
-When your tickets have sold, you should confirm your sale promptly using by
-following the [`sale:confirm`](#saleconfirm) link. If there is a problem with
+When your tickets have sold, you should confirm your sale promptly by
+using the [`sale:confirm`](#saleconfirm) link. If there is a problem with
 your sale, you should use the [`sale:reject`](#salereject) link.
 
 
@@ -35,4 +35,9 @@ to the sale in the [`sale:saveetickets`](#salesaveetickets) link.
 
 ### 4. Shipping your tickets
 
-TODO
+As soon as you have your tickets and are ready to ship them to your buyer, use
+the [`sale:shipments`](#saleshipments) link to get the [`Shipments`](#shipments)
+resource related to your sale. When you are ready to ship, follow the
+[`shipment:create`](#shipmentcreate) create a [`Shipment`](#shipment) and then
+follow the [`shipment:label`](#shipmentlabel) link to get the full details on
+how to ship the tickets.
