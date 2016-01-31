@@ -1,0 +1,21 @@
+## address:carrier
+
+<%= curl('GET', SHIPMENT_ADDRESS['_links']['address:carrier']['href']) %>
+
+~~~ csharp
+TODO
+~~~
+
+~~~ ruby
+TODO
+~~~
+
+<%= json(:carrier) %>
+
+You can GET the href of this link to retrieve the [`Carrier`](#carrier) resource
+that can collect tickets at this address.
+
+
+### Response
+
+The [`Carrier`](#carrier) resource.

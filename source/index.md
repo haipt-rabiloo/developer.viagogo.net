@@ -37,6 +37,7 @@ includes:
   - resources
   - resources/address
   - resources/addresses
+  - resources/carrier
   - resources/categories
   - resources/category
   - resources/countries
@@ -81,15 +82,18 @@ includes:
   - resources/webhooks
 
   - link-relations
+  - link-relations/address-carrier
   - link-relations/address-create
   - link-relations/address-delete
   - link-relations/address-update
+  - link-relations/carrier-createpickup
   - link-relations/category-children
   - link-relations/category-events
   - link-relations/category-image
   - link-relations/category-parent
   - link-relations/category-performers
   - link-relations/category-webpage
+  - link-relations/country-events
   - link-relations/eticket-delete
   - link-relations/eticket-document
   - link-relations/eticket-thumbnail

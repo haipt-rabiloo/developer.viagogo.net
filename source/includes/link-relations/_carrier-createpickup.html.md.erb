@@ -1,0 +1,26 @@
+## carrier:createpickup
+
+~~~ shell
+curl -X POST "<%= CARRIER['_links']['carrier:createpickup']['href'] %>"
+     -H "User-Agent: MyAwesomeApp"
+     -H "Authorization: Bearer <%= ResourceHelpers::CLIENT_CREDENTIALS_TOKEN["access_token"] %>"
+     -d '{"start_date":"<%= PICKUP["start_date"] %>","end_date":"<%= PICKUP["end_date"] %>"}'
+~~~
+
+~~~ csharp
+// TODO
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+<%= json(:pickup) %>
+
+You can use a `POST` request on the href of this link to create a pickup for the
+ticket(s) of a sale. This endpoint requires the `write:user` scope.
+
+
+### Response
+
+The newly created [`Pickup`](#pickup).

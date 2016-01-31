@@ -273,6 +273,11 @@ module ResourceHelpers
         "href" => "https://api.viagogo.net/v2/countries/GB",
         "title" => nil,
         "templated" => false
+      },
+      "country:events" => {
+        "href" => "https://api.viagogo.net/v2/categories/0/events?country_code=GB",
+        "title" => nil,
+        "templated" => false
       }
     }
   }
@@ -992,6 +997,56 @@ module ResourceHelpers
     }
   }
 
+  CARRIER ||= {
+    "id" => 2,
+    "name" => "Ship via UPS",
+    "pickup_windows" => [
+      {
+        "start_date" => "2016-02-01T09:00:00+00:00",
+        "end_date" => "2016-02-01T17:00:00+00:00"
+      },
+      {
+        "start_date" => "2016-02-02T09:00:00+00:00",
+        "end_date" => "2016-02-02T17:00:00+00:00"
+      },
+      {
+        "start_date" => "2016-02-03T09:00:00+00:00",
+        "end_date" => "2016-02-03T17:00:00+00:00"
+      },
+      {
+        "start_date" => "2016-02-04T09:00:00+00:00",
+        "end_date" => "2016-02-04T17:00:00+00:00"
+      }
+    ],
+    "_links" => {
+      "carrier:createpickup" => {
+        "href" => "https://api.viagogo.net/v2/addresses/#{ADDRESS["id"]}/carriers/2/pickups",
+        "title" => nil,
+        "templated" => false
+      }
+    }
+  }
+
+  SHIPMENT_ADDRESS ||= {
+    "id" => ADDRESS["id"],
+    "full_name" => ADDRESS["full_name"],
+    "default" => ADDRESS["default"],
+    "address_1" => ADDRESS["address_1"],
+    "address_2" => ADDRESS["address_2"],
+    "address_3" => ADDRESS["address_3"],
+    "city" => ADDRESS["city"],
+    "state_province" => ADDRESS["state_province"],
+    "postal_code" => ADDRESS["postal_code"],
+    "_links" => {
+      "address:carrier" => {
+        "href" => "https://api.viagogo.net/v2/addresses/#{ADDRESS["id"]}/carriers/#{CARRIER["id"]}",
+        "title" => nil,
+        "templated" => false
+      }
+    },
+    "_embedded" => ADDRESS["embedded"]
+  }
+
   PICKUP ||= {
     "id" => 2109,
     "start_date" => "2015-09-24T09:00:00+00:00",
@@ -1029,6 +1084,9 @@ module ResourceHelpers
     },
     "_embedded" => {
       "delivery_method" => SELLER_DELIVERY_METHOD,
+      "pickup_addresses" => [
+        SHIPMENT_ADDRESS
+      ],
       "pickups" => [
         PICKUP
       ]
@@ -1117,6 +1175,7 @@ module ResourceHelpers
     "category:children" => CATEGORY["_links"]["category:children"]["href"],
     "category:events" => CATEGORY["_links"]["category:events"]["href"],
     "category:performers" => CATEGORY["_links"]["category:performers"]["href"],
+    "country:events" => COUNTRY["_links"]["country:events"]["href"],
     "event:listings" => EVENT["_links"]["event:listings"]["href"],
     "metroarea:events" => METRO_AREA["_links"]["metroarea:events"]["href"],
     "metroarea:venues" => METRO_AREA["_links"]["metroarea:venues"]["href"],
