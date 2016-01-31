@@ -273,6 +273,11 @@ module ResourceHelpers
         "href" => "https://api.viagogo.net/v2/countries/GB",
         "title" => nil,
         "templated" => false
+      },
+      "country:events" => {
+        "href" => "https://api.viagogo.net/v2/categories/0/events?country_code=GB",
+        "title" => nil,
+        "templated" => false
       }
     }
   }
@@ -1117,6 +1122,7 @@ module ResourceHelpers
     "category:children" => CATEGORY["_links"]["category:children"]["href"],
     "category:events" => CATEGORY["_links"]["category:events"]["href"],
     "category:performers" => CATEGORY["_links"]["category:performers"]["href"],
+    "country:events" => COUNTRY["_links"]["country:events"]["href"],
     "event:listings" => EVENT["_links"]["event:listings"]["href"],
     "metroarea:events" => METRO_AREA["_links"]["metroarea:events"]["href"],
     "metroarea:venues" => METRO_AREA["_links"]["metroarea:venues"]["href"],

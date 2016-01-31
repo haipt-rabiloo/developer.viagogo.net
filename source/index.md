@@ -90,6 +90,7 @@ includes:
   - link-relations/category-parent
   - link-relations/category-performers
   - link-relations/category-webpage
+  - link-relations/country-events
   - link-relations/eticket-delete
   - link-relations/eticket-document
   - link-relations/eticket-thumbnail
