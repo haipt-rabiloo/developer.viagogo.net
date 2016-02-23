@@ -109,6 +109,22 @@ non-user-specific data (events, listings, etc).
 
 ### 1. Obtain user's consent
 
+~~~ shell
+curl -X GET "https://account.viagogo.com/authorize?client_id=clientId&response_type=code&redirect_uri=https://myapp.com/callback&scope=read:user%20write:user&state=12345"
+~~~
+
+~~~ csharp
+var api = new ViagogoClient("clientId",
+                            "clientSecret",
+                            new ProductHeaderValue("MyAwesomeApp"));
+
+// Redirect the user's user agent to this URL
+var authorizationUrl = await api.OAuth2.GetAuthorizationUrl(
+                            new Uri("https://myapp.com/callback"),
+                            new[] { "read:user", "write:user" },
+                            "12345");
+~~~
+
 You obtain a user's consent to make API calls on their behalf by redirecting
 their user agent (browser, webview, etc) to the authorization endpoint with the
 parameters listed below.
@@ -123,9 +139,16 @@ parameters listed below.
 | -------- | -------- | --------------- |
 | `client_id` | `string` | *Required* Unique client identifier obtained through the application registration process |
 | `response_type` | `string` | Set to `code` to request that an authorization code be sent back to the application return URL |
-| `redirect_uri` | `string` | Application return URL where the authorization code is sent. This must match the URL registered for your application |
+| `redirect_uri` | `string` | Application callback URL where the authorization code is sent. This must match the URL registered for your application |
 | `scope` | `string` | Space-delimited string of the [scopes](#scopes) you would like |
 | `state` | `string` | An opaque value used to maintain state between the authorize request and the callback |
+
+
+<aside class="notice">
+  <strong><code>redirect_uri</code> must be SSL</strong>
+  <p>OAuth2 is only secure if it is used over SSL so your callback URL
+must use HTTPs.</p>
+</aside>
 
 ### 2. Process the authorize callback
 
@@ -141,11 +164,15 @@ curl -X POST "https://account.viagogo.com/oauth2/token"
   -H "Content-Type: application/x-www-form-urlencoded"
   -d "grant_type=authorization_code"
   -d "code=cddgafgfvawe"
+  --data-urlencode "https://myapp.com/callback"
   --data-urlencode "scope=read:user write:user"
 ~~~
 
 ~~~ csharp
-// TODO
+var token = await _viagogoClient.OAuth2.GetAuthorizationCodeAccessTokenAsync(
+                                          "cddgafgfvawe",
+                                          new Uri("https://myapp.com/callback"),
+                                          new[] { "read:user", "write:user" });
 ~~~
 
 ~~~ ruby
@@ -181,6 +208,7 @@ The authorization code received above can then be exchanged for an access token.
 | -------- | -------- | --------------- |
 | `grant_type` | `string` | *Required*. Value should be `authorization_code` |
 | `code` | `string` | The authorization code that was sent to your application's return URL |
+| `redirect_uri` | `string` | Application callback URL where the authorization code is sent. This must match the URL registered for your application |
 | `scope` | `string` | Space-delimited string of the [scopes](#scopes) you would like. |
 
 
@@ -206,7 +234,7 @@ curl -X POST "https://account.viagogo.com/oauth2/token"
 ~~~
 
 ~~~ csharp
-// TODO
+var token = await _viagogoClient.OAuth2.RefreshAccessTokenAsync(oldToken);
 ~~~
 
 ~~~ ruby
