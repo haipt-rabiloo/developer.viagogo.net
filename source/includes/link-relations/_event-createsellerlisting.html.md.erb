@@ -4,7 +4,7 @@
 curl -X POST "<%= EVENT['_links']['event:createsellerlisting']['href'] %>"
      -H "User-Agent: MyAwesomeApp"
      -H "Authorization: Bearer <%= ResourceHelpers::CLIENT_CREDENTIALS_TOKEN["access_token"] %>"
-     -d '{"seating":{"section":"107","row":"A","seat_from":"1","seat_to":"4"},"ticket_price":{"amount":25.65,"currency_code":"USD"},"face_value":{"amount":22.62,"currency_code":"EUR"},"ticket_type":"ETicket","split_type":"Any","number_of_tickets":2,"guarantee_payment_method_id":95698}'
+     -d '{"external_id": "495293","seating":{"section":"107","row":"A","seat_from":"1","seat_to":"4"},"ticket_price":{"amount":25.65,"currency_code":"USD"},"face_value":{"amount":22.62,"currency_code":"EUR"},"ticket_type":"ETicket","split_type":"Any","number_of_tickets":2,"guarantee_payment_method_id":95698}'
 ~~~
 
 ~~~ csharp
@@ -31,6 +31,7 @@ You can use a `POST` request on the href of this link to create a
 | `ticket_type` | `string` | Yes | The type of ticket(s) in this listing. Can be `PaperTicket`, `ETicket`, `PaperTicketNameChange`, `TesseraDelTifoso`, `SeasonCard`, `PaperTicketNameChange`, `ETicketNameChange` or `ETicketThirdPartyPreUpload`. |
 | `split_type` | `string` | Yes | The way that the ticket(s) are allowed to be split up when sold. Can be `Any`, `None`, `AvoidOne`, `AvoidOneAndThree`, or `Pairs`. |
 | `guarantee_payment_method_id` | `int` | Yes | The identifier of the credit card that should be used to guarantee your tickets. |
+| `external_id` | `string` | No | An identifier that has been assigned to the listing in an external inventory management system |
 | `listing_note_ids` | `int`[] | No | The identifiers of the [`ListingNote`] resources for this listing. |
 | `face_value` | [`money`](#money) | No | The price printed on the ticket, not including any booking fees. |
 | `display_number_of_tickets` | `int` | No | The number of tickets that should be displayed to buyers as available for purchase. |

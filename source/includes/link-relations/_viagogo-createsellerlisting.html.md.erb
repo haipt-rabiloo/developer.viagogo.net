@@ -37,8 +37,9 @@ platform when your "requested event" is accepted. This endpoint requires the
 | `ticket_price` | [`money`](#money) | Yes | The price of each ticket in the listing. |
 | `ticket_type` | `string` | Yes | The type of ticket(s) in this listing. Can be `PaperTicket`, `ETicket`, `PaperTicketNameChange`, `TesseraDelTifoso`, `SeasonCard`, `PaperTicketNameChange`, `ETicketNameChange` or `ETicketThirdPartyPreUpload`. |
 | `split_type` | `string` | Yes | The way that the ticket(s) are allowed to be split up when sold. Can be `Any`, `None`, `AvoidOne`, `AvoidOneAndThree`, or `Pairs`. |
-| `guarantee_payment_method_id` | `int` | Yes | The identifier of the credit card that should be used to guarantee your tickets. |
-| `listing_note_ids` | `int`[] | No | The identifiers of the [`ListingNote`] resources for this listing. |
+| `external_id` | `string` | No | An identifier that has been assigned to the listing in an external inventory management system |
+| `guarantee_payment_method_id` | `int` | No | The identifier of the credit card that should be used to guarantee your tickets. |
+| `notes` | `string` | No | A description of the features and/or restrictions of the tickets in the listing. |
 | `face_value` | [`money`](#money) | No | The price printed on the ticket, not including any booking fees. |
 | `display_number_of_tickets` | `int` | No | The number of tickets that should be displayed to buyers as available for purchase. |
 | `ticket_location_address_id` | `int` | No | The identifier of the address where the ticket(s) are located. |
