@@ -797,6 +797,7 @@ module ResourceHelpers
   SELLER_LISTING ||= {
     "id" => 22096065,
     "created_at" => "2015-06-12T15:05:35+01:00",
+    "external_id" => "495293",
     "number_of_tickets" => 2,
     "display_number_of_tickets" => nil,
     "seating" => SEATING,
@@ -884,6 +885,7 @@ module ResourceHelpers
   EMBEDDED_SELLER_LISTING ||= {
     "id" => SELLER_LISTING["id"],
     "created_at" => SELLER_LISTING["created_at"],
+    "external_id" => SELLER_LISTING["external_id"],
     "number_of_tickets" => SELLER_LISTING["number_of_tickets"],
     "ticket_price" => SELLER_LISTING["ticket_price"],
     "_links" => {
