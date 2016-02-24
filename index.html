@@ -1446,6 +1446,7 @@ user’s listings.</p>
 <pre><code class="highlight json"><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">22096065</span><span class="p">,</span><span class="w">
   </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-06-12T15:05:35+01:00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"external_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"495293"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
   </span><span class="s2">"display_number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
   </span><span class="s2">"seating"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -1693,6 +1694,7 @@ user’s listings.</p>
 <pre><code class="highlight json"><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">22096065</span><span class="p">,</span><span class="w">
   </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-06-12T15:05:35+01:00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"external_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"495293"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
   </span><span class="s2">"display_number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
   </span><span class="s2">"seating"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -2103,6 +2105,20 @@ non-user-specific data (events, listings, etc).</p>
 
 <h3 id="obtain-users-consent">1. Obtain user’s consent</h3>
 
+<pre><code class="highlight shell">curl -X GET <span class="s2">"https://account.viagogo.com/authorize?client_id=clientId&amp;response_type=code&amp;redirect_uri=https://myapp.com/callback&amp;scope=read:user%20write:user&amp;state=12345"</span>
+</code></pre>
+
+<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
+                            <span class="s">"clientSecret"</span><span class="p">,</span>
+                            <span class="k">new</span> <span class="nf">ProductHeaderValue</span><span class="p">(</span><span class="s">"MyAwesomeApp"</span><span class="p">));</span>
+
+<span class="c1">// Redirect the user's user agent to this URL
+</span><span class="n">var</span> <span class="n">authorizationUrl</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">OAuth2</span><span class="p">.</span><span class="nf">GetAuthorizationUrl</span><span class="p">(</span>
+                            <span class="k">new</span> <span class="nf">Uri</span><span class="p">(</span><span class="s">"https://myapp.com/callback"</span><span class="p">),</span>
+                            <span class="k">new</span><span class="p">[]</span> <span class="p">{</span> <span class="s">"read:user"</span><span class="p">,</span> <span class="s">"write:user"</span> <span class="p">},</span>
+                            <span class="s">"12345"</span><span class="p">);</span>
+</code></pre>
+
 <p>You obtain a user’s consent to make API calls on their behalf by redirecting
 their user agent (browser, webview, etc) to the authorization endpoint with the
 parameters listed below.</p>
@@ -2135,7 +2151,7 @@ parameters listed below.</p>
     <tr>
       <td><code>redirect_uri</code></td>
       <td><code>string</code></td>
-      <td>Application return URL where the authorization code is sent. This must match the URL registered for your application</td>
+      <td>Application callback URL where the authorization code is sent. This must match the URL registered for your application</td>
     </tr>
     <tr>
       <td><code>scope</code></td>
@@ -2150,6 +2166,12 @@ parameters listed below.</p>
   </tbody>
 </table>
 
+<aside class="notice">
+  <strong><code>redirect_uri</code> must be SSL</strong>
+  <p>OAuth2 is only secure if it is used over SSL so your callback URL
+must use HTTPs.</p>
+</aside>
+
 <h3 id="process-the-authorize-callback">2. Process the authorize callback</h3>
 
 <p>Once the user authorizes your application, viagogo redirects (<code>HTTP 302</code>) the
@@ -2163,11 +2185,15 @@ user’s user-agent to the return URL with the authorization code appended in th
   -H <span class="s2">"Content-Type: application/x-www-form-urlencoded"</span>
   -d <span class="s2">"grant_type=authorization_code"</span>
   -d <span class="s2">"code=cddgafgfvawe"</span>
+  --data-urlencode <span class="s2">"https://myapp.com/callback"</span>
   --data-urlencode <span class="s2">"scope=read:user write:user"</span>
 </code></pre>
 
-<pre><code class="highlight csharp"><span class="c1">// TODO
-</span></code></pre>
+<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">token</span> <span class="p">=</span> <span class="n">await</span> <span class="n">_viagogoClient</span><span class="p">.</span><span class="n">OAuth2</span><span class="p">.</span><span class="nf">GetAuthorizationCodeAccessTokenAsync</span><span class="p">(</span>
+                                          <span class="s">"cddgafgfvawe"</span><span class="p">,</span>
+                                          <span class="k">new</span> <span class="nf">Uri</span><span class="p">(</span><span class="s">"https://myapp.com/callback"</span><span class="p">),</span>
+                                          <span class="k">new</span><span class="p">[]</span> <span class="p">{</span> <span class="s">"read:user"</span><span class="p">,</span> <span class="s">"write:user"</span> <span class="p">});</span>
+</code></pre>
 
 <pre><code class="highlight ruby"><span class="c1"># TODO</span>
 </code></pre>
@@ -2240,6 +2266,11 @@ user’s user-agent to the return URL with the authorization code appended in th
       <td>The authorization code that was sent to your application’s return URL</td>
     </tr>
     <tr>
+      <td><code>redirect_uri</code></td>
+      <td><code>string</code></td>
+      <td>Application callback URL where the authorization code is sent. This must match the URL registered for your application</td>
+    </tr>
+    <tr>
       <td><code>scope</code></td>
       <td><code>string</code></td>
       <td>Space-delimited string of the <a href="#scopes">scopes</a> you would like.</td>
@@ -2267,8 +2298,8 @@ obtain an initial access token.</p>
   --data-urlencode <span class="s2">"scope=read:user write:user"</span>
 </code></pre>
 
-<pre><code class="highlight csharp"><span class="c1">// TODO
-</span></code></pre>
+<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">token</span> <span class="p">=</span> <span class="n">await</span> <span class="n">_viagogoClient</span><span class="p">.</span><span class="n">OAuth2</span><span class="p">.</span><span class="nf">RefreshAccessTokenAsync</span><span class="p">(</span><span class="n">oldToken</span><span class="p">);</span>
+</code></pre>
 
 <pre><code class="highlight ruby"><span class="c1"># TODO</span>
 </code></pre>
@@ -2555,6 +2586,7 @@ VGG-DeliveryId: 8033e621-cb8a-4d4c-abe1-f581f929698b
     </span><span class="s2">"seller_listing"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">22096065</span><span class="p">,</span><span class="w">
       </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-06-12T15:05:35+01:00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"external_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"495293"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
       </span><span class="s2">"ticket_price"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">25.65</span><span class="p">,</span><span class="w">
@@ -5966,6 +5998,11 @@ currently authenticated user.</p>
       <td>The date when the listing was created.</td>
     </tr>
     <tr>
+      <td><code>external_id</code></td>
+      <td><code>string</code></td>
+      <td>An identifier that has been assigned to the listing in an external inventory management system</td>
+    </tr>
+    <tr>
       <td><code>number_of_tickets</code></td>
       <td><code>int</code></td>
       <td>The number of tickets available for purchase.</td>
@@ -8452,11 +8489,33 @@ resource that contains an event.</p>
 <pre><code class="highlight shell">curl -X POST <span class="s2">"https://api.viagogo.net/v2/events/735139/sellerlistings"</span>
      -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
      -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
-     -d <span class="s1">'{"seating":{"section":"107","row":"A","seat_from":"1","seat_to":"4"},"ticket_price":{"amount":25.65,"currency_code":"USD"},"face_value":{"amount":22.62,"currency_code":"EUR"},"ticket_type":"ETicket","split_type":"Any","number_of_tickets":2,"guarantee_payment_method_id":95698}'</span>
+     -d <span class="s1">'{"external_id": "495293","seating":{"section":"107","row":"A","seat_from":"1","seat_to":"2"},"ticket_price":{"amount":25.65,"currency_code":"USD"},"face_value":{"amount":22.62,"currency_code":"EUR"},"ticket_type":"ETicket","split_type":"Any","number_of_tickets":2,"guarantee_payment_method_id":95698}'</span>
 </code></pre>
 
-<pre><code class="highlight csharp"><span class="c1">// TODO
-</span></code></pre>
+<pre><code class="highlight csharp">
+<span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
+                            <span class="s">"clientSecret"</span><span class="p">,</span>
+                            <span class="k">new</span> <span class="nf">ProductHeaderValue</span><span class="p">(</span><span class="s">"MyAwesomeApp"</span><span class="p">));</span>
+<span class="n">var</span> <span class="n">listing</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">SellerListings</span><span class="p">.</span><span class="nf">CreateAsync</span><span class="p">(</span>
+                <span class="m">735139</span><span class="p">,</span>
+                <span class="k">new</span> <span class="n">NewSellerListing</span>
+                <span class="p">{</span>
+                  <span class="n">ExternalId</span> <span class="p">=</span> <span class="s">"495293"</span><span class="p">,</span>
+                  <span class="n">NumberOfTickets</span> <span class="p">=</span> <span class="s">"2"</span><span class="p">,</span>
+                  <span class="n">Seating</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Seating</span>
+                            <span class="p">{</span>
+                              <span class="n">Section</span> <span class="p">=</span> <span class="s">"107"</span><span class="p">,</span>
+                              <span class="n">Row</span> <span class="p">=</span> <span class="s">"A"</span><span class="p">,</span>
+                              <span class="n">SeatFrom</span> <span class="p">=</span> <span class="s">"1"</span><span class="p">,</span>
+                              <span class="n">SeatTo</span> <span class="p">=</span> <span class="s">"4"</span>
+                            <span class="p">},</span>
+                  <span class="n">TicketPrice</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Money</span> <span class="p">{</span> <span class="n">Amount</span> <span class="p">=</span> <span class="m">25.65</span><span class="p">,</span> <span class="n">Currency</span> <span class="p">=</span> <span class="s">"USD"</span> <span class="p">},</span>
+                  <span class="n">FaceValue</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Money</span> <span class="p">{</span> <span class="n">Amount</span> <span class="p">=</span> <span class="m">22.62</span><span class="p">,</span> <span class="n">Currency</span> <span class="p">=</span> <span class="s">"EUR"</span> <span class="p">},</span>
+                  <span class="n">TicketType</span> <span class="p">=</span> <span class="s">"ETicket"</span><span class="p">,</span>
+                  <span class="n">SplitType</span> <span class="p">=</span> <span class="s">"Any"</span><span class="p">,</span>
+                  <span class="n">GuaranteePaymentMethodId</span> <span class="p">=</span> <span class="m">95698</span>
+                <span class="p">});</span>
+</code></pre>
 
 <pre><code class="highlight ruby"><span class="c1"># TODO</span>
 </code></pre>
@@ -8468,6 +8527,7 @@ resource that contains an event.</p>
 <pre><code class="highlight json"><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">22096065</span><span class="p">,</span><span class="w">
   </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-06-12T15:05:35+01:00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"external_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"495293"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
   </span><span class="s2">"display_number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
   </span><span class="s2">"seating"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -8688,6 +8748,12 @@ resource that contains an event.</p>
       <td><code>int</code></td>
       <td>Yes</td>
       <td>The identifier of the credit card that should be used to guarantee your tickets.</td>
+    </tr>
+    <tr>
+      <td><code>external_id</code></td>
+      <td><code>string</code></td>
+      <td>No</td>
+      <td>An identifier that has been assigned to the listing in an external inventory management system</td>
     </tr>
     <tr>
       <td><code>listing_note_ids</code></td>
@@ -11670,6 +11736,7 @@ payment_method for the current user. This endpoint requires the
 <pre><code class="highlight json"><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">22096065</span><span class="p">,</span><span class="w">
   </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-06-12T15:05:35+01:00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"external_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"495293"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
   </span><span class="s2">"display_number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
   </span><span class="s2">"seating"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -11961,6 +12028,7 @@ scope.</p>
 <pre><code class="highlight json"><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">22096065</span><span class="p">,</span><span class="w">
   </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-06-12T15:05:35+01:00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"external_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"495293"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
   </span><span class="s2">"display_number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
   </span><span class="s2">"seating"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -12179,6 +12247,7 @@ marketplace. This endpoint requires the <code>write:sellerlistings</code> scope.
 <pre><code class="highlight json"><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">22096065</span><span class="p">,</span><span class="w">
   </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-06-12T15:05:35+01:00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"external_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"495293"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
   </span><span class="s2">"display_number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
   </span><span class="s2">"seating"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -12397,6 +12466,7 @@ scope.</p>
 <pre><code class="highlight json"><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">22096065</span><span class="p">,</span><span class="w">
   </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-06-12T15:05:35+01:00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"external_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"495293"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
   </span><span class="s2">"display_number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
   </span><span class="s2">"seating"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -12615,6 +12685,7 @@ for a <a href="#sellerlisting"><code>SellerListing</code></a>. This endpoint req
 <pre><code class="highlight json"><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">22096065</span><span class="p">,</span><span class="w">
   </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-06-12T15:05:35+01:00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"external_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"495293"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
   </span><span class="s2">"display_number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
   </span><span class="s2">"seating"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -12839,6 +12910,7 @@ tickets available for purchase. This endpoint requires the
 <pre><code class="highlight json"><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">22096065</span><span class="p">,</span><span class="w">
   </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-06-12T15:05:35+01:00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"external_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"495293"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
   </span><span class="s2">"display_number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
   </span><span class="s2">"seating"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -13057,6 +13129,7 @@ tickets in the listing are allowed be split. This endpoint requires the
 <pre><code class="highlight json"><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">22096065</span><span class="p">,</span><span class="w">
   </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-06-12T15:05:35+01:00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"external_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"495293"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
   </span><span class="s2">"display_number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
   </span><span class="s2">"seating"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -13275,6 +13348,7 @@ where the tickets are located. This endpoint requires the
 <pre><code class="highlight json"><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">22096065</span><span class="p">,</span><span class="w">
   </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-06-12T15:05:35+01:00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"external_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"495293"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
   </span><span class="s2">"display_number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
   </span><span class="s2">"seating"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -13492,6 +13566,7 @@ ticket in a listing. This endpoint requires the <code>write:sellerlistings</code
 <pre><code class="highlight json"><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">22096065</span><span class="p">,</span><span class="w">
   </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-06-12T15:05:35+01:00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"external_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"495293"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
   </span><span class="s2">"display_number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
   </span><span class="s2">"seating"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -14265,6 +14340,7 @@ scope.</p>
       </span><span class="p">{</span><span class="w">
         </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">22096065</span><span class="p">,</span><span class="w">
         </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-06-12T15:05:35+01:00"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"external_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"495293"</span><span class="p">,</span><span class="w">
         </span><span class="s2">"number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
         </span><span class="s2">"display_number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
         </span><span class="s2">"seating"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -14897,11 +14973,41 @@ countries.</p>
 <pre><code class="highlight shell">curl -X POST <span class="s2">"https://api.viagogo.net/v2/sellerlistings"</span>
      -H <span class="s2">"User-Agent: MyAwesomeApp"</span>
      -H <span class="s2">"Authorization: Bearer pYXQiOjE0MjI1MzY0NjEsInNjb3BlIjo"</span>
-     -d <span class="s1">'{"seating":{"section":"107","row":"A","seat_from":"1","seat_to":"4"},"ticket_price":{"amount":25.65,"currency_code":"USD"},"face_value":{"amount":22.62,"currency_code":"EUR"},"ticket_type":"ETicket","split_type":"Any","number_of_tickets":2,"guarantee_payment_method_id":95698,"event":{"name":"One Direction","start_date":"2015-09-24T18:30:00+01:00"},"venue":{"name":"The O2 arena","city":"London"},"country": {"code": "GB"}}'</span>
+     -d <span class="s1">'{"external_id": "495293", "seating":{"section":"107","row":"A","seat_from":"1","seat_to":"2"},"ticket_price":{"amount":25.65,"currency_code":"USD"},"face_value":{"amount":22.62,"currency_code":"EUR"},"ticket_type":"ETicket","split_type":"Any","number_of_tickets":2,"event":{"name":"One Direction","start_date":"2015-09-24T18:30:00+01:00"},"venue":{"name":"The O2 arena","city":"London"},"country": {"code": "GB"}}'</span>
 </code></pre>
 
-<pre><code class="highlight csharp"><span class="c1">// TODO
-</span></code></pre>
+<pre><code class="highlight csharp"><span class="n">var</span> <span class="n">api</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">ViagogoClient</span><span class="p">(</span><span class="s">"clientId"</span><span class="p">,</span>
+                            <span class="s">"clientSecret"</span><span class="p">,</span>
+                            <span class="k">new</span> <span class="nf">ProductHeaderValue</span><span class="p">(</span><span class="s">"MyAwesomeApp"</span><span class="p">));</span>
+<span class="n">var</span> <span class="n">listing</span> <span class="p">=</span> <span class="n">await</span> <span class="n">api</span><span class="p">.</span><span class="n">SellerListings</span><span class="p">.</span><span class="nf">CreateAsync</span><span class="p">(</span>
+                <span class="k">new</span> <span class="n">NewRequestedEventSellerListing</span>
+                <span class="p">{</span>
+                  <span class="n">ExternalId</span> <span class="p">=</span> <span class="s">"495293"</span><span class="p">,</span>
+                  <span class="n">NumberOfTickets</span> <span class="p">=</span> <span class="s">"2"</span><span class="p">,</span>
+                  <span class="n">Seating</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Seating</span>
+                            <span class="p">{</span>
+                              <span class="n">Section</span> <span class="p">=</span> <span class="s">"107"</span><span class="p">,</span>
+                              <span class="n">Row</span> <span class="p">=</span> <span class="s">"A"</span><span class="p">,</span>
+                              <span class="n">SeatFrom</span> <span class="p">=</span> <span class="s">"1"</span><span class="p">,</span>
+                              <span class="n">SeatTo</span> <span class="p">=</span> <span class="s">"4"</span>
+                            <span class="p">},</span>
+                  <span class="n">TicketPrice</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Money</span> <span class="p">{</span> <span class="n">Amount</span> <span class="p">=</span> <span class="m">25.65</span><span class="p">,</span> <span class="n">Currency</span> <span class="p">=</span> <span class="s">"USD"</span> <span class="p">},</span>
+                  <span class="n">FaceValue</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Money</span> <span class="p">{</span> <span class="n">Amount</span> <span class="p">=</span> <span class="m">22.62</span><span class="p">,</span> <span class="n">Currency</span> <span class="p">=</span> <span class="s">"EUR"</span> <span class="p">},</span>
+                  <span class="n">TicketType</span> <span class="p">=</span> <span class="s">"ETicket"</span><span class="p">,</span>
+                  <span class="n">SplitType</span> <span class="p">=</span> <span class="s">"Any"</span><span class="p">,</span>
+                  <span class="n">Event</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Event</span>
+                          <span class="p">{</span>
+                            <span class="n">Name</span> <span class="p">=</span> <span class="s">"One Direction"</span><span class="p">,</span>
+                            <span class="n">StartDate</span> <span class="p">=</span> <span class="n">DateTimeOffset</span><span class="p">.</span><span class="nf">Parse</span><span class="p">(</span><span class="s">"2015-09-24T18:30:00+01:00"</span><span class="p">)</span>
+                          <span class="p">},</span>
+                  <span class="n">Venue</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Venue</span>
+                          <span class="p">{</span>
+                            <span class="n">Name</span> <span class="p">=</span> <span class="s">"The O2 arena"</span><span class="p">,</span>
+                            <span class="n">City</span> <span class="p">=</span> <span class="s">"London"</span>
+                          <span class="p">},</span>
+                  <span class="n">Country</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Country</span> <span class="p">{</span> <span class="n">Code</span> <span class="p">=</span> <span class="s">"GB"</span> <span class="p">}</span>
+                <span class="p">});</span>
+</code></pre>
 
 <pre><code class="highlight ruby"><span class="c1"># TODO</span>
 </code></pre>
@@ -14913,6 +15019,7 @@ countries.</p>
 <pre><code class="highlight json"><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">22096065</span><span class="p">,</span><span class="w">
   </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-06-12T15:05:35+01:00"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"external_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"495293"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
   </span><span class="s2">"display_number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
   </span><span class="s2">"seating"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -15151,16 +15258,22 @@ platform when your “requested event” is accepted. This endpoint requires the
       <td>The way that the ticket(s) are allowed to be split up when sold. Can be <code>Any</code>, <code>None</code>, <code>AvoidOne</code>, <code>AvoidOneAndThree</code>, or <code>Pairs</code>.</td>
     </tr>
     <tr>
+      <td><code>external_id</code></td>
+      <td><code>string</code></td>
+      <td>No</td>
+      <td>An identifier that has been assigned to the listing in an external inventory management system</td>
+    </tr>
+    <tr>
       <td><code>guarantee_payment_method_id</code></td>
       <td><code>int</code></td>
-      <td>Yes</td>
+      <td>No</td>
       <td>The identifier of the credit card that should be used to guarantee your tickets.</td>
     </tr>
     <tr>
-      <td><code>listing_note_ids</code></td>
-      <td><code>int</code>[]</td>
+      <td><code>notes</code></td>
+      <td><code>string</code></td>
       <td>No</td>
-      <td>The identifiers of the [<code>ListingNote</code>] resources for this listing.</td>
+      <td>A description of the features and/or restrictions of the tickets in the listing.</td>
     </tr>
     <tr>
       <td><code>face_value</code></td>
