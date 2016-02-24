@@ -4,11 +4,41 @@
 curl -X POST "<%= ROOT['_links']['viagogo:createsellerlisting']['href'] %>"
      -H "User-Agent: MyAwesomeApp"
      -H "Authorization: Bearer <%= ResourceHelpers::CLIENT_CREDENTIALS_TOKEN["access_token"] %>"
-     -d '{"seating":{"section":"107","row":"A","seat_from":"1","seat_to":"4"},"ticket_price":{"amount":25.65,"currency_code":"USD"},"face_value":{"amount":22.62,"currency_code":"EUR"},"ticket_type":"ETicket","split_type":"Any","number_of_tickets":2,"guarantee_payment_method_id":95698,"event":{"name":"<%= EMBEDDED_EVENT["name"] %>","start_date":"<%= EMBEDDED_EVENT["start_date"] %>"},"venue":{"name":"<%= EMBEDDED_VENUE["name"]%>","city":"<%= EMBEDDED_VENUE["city"] %>"},"country": {"code": "<%= COUNTRY["code"] %>"}}'
+     -d '{"external_id": "495293", "seating":{"section":"107","row":"A","seat_from":"1","seat_to":"2"},"ticket_price":{"amount":25.65,"currency_code":"USD"},"face_value":{"amount":22.62,"currency_code":"EUR"},"ticket_type":"ETicket","split_type":"Any","number_of_tickets":2,"event":{"name":"<%= EMBEDDED_EVENT["name"] %>","start_date":"<%= EMBEDDED_EVENT["start_date"] %>"},"venue":{"name":"<%= EMBEDDED_VENUE["name"]%>","city":"<%= EMBEDDED_VENUE["city"] %>"},"country": {"code": "<%= COUNTRY["code"] %>"}}'
 ~~~
 
 ~~~ csharp
-// TODO
+var api = new ViagogoClient("clientId",
+                            "clientSecret",
+                            new ProductHeaderValue("MyAwesomeApp"));
+var listing = await api.SellerListings.CreateAsync(
+                new NewRequestedEventSellerListing
+                {
+                  ExternalId = "<%= SELLER_LISTING["external_id"] %>",
+                  NumberOfTickets = "<%= SELLER_LISTING["number_of_tickets"] %>",
+                  Seating = new Seating
+                            {
+                              Section = "<%= SELLER_LISTING["seating"]["section"] %>",
+                              Row = "<%= SELLER_LISTING["seating"]["row"] %>",
+                              SeatFrom = "<%= SELLER_LISTING["seating"]["seat_from"] %>",
+                              SeatTo = "<%= SELLER_LISTING["seating"]["seat_to"] %>"
+                            },
+                  TicketPrice = new Money { Amount = 25.65, Currency = "USD" },
+                  FaceValue = new Money { Amount = 22.62, Currency = "EUR" },
+                  TicketType = "ETicket",
+                  SplitType = "Any",
+                  Event = new Event
+                          {
+                            Name = "<%= EMBEDDED_EVENT["name"] %>",
+                            StartDate = DateTimeOffset.Parse("<%= EMBEDDED_EVENT["start_date"] %>")
+                          },
+                  Venue = new Venue
+                          {
+                            Name = "<%= EMBEDDED_VENUE["name"] %>",
+                            City = "<%= EMBEDDED_VENUE["city"] %>"
+                          },
+                  Country = new Country { Code = "<%= COUNTRY["code"] %>" }
+                });
 ~~~
 
 ~~~ ruby
