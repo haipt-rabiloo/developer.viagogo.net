@@ -1,0 +1,29 @@
+## PingTopic
+
+<%= json(:ping_topic,
+         "Webhook payload example:",
+         {
+            "method" => "POST",
+            "path" => "/payload",
+            "headers" => {
+                "HOST" => "myapplication.com",
+                "User-Agent" => "Viagogo-Webhooks/0.3.18.54687",
+                "Content-Type" => "application/hal+json",
+                "Content-Length" => 1215,
+                "VGG-Topic" => "Ping",
+                "VGG-DeliveryId" => "8033e621-cb8a-4d4c-abe1-f581f929698b"
+             }
+         }) %>
+
+Triggered any time a [`Webhook`](#webhook) is pinged via its
+[`webhook:ping`](#webhookping) link.
+
+### Properties
+
+| **Name** | **Type** | **Description** |
+| `action` | `string` | The action that triggered this webhook. Can be `Created`. |
+
+### Embedded
+
+| **Relation** | **Type** | **Optional** | **Description** |
+| `webhook` | [`Webhook`](#webhook) | No | The webhook that was pinged |
