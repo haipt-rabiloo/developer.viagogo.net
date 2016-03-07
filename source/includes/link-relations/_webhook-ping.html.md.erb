@@ -1,0 +1,23 @@
+## webhook:ping
+
+<%= curl('POST', WEBHOOK['_links']['webhook:ping']['href']) %>
+
+~~~ csharp
+var api = new ViagogoClient("clientId",
+                            "clientSecret",
+                            new ProductHeaderValue("MyAwesomeApp"));
+await api.Webhooks.PingAsync(<%= WEBHOOK["id"] %>);
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+You can use a `POST` request on the href of this link to trigger a [`Ping`](#pingtopic)
+to be sent to the URL of the webhook. This endpoint requires the `write:webhooks`
+scope.
+
+
+### Response
+
+A `202 Accepted` response.

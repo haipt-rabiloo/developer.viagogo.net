@@ -162,6 +162,7 @@ includes:
   - link-relations/viagogo-venues
   - link-relations/webhook-create
   - link-relations/webhook-delete
+  - link-relations/webhook-ping
   - link-relations/webhook-update
 
 search: true

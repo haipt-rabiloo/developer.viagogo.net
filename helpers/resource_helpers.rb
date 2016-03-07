@@ -1155,12 +1155,21 @@ module ResourceHelpers
         "title" => nil,
         "templated" => false
       },
+      "webhook:ping" => {
+        "href" => "https://api.viagogo.net/v2/webhooks/48",
+        "title" => nil,
+        "templated" => false
+      },
       "webhook:update" => {
         "href" => "https://api.viagogo.net/v2/webhooks/48",
         "title" => nil,
         "templated" => false
       }
     }
+  }
+
+  EMBEDDED_WEBHOOK ||= {
+    "id" => WEBHOOK["id"]
   }
 
   SALES_TOPIC ||= {
@@ -1170,6 +1179,13 @@ module ResourceHelpers
       "sale" => EMBEDDED_SALE,
       "seller_listing" => EMBEDDED_SELLER_LISTING,
       "venue" => EMBEDDED_VENUE
+    }
+  }
+
+  PING_TOPIC ||= {
+    "action" => "Created",
+    "_embedded" => {
+      "webhook" => EMBEDDED_WEBHOOK
     }
   }
 
