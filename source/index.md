@@ -31,6 +31,7 @@ includes:
 
   - webhooks
   - webhooks/salestopic
+  - webhooks/pingtopic
 
   - basic-types
 
