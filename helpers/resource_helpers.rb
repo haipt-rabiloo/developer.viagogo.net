@@ -1156,7 +1156,7 @@ module ResourceHelpers
         "templated" => false
       },
       "webhook:ping" => {
-        "href" => "https://api.viagogo.net/v2/webhooks/48",
+        "href" => "https://api.viagogo.net/v2/webhooks/48/ping",
         "title" => nil,
         "templated" => false
       },
