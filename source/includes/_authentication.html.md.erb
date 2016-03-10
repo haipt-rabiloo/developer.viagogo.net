@@ -164,7 +164,7 @@ curl -X POST "https://account.viagogo.com/oauth2/token"
   -H "Content-Type: application/x-www-form-urlencoded"
   -d "grant_type=authorization_code"
   -d "code=cddgafgfvawe"
-  --data-urlencode "https://myapp.com/callback"
+  --data-urlencode "redirect_uri=https://myapp.com/callback"
   --data-urlencode "scope=read:user write:user"
 ~~~
 
