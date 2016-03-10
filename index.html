@@ -2185,7 +2185,7 @@ user’s user-agent to the return URL with the authorization code appended in th
   -H <span class="s2">"Content-Type: application/x-www-form-urlencoded"</span>
   -d <span class="s2">"grant_type=authorization_code"</span>
   -d <span class="s2">"code=cddgafgfvawe"</span>
-  --data-urlencode <span class="s2">"https://myapp.com/callback"</span>
+  --data-urlencode <span class="s2">"redirect_uri=https://myapp.com/callback"</span>
   --data-urlencode <span class="s2">"scope=read:user write:user"</span>
 </code></pre>
 
@@ -11789,7 +11789,7 @@ that a search result represents.</p>
 </code></pre>
 
 <p>You can use a <code>DELETE</code> request on the href of this link to delete a
-payment_method for the current user. This endpoint requires the
+sellerlisting for the current user. This endpoint requires the
 <code>write:sellerlistings</code> scope.</p>
 
 <h3 id="response">Response</h3>
