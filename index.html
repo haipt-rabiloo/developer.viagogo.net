@@ -2497,15 +2497,17 @@ handling so that you can limit the number of HTTP requests to your server.</p>
     </tr>
     <tr>
       <td><a href="#pingtopic"><code>Ping</code></a></td>
-      <td>Any time a <a href="#webhook"><code>Webhook</code></a> is pinged via its <a href="#webhookping"><code>webhook:ping</code></a> link.</td>
+      <td>Any time a <a href="#webhook"><code>Webhook</code></a> is pinged via its <a href="#webhookping"><code>webhook:ping</code></a> link. All webhooks are automatically subscribed to this topic so you can ping any webhook.</td>
     </tr>
   </tbody>
 </table>
 
 <aside class="notice">
-  <strong>All Webhooks are subscribed to <code>Ping</code> topic automatically</strong>
-  <p>All webhooks are automatically subscribed to the <code>Ping</code> topic so you can
-  ping any webhook.</p>
+  <strong>Only one webhook can be subscribed to any given topic</strong>
+  <p>Your application can only have one webhook subscribed to any topic for the
+  current user. A <code>validation_failed</code> (<code>403</code>) response
+  will be returned if your application tries to subscribe to a topic that another
+  webhook is already subscribed to.</p>
 </aside>
 
 <h2 id="payloads">Payloads</h2>
@@ -2550,7 +2552,7 @@ User-Agent: Viagogo-Webhooks/0.3.18.54687
 Content-Type: application/hal+json
 Content-Length: 1215
 VGG-Topic: Sales
-VGG-DeliveryId: 8033e621-cb8a-4d4c-abe1-f581f929698b
+VGG-DeliveryId: 1993433
 </code></pre>
 <pre><code class="highlight json"><span class="p">{</span><span class="w">
   </span><span class="s2">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Created"</span><span class="p">,</span><span class="w">
@@ -2716,7 +2718,7 @@ User-Agent: Viagogo-Webhooks/0.3.18.54687
 Content-Type: application/hal+json
 Content-Length: 1215
 VGG-Topic: Ping
-VGG-DeliveryId: 8033e621-cb8a-4d4c-abe1-f581f929698b
+VGG-DeliveryId: 1993433
 </code></pre>
 <pre><code class="highlight json"><span class="p">{</span><span class="w">
   </span><span class="s2">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Created"</span><span class="p">,</span><span class="w">
@@ -16270,7 +16272,7 @@ that contains the available venues.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>You can use a <code>POST</code> request on the href of this link to add an webhook to the
+<p>You can use a <code>POST</code> request on the href of this link to add a webhook to the
 current user’s webhooks. This endpoint requires the <code>write:webhooks</code> scope.</p>
 
 <h3 id="parameters">Parameters</h3>
@@ -16299,10 +16301,18 @@ current user’s webhooks. This endpoint requires the <code>write:webhooks</code
       <td><code>topics</code></td>
       <td><code>string</code>[]</td>
       <td>Yes</td>
-      <td>An array of the topics the webhook is trigger for</td>
+      <td>An array of the <a href="#topics">topics</a> the webhook is trigger for</td>
     </tr>
   </tbody>
 </table>
+
+<aside class="notice">
+  <strong>Only one webhook can be subscribed to any given topic</strong>
+  <p>Your application can only have one webhook subscribed to any topic for the
+  current user. A <code>validation_failed</code> (<code>403</code>) response
+  will be returned if your application tries to subscribe to a topic that another
+  webhook is already subscribed to.</p>
+</aside>
 
 <h3 id="response">Response</h3>
 
@@ -16433,11 +16443,19 @@ current user’s webhooks. This endpoint requires the <code>write:webhooks</code
     <tr>
       <td><code>topics</code></td>
       <td><code>string</code>[]</td>
-      <td>No</td>
-      <td>An array of the topics the webhook is trigger for</td>
+      <td>Yes</td>
+      <td>An array of the <a href="#topics">topics</a> the webhook is trigger for</td>
     </tr>
   </tbody>
 </table>
+
+<aside class="notice">
+  <strong>Only one webhook can be subscribed to any given topic</strong>
+  <p>Your application can only have one webhook subscribed to any topic for the
+  current user. A <code>validation_failed</code> (<code>403</code>) response
+  will be returned if your application tries to subscribe to a topic that another
+  webhook is already subscribed to.</p>
+</aside>
 
 <h3 id="response">Response</h3>
 
