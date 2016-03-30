@@ -21,7 +21,15 @@ current user's webhooks. This endpoint requires the `write:webhooks` scope.
 | **Name** | **Type** | **Required** | **Description** |
 | `name` | `string` | No | The name of the webhook |
 | `url` | `string` | No | The server endpoint that will receive the webhook payload |
-| `topics` | `string`[] | No | An array of the topics the webhook is trigger for |
+| `topics` | `string`[] | Yes | An array of the [topics](#topics) the webhook is trigger for |
+
+<aside class="notice">
+  <strong>Only one webhook can be subscribed to any given topic</strong>
+  <p>Your application can only have one webhook subscribed to any topic for the
+  current user. A <code>validation_failed</code> (<code>403</code>) response
+  will be returned if your application tries to subscribe to a topic that another
+  webhook is already subscribed to.</p>
+</aside>
 
 
 ### Response

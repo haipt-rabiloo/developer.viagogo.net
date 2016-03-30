@@ -16,12 +16,14 @@ The available topics are:
 
 | **Name** | **Description** |
 | [`Sales`](#salestopic) | Any time something happens that affects a [`Sale`](#sale) (e.g. you sell one or more tickets) |
-| [`Ping`](#pingtopic) | Any time a [`Webhook`](#webhook) is pinged via its [`webhook:ping`](#webhookping) link. |
+| [`Ping`](#pingtopic) | Any time a [`Webhook`](#webhook) is pinged via its [`webhook:ping`](#webhookping) link. All webhooks are automatically subscribed to this topic so you can ping any webhook. |
 
 <aside class="notice">
-  <strong>All Webhooks are subscribed to <code>Ping</code> topic automatically</strong>
-  <p>All webhooks are automatically subscribed to the <code>Ping</code> topic so you can
-  ping any webhook.</p>
+  <strong>Only one webhook can be subscribed to any given topic</strong>
+  <p>Your application can only have one webhook subscribed to any topic for the
+  current user. A <code>validation_failed</code> (<code>403</code>) response
+  will be returned if your application tries to subscribe to a topic that another
+  webhook is already subscribed to.</p>
 </aside>
 
 
