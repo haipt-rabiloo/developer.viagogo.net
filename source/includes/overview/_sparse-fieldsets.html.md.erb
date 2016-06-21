@@ -1,0 +1,51 @@
+## Sparse Fieldsets
+
+<%= curl('GET', EVENT['_links']['self']['href'] + "?fields=id,name,_embedded&fields[venue]=city") %>
+
+~~~ csharp
+var api = new ViagogoClient("clientId",
+                            "clientSecret",
+                            new ProductHeaderValue("MyAwesomeApp"));
+
+var request = new EventRequest();
+request.Parameters.Add("fields", "id,name,_embedded");
+request.Parameters.Add("fields[venue]", "city");
+
+var @event = api.Events.GetAsync(<%= EVENT['id'] %>, request);
+var root = await api.Hypermedia.GetRootAsync();
+~~~
+
+~~~ ruby
+api = GogoKit::Client.new(client_id: CLIENT_ID,
+                          client_secret: CLIENT_SECRET,
+                          access_token: ACCESS_TOKEN)
+event = event = api.get_event(<%= EVENT['id'] %>,
+                              params: {
+                                'fields' => 'id,name,_embedded',
+                                'fields[venue]' => 'city'
+                              })
+~~~
+
+~~~ python
+api = ViagogoClient(YOUR_CLIENT_ID, YOUR_CLIENT_SECRET)
+api.set_token(api.oauth.get_client_access_token())
+
+root = api.event.get_event(eventId, 
+  {
+    "fields": "id,name"
+    "fields[venue]": "city"
+  })
+
+~~~
+
+<%= json(:sparse_event) %>
+
+Your application can request for the API to return only specific fields in the
+response on a per-type basis by including a `fields`[TYPE] parameter. The value
+of the `fields` parameter must be a comma-separated list of the name(s) of the
+field(s) to be returned.
+
+<%= %(`GET https://api.viagogo.net/v2/events/#{SPARSE_EVENT["id"]}?fields=id,name,_embedded&fields[venue]=city`) %>
+
+The example request above includes the `id`, `name` and `_embedded` fields in
+the event resource and the `city` field in its embedded venue.

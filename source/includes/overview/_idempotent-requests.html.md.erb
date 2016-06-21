@@ -1,0 +1,28 @@
+## Idempotent Requests
+
+~~~ shell
+curl -X POST "<%= EVENT['_links']['event:createsellerlisting']['href'] %>"
+     -H "User-Agent: MyAwesomeApp"
+     -H "Authorization: Bearer <%= ResourceHelpers::ACCESS_TOKEN["access_token"] %>"
+     -H "Idempotency-Key: f6d66920-636d-11e5-80f5-0002a5d5c51b"
+     -d '{"seating":{"section":"107","row":"A","seat_from":"1","seat_to":"4"},"ticket_price":{"amount":25.65,"currency_code":"USD"},"face_value":{"amount":22.62,"currency_code":"EUR"},"ticket_type":"ETicket","split_type":"Any","number_of_tickets":2,"guarantee_payment_method_id":95698}'
+~~~
+
+~~~ csharp
+// TODO
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+To safely retry an API request without accidently performing the same operation
+twice, you can attach a unique key to any `POST` request via the
+`Idempotency-Key: <key>` header.
+
+For example, if a request to [`create a listing`](#eventcreatesellerlisting)
+fails due to a network connection error, you can retry the request with the same
+key to guarantee that only a single listing is created.
+
+The key can be any UUID value and the viagogo API will always send back the same
+response for requests made with the same key. Keys expire after 24 hours.
