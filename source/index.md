@@ -42,6 +42,9 @@ includes:
   - getting-started/affiliate-commission-tiers
 
   - authentication
+  - authentication/getting-access-tokens
+  - authentication/using-access-tokens
+  - authentication/scopes
 
   - webhooks
   - webhooks/salestopic

@@ -24,19 +24,6 @@ authentication and API endpoints must use HTTPs.</p>
 </aside>
 
 
-## Getting Access Tokens
-
-In order to make authenticated requests to the viagogo API, your application
-must first obtain an OAuth access token. The way you obtain an access token
-depends on your use case.
-
-| **If you...** | **Use...** |
-| ------------- | ---------- |
-| Want to access public data like categories, events and listings... | [Client Credentials Grant](#client-credentials-grant) |
-| Want to manage user-specific data like payment methods, listings, purchases and sales... | [Authorization Code Grant](#authorization-code-grant) |
-| Have an access token for a user and want to get another access token... | [Refresh Token Grant](#refresh-token-grant) |
-
-
 ## Client Credentials Grant
 
 Applications can use the client credentials grant to get an access token that
@@ -271,62 +258,3 @@ The refresh token from the previous access token can be exchanged for new one.
 | `grant_type` | `string` | *Required*. Value should be `refresh_token` |
 | `refresh_token` | `string` | The refresh token received with a previous access token |
 | `scope` | `string` | Space-delimited string of the [scopes](#scopes) you would like |
-
-
-## Authenticating API requests with Access Tokens
-
-<%= curl('GET', 'https://api.viagogo.net/v2/search?query=lady%20gaga') %>
-
-~~~ csharp
-var api = new ViagogoClient("clientId",
-                            "clientSecret",
-                            new ProductHeaderValue("MyAwesomeApp"));
-var token = await api.OAuth2.GetClientAccessTokenAsync();
-await api.TokenStore.SetTokenAsync(token);
-
-var searchResults = await api.Search.GetAllAsync("lady gaga");
-~~~
-
-~~~ ruby
-api = GogoKit::Client.new(client_id: CLIENT_ID, client_secret: CLIENT_SECRET)
-token = api.get_client_access_token
-api.access_token = token.access_token
-
-search_results = api.search 'lady gaga'
-~~~
-
-~~~ php
-$api = new Viagogo\ViagogoClient($clientId, $clientSecret);
-$api->setToken($api->getOAuthClient()->getClientAccessToken());
-
-root = api->getHalClient()->getRoot()
-~~~
-
-~~~ python
-api = ViagogoClient(YOUR_CLIENT_ID, YOUR_CLIENT_SECRET)
-api.set_token(api.oauth.get_client_access_token())
-
-root = api.hal.get_root()
-~~~
-
-Access tokens should be included in a `Bearer` authorization header when making
-API requests. The `expires_in` property in a token response represents the
-number of seconds before the token expires. Tokens can be re-used in multiple
-requests up until they expire.
-
-
-## Scopes
-
-Scopes allow your applications to specify exactly what type of access is needed.
-
-| **Name** | **Description** |
-| -------- | --------------- |
-| `(no scope)` | Grants read-only access to public information like events, listings. |
-| `read:user` | Grants read access to the user’s account information, addresses, payment methods, purchases and sales. |
-| `write:user` | Grants write access to the user’s account information, addresses, payment methods and sales. |
-| `write:purchases` | Grants write access to the user's purchases. This allows users to use your application to purchase listings. |
-| `read:sellerlistings` | Grants read access to the user’s listings. |
-| `write:sellerlistings` | Grants write access to the user’s listings. This allows users to use your application to create and update listings. |
-| `read:webhooks` | Grants read access to the user’s webhooks. |
-| `write:webhooks` | Grants write access to the user’s webhooks. |
-| `write:requestedevents` | Grants write access to the user's requested events. This allows users to use your application to request an event to be added to the viagogo platform. |
