@@ -18,14 +18,15 @@ includes:
   - getting-started
   - getting-started/libraries
   - getting-started/entities
+  - getting-started/creating-listings-for-viagogo-events
+  - getting-started/_creating-listings-for-events-on-users-pos
+  - getting-started/updating-listings
+  - getting-started/managing-sales
   - getting-started/get-events-in-genre
   - getting-started/search-for-events
   - getting-started/get-resource-changes
   - getting-started/direct-users-to-website
   - getting-started/affiliate-commission-tiers
-  - getting-started/creating-listings
-  - getting-started/updating-listings
-  - getting-started/managing-sales
 
   - authentication
 
