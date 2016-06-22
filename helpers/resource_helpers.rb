@@ -797,13 +797,16 @@ module ResourceHelpers
   SELLER_LISTING ||= {
     "id" => 22096065,
     "created_at" => "2015-06-12T15:05:35+01:00",
+    "updated_at" => "2015-06-13T08:37:20+00:00",
     "external_id" => "495293",
     "number_of_tickets" => 2,
     "display_number_of_tickets" => nil,
     "seating" => SEATING,
+    "display_seating" => SEATING,
     "face_value" => MONEY_EURO,
     "ticket_price" => MONEY,
     "ticket_proceeds" => MONEY_PROCEEDS,
+    "in_hand_at" => "2015-06-20T08:00:00+00:00",
     "_links" => {
       "self" => {
         "href" => "https://api.viagogo.net/v2/sellerlistings/22096065",
@@ -813,6 +816,11 @@ module ResourceHelpers
       "sellerlisting:constraints" => {
         "href" => "https://api.viagogo.net/v2/sellerlistings/22096065/constraints",
         "title" => nil,
+        "templated" => false
+      },
+      "sellerlisting:delete" => {
+        "href" => "https://api.viagogo.net/v2/sellerlistings/22096065",
+        "title" => "Delete Listing",
         "templated" => false
       },
       "sellerlisting:updatetickettype" => {
@@ -855,12 +863,12 @@ module ResourceHelpers
         "title" => nil,
         "templated" => false
       },
-      "sellerlisting:delete" => {
+      "sellerlisting:updatefacevalue" => {
         "href" => "https://api.viagogo.net/v2/sellerlistings/22096065",
-        "title" => "Delete Listing",
+        "title" => nil,
         "templated" => false
       },
-      "sellerlisting:updatefacevalue" => {
+      "sellerlisting:updateinhandat" => {
         "href" => "https://api.viagogo.net/v2/sellerlistings/22096065",
         "title" => nil,
         "templated" => false

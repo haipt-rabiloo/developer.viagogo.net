@@ -163,6 +163,7 @@ includes:
   - link-relations/sellerlisting-ticketlocation
   - link-relations/sellerlisting-unpublish
   - link-relations/sellerlisting-updatefacevalue
+  - link-relations/sellerlisting-updateinhandat
   - link-relations/sellerlisting-updatenotes
   - link-relations/sellerlisting-updatenumberoftickets
   - link-relations/sellerlisting-updatesplittype

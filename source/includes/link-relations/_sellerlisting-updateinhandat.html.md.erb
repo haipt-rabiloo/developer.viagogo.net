@@ -1,0 +1,28 @@
+## sellerlisting:updateinhandat
+
+<%= curl('GET', SELLER_LISTING['_links']['sellerlisting:updateinhandat']['href']) %>
+
+~~~ csharp
+// TODO
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+<%= json(:seller_listing) %>
+
+You can use a PATCH request on the href of this link to update the date when the
+tickets in the listing will be in hand. This endpoint requires the
+`write:sellerlistings` scope.
+
+
+### Parameters
+
+| **Name** | **Type** | **Required** | **Description** |
+| `in_hand_at` | [`datetime`](#datetime) | No | The date when the ticket(s) in the listing will be in hand. |
+
+
+### Response
+
+The updated [`SellerListing`](#sellerlisting) resource.

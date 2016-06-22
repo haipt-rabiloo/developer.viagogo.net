@@ -9,13 +9,16 @@ currently authenticated user.
 | **Name** | **Type** | **Description** |
 | `id` | `int` | The listing identifier. |
 | `created_at` | [`datetime`](#datetime) | The date when the listing was created. |
+| `updated_at` | [`datetime`](#datetime) | The date when the listing was last updated. |
 | `external_id` | `string` | An identifier that has been assigned to the listing in an external inventory management system |
 | `number_of_tickets` | `int` | The number of tickets available for purchase. |
 | `display_number_of_tickets` | `int` | The number of tickets that should be displayed to buyers as available for purchase. |
 | `seating` | [`seating`](#seating) | The seating information for the ticket(s) in this listing. |
+| `seating` | [`display_seating`](#seating) | The seating information that will be displayed to buyers for the ticket(s) in this listing. |
 | `face_value` | [`money`](#money) | The price printed on the ticket, not including any booking fees. |
 | `ticket_price` | [`money`](#money) | The price of each ticket in the listing. |
 | `ticket_proceeds` | [`money`](#money) | The amount that the seller will receive for each ticket sold. |
+| `in_hand_at` | [`datetime`](#datetime) | The date when the seller will have the tickets in hand. |
 
 
 ### Links
@@ -32,6 +35,7 @@ currently authenticated user.
 | [`sellerlisting:updateticketlocation`](#sellerlistingupdateticketlocation) | `PATCH` | No | Update the address where the ticket(s) are located. |
 | [`sellerlisting:updatenotes`](#sellerlistingupdatenotes) | `PATCH` | No | Update notes for this listing. |
 | [`sellerlisting:updatefacevalue`](#sellerlistingupdatefacevalue) | `PATCH` | No | Update face value for this listing. |
+| [`sellerlisting:updateinhandat`](#sellerlistingupdateinhandat) | `PATCH` | No | Update the date the seller will have tickets for this listing in hand. |
 | [`sellerlisting:publish`](#sellerlistingpublish) | `PATCH` | No | Make the listing available for purchase on the viagogo marketplace. |
 | [`sellerlisting:unpublish`](#sellerlistingunpublish) | `PATCH` | No | Make the listing unavailable for purchase on the viagogo marketplace. |
 
