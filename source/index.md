@@ -47,11 +47,11 @@ includes:
   - authentication/scopes
 
   - managing-sales
-  - managing-sales/accessing-sales
-  - managing-sales/confirming-sales
-  - managing-sales/uploading-etickets
-  - managing-sales/shipping-tickets
-  - managing-sales/arranging-courier-collection
+  - managing-sales/access-sales
+  - managing-sales/confirm-sales
+  - managing-sales/upload-etickets
+  - managing-sales/ship-tickets
+  - managing-sales/arrange-courier-collection
 
   - webhooks
   - webhooks/salestopic
