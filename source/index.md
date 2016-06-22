@@ -30,17 +30,17 @@ includes:
   - overview/idempotent-requests
   - overview/batching-requests
 
-  - getting-started
-  - getting-started/creating-listings-for-viagogo-events
-  - getting-started/creating-listings-for-events-on-users-pos
-  - getting-started/updating-listings
-
   - authentication
   - authentication/basic-steps
   - authentication/application-only-flow
   - authentication/user-login-flow
   - authentication/token-expiration
   - authentication/scopes
+
+  - managing-listings
+  - managing-listings/create-listings-for-viagogo-events
+  - managing-listings/create-listings-for-events-on-users-pos
+  - managing-listings/update-listings
 
   - managing-sales
   - managing-sales/access-sales
