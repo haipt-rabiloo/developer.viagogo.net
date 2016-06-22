@@ -47,16 +47,16 @@ includes:
   - authentication/token-expiration
   - authentication/scopes
 
-  - webhooks
-  - webhooks/salestopic
-  - webhooks/pingtopic
-
   - managing-sales
   - managing-sales/accessing-sales
   - managing-sales/confirming-sales
   - managing-sales/uploading-etickets
   - managing-sales/shipping-tickets
   - managing-sales/arranging-courier-collection
+
+  - webhooks
+  - webhooks/salestopic
+  - webhooks/pingtopic
 
   - basic-types
 
