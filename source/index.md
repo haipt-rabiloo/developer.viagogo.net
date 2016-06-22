@@ -14,24 +14,51 @@ toc_footers:
 
 includes:
   - overview
-
-  - getting-started
-  - getting-started/libraries
-  - getting-started/entities
-  - getting-started/get-events-in-genre
-  - getting-started/search-for-events
-  - getting-started/get-resource-changes
-  - getting-started/direct-users-to-website
-  - getting-started/affiliate-commission-tiers
-  - getting-started/creating-listings
-  - getting-started/updating-listings
-  - getting-started/managing-sales
+  - overview/quick-reference
+  - overview/explorable-api
+  - overview/sandbox-environment
+  - overview/libraries
+  - overview/http-methods
+  - overview/http-status-codes
+  - overview/error-responses
+  - overview/pagination
+  - overview/sorting
+  - overview/sparse-fieldsets
+  - overview/localization
+  - overview/http-caching
+  - overview/resource-changes
+  - overview/idempotent-requests
+  - overview/batching-requests
 
   - authentication
+  - authentication/basic-steps
+  - authentication/application-only-flow
+  - authentication/user-login-flow
+  - authentication/token-expiration
+  - authentication/scopes
+
+  - managing-listings
+  - managing-listings/create-listings-for-viagogo-events
+  - managing-listings/create-listings-for-events-on-users-pos
+  - managing-listings/update-listings
+  - managing-listings/handling-errors
+
+  - managing-sales
+  - managing-sales/access-sales
+  - managing-sales/confirm-sales
+  - managing-sales/upload-etickets
+  - managing-sales/ship-tickets
+  - managing-sales/arrange-courier-collection
 
   - webhooks
   - webhooks/salestopic
   - webhooks/pingtopic
+
+  - browsing-events
+  - browsing-events/search-for-events
+  - browsing-events/get-events-in-genre
+  - browsing-events/direct-users-to-website
+  - browsing-events/affiliate-commission-tiers
 
   - basic-types
 

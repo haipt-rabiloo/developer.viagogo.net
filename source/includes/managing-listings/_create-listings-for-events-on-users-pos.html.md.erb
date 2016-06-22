@@ -1,0 +1,104 @@
+## Create Listings for Events on the User's Point of Sale
+
+Your application can create listings directly from the user's Point of Sale and
+API v2 will automatically map it to an event on the viagogo platform. Once the
+user's listing is mapped it will automatically become available for purchase on
+the viagogo marketplace.
+
+This example assumes that your
+[application has an access token for a user](#user-login-authentication-flow) and that
+the token has the appropriate [scopes](#scopes) for read and write access to the
+user's listings.
+
+> **1. Get the Root resource:**
+
+<%= curl('GET', 'https://api.viagogo.net/v2') %>
+
+~~~ csharp
+var api = new ViagogoClient("clientId",
+                            "clientSecret",
+                            new ProductHeaderValue("MyAwesomeApp"));
+var root = await api.Hypermedia.GetRootAsync();
+~~~
+
+~~~ ruby
+api = GogoKit::Client.new(client_id: CLIENT_ID,
+                          client_secret: CLIENT_SECRET,
+                          access_token: ACCESS_TOKEN)
+root = api.get_root
+~~~
+
+~~~ php
+$api = new Viagogo\ViagogoClient($clientId, $clientSecret);
+$api->setToken($api->getOAuthClient()->getClientAccessToken());
+
+root = api->getHalClient()->getRoot()
+~~~
+
+~~~ python
+api = ViagogoClient(YOUR_CLIENT_ID, YOUR_CLIENT_SECRET)
+api.set_token(api.oauth.get_client_access_token())
+
+root = api.hal.get_root()
+~~~
+
+> **2. Create the listing:**
+
+~~~ shell
+curl -X POST "<%= ROOT['_links']['viagogo:createsellerlisting']['href'] %>"
+     -H "User-Agent: MyAwesomeApp"
+     -H "Authorization: Bearer <%= ResourceHelpers::CLIENT_CREDENTIALS_TOKEN["access_token"] %>"
+     -d '{"external_id": "495293", "seating":{"section":"107","row":"A","seat_from":"1","seat_to":"2"},"ticket_price":{"amount":25.65,"currency_code":"USD"},"face_value":{"amount":22.62,"currency_code":"EUR"},"ticket_type":"ETicket","split_type":"Any","number_of_tickets":2,"event":{"name":"<%= EMBEDDED_EVENT["name"] %>","start_date":"<%= EMBEDDED_EVENT["start_date"] %>"},"venue":{"name":"<%= EMBEDDED_VENUE["name"]%>","city":"<%= EMBEDDED_VENUE["city"] %>"},"country": {"code": "<%= COUNTRY["code"] %>"}}'
+~~~
+
+~~~ csharp
+var api = new ViagogoClient("clientId",
+                            "clientSecret",
+                            new ProductHeaderValue("MyAwesomeApp"));
+var listing = await api.SellerListings.CreateAsync(
+                new NewRequestedEventSellerListing
+                {
+                  ExternalId = "<%= SELLER_LISTING["external_id"] %>",
+                  NumberOfTickets = "<%= SELLER_LISTING["number_of_tickets"] %>",
+                  Seating = new Seating
+                            {
+                              Section = "<%= SELLER_LISTING["seating"]["section"] %>",
+                              Row = "<%= SELLER_LISTING["seating"]["row"] %>",
+                              SeatFrom = "<%= SELLER_LISTING["seating"]["seat_from"] %>",
+                              SeatTo = "<%= SELLER_LISTING["seating"]["seat_to"] %>"
+                            },
+                  TicketPrice = new Money { Amount = 25.65, Currency = "USD" },
+                  FaceValue = new Money { Amount = 22.62, Currency = "EUR" },
+                  TicketType = "ETicket",
+                  SplitType = "Any",
+                  Event = new Event
+                          {
+                            Name = "<%= EMBEDDED_EVENT["name"] %>",
+                            StartDate = DateTimeOffset.Parse("<%= EMBEDDED_EVENT["start_date"] %>")
+                          },
+                  Venue = new Venue
+                          {
+                            Name = "<%= EMBEDDED_VENUE["name"] %>",
+                            City = "<%= EMBEDDED_VENUE["city"] %>"
+                          },
+                  Country = new Country { Code = "<%= COUNTRY["code"] %>" }
+                });
+~~~
+
+~~~ ruby
+# TODO
+~~~
+
+<%= json(:seller_listing) %>
+
+
+### 1. Start at the Root
+
+As is the case when retrieving most data in API v2, you should start by getting
+the [`Root`](#root) resource to find the hyperlink to the resource you care
+about.
+
+### 2. Create the listing
+
+Follow the [`viagogo:createsellerlisting`](#viagogocreatesellerlisting) link on
+the [`Root`](#root) resource to create your listing.

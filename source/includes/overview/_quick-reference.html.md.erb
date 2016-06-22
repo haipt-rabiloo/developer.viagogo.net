@@ -1,0 +1,48 @@
+## Quick Reference
+
+> Libraries are [available in several languages](#libraries).
+
+> **API Root Endpoint:** `https://api.viagogo.net/v2`
+
+All API access is over HTTPS, and accessed from the `api.viagogo.net` domain.
+Request and response payloads are formatted as `application/hal+json`, which is
+basically just plain old JSON with hyperlinks (see [Media Type](#media-type)).
+We support [cross-origin resource sharing][cors] to allow you to interact
+securely with our API from a client-side web application. [OAuth2][oauth2]
+is used for all authentication. All API requests must be authenticated or you
+will receive a `401 Unauthorized` error response (see
+[Authentication](#authentication)).
+
+[cors]: http://en.wikipedia.org/wiki/Cross-origin_resource_sharing
+[oauth2]: http://oauth.net/2/
+
+Before accessing viagogo APIs, you need to register your application.
+During the beta period, API access will be available by invitation only.
+
+
+### Buyer Entities
+
+The main entities in the API related to buying tickets are events, listings and
+categories.
+
+An [`Event`](#event) is a show/festival/match/etc, taking place at a venue, for
+which tickets can be bought and sold.
+
+A [`Listing`](#listing) is a set of one or more tickets for an event.
+
+A [`Category`](#category) is a grouping of similar events or categories.
+Categories in the viagogo platform are arranged in a tree hierarchy where
+categories near the root of the tree (direct children of the root) are referred
+to as *genres* (e.g. "Concerts", "Threatre", "Festival", "Sports") and categories
+that are leaves of the tree are referred to as *performers*.
+
+### Seller Entities
+
+The main entities in the API related to selling tickets are events,
+seller-listings and sales.
+
+A [`SellerListing`](#sellerlisting) is a set of one or more tickets for sale on
+the viagogo marketplace that belong to a seller.
+
+A [`Sale`](#sale) is an order for one or more of a seller's tickets that sold on
+the viagogo marketplace.

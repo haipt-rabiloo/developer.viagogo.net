@@ -1,0 +1,21 @@
+## HTTP Status Codes
+
+API v2 attempts to return appropriate [HTTP status codes][httpstatuscodes] for
+every request.
+
+[httpstatuscodes]: http://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+
+| **Code** | **Description** |
+| -------- | --------------- |
+| `200 OK` | Success! |
+| `201 Created` | The request succeeded and resulted in a new resource being created. The Location header of the response contains the URI of the new resource. |
+| `202 Accepted` | The request has been accepted for processing, but processing has not been completed. |
+| `204 No Content` | The request succeeded but the server is not returning any content. This is the response for most DELETE requests. |
+| `400 Bad Request` | The request was invalid or cannot be otherwise served. An accompanying error message will explain further. |
+| `401 Unauthorized` | Authentication credentials were missing or incorrect. |
+| `403 Forbidden` | The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why. |
+| `404 Not Found` | The URI requested is invalid or the resource requested, such as an event, does not exist. |
+| `405 Method Not Allowed` | A request was made of a resource using a request method not supported by that resource. |
+| `409 Conflict` | The request could not be processed because of a conflict change in the request, such as an edit conflict in the case of multiple updates. |
+| `429 Too Many Requests` | The client sent too many requests in a given amount of time and has been rate-limited. |
+| `500 Internal Server Error` | Something is broken. Please email [support](#) so that the viagogo team can investigate. |

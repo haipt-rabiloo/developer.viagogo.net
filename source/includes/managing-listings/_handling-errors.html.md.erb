@@ -1,0 +1,33 @@
+## Handling Listing Errors
+
+You should write your code to anticipate [error responses](#error-responses)
+while making requests to manage listings. Robust error handling helps to keep
+users' inventory up-to-date on the viagogo platform and minimizes the chance of
+tickets being mis-sold.
+
+### Create Listings Using Idempotent Requests
+
+Your application should use [idempotent requests](#idempotent-requests) when
+creating listings so that the operation is retryable without creating any
+additional listings.
+
+### Handle Validation Errors
+
+`400 Bad Request` responses with the `validation_failed` error code mean that
+the data being passed by your application has failed viagogo's validation. Your
+application should handle these errors by trying to get the user to correct the
+data and if that is not possible then your application should
+[delete the listing](#sellerlistingdelete) (for update requests).
+
+### Handle Invalid SellerListing Action Errors
+
+`403 Forbidden` responses with the `invalid_seller_listing_action` error code
+mean that the update you are trying to make is not currently allowed (updates to
+listing properties may not be allowed for a variety of reasons). If your
+application receives one of these errors when trying to do an update then it
+it should [delete the listing](#sellerlistingdelete).
+
+### Handle Other Errors
+
+Other errors, such as `500 Internal Server Error`, mean that there was some
+transient error and the request can be retried.

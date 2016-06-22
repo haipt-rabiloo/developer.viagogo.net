@@ -1,0 +1,83 @@
+## Explorable API
+
+The viagogo API v2 is an explorable API that uses hyperlinks to guide
+applications between resources. As such, the media type used in API responses
+and the structure of this documentation is intended to encourage developers to
+build applications that use hyperlinks to navigate between resources instead of
+using hard-coded URLs.
+
+One of the main advantages of using hyperlinks is that API responses are able to
+better describe the current state of a resource by using links to represent the
+possible actions available on that resource. This should reduce (or hopefully
+remove) the need for your applications to implement logic for managing the
+various states of a resource.
+
+### Media Type
+
+The API uses [Hypertext Application Language (HAL)][hal] to hyperlink between
+resources. HAL is a simple format that provides a set of conventions for
+expressing hyperlinks in JSON - it's basically just plain old JSON with
+hyperlinks!
+
+[hal]: http://stateless.co/hal_specification.html
+
+All viagogo API resources are represented using the `application/hal+json`
+media type. The following properties can be expected on every resource:
+
+* `_links` - a JSON object containing a set of hyperlinks to other resources
+* `_embedded` - a JSON object containing other resources embedded inside the current resource
+* The regular properties of the resource
+
+### Use Link Relations instead of URLs
+
+Link relations (the keys in the `_links` property of resources) are very
+important in this API. They are a part of the contract between the API and your
+application and we have documented the request parameters and response type that
+are expected when your application follows a link
+(see [Link Relations](#link-relations). The idea is that applications will be
+coded to understand the different link relations but will not care about the
+actual URL of the link.
+
+To get a feel for how this works, look at our [Guides](#getting-started).
+
+### Root endpoint
+
+<%= curl('GET', 'https://api.viagogo.net/v2') %>
+
+~~~ csharp
+var api = new ViagogoClient("clientId",
+                            "clientSecret",
+                            new ProductHeaderValue("MyAwesomeApp"));
+var root = await api.Hypermedia.GetRootAsync();
+~~~
+
+~~~ ruby
+api = GogoKit::Client.new(client_id: CLIENT_ID,
+                          client_secret: CLIENT_SECRET,
+                          access_token: ACCESS_TOKEN)
+root = api.get_root
+~~~
+
+~~~ php
+$api = new Viagogo\ViagogoClient($clientId, $clientSecret);
+$api->setToken($api->getOAuthClient()->getClientAccessToken());
+
+root = api->getHalClient()->getRoot()
+~~~
+
+~~~ python
+api = ViagogoClient(YOUR_CLIENT_ID, YOUR_CLIENT_SECRET)
+api.set_token(api.oauth.get_client_access_token())
+
+root = api.hal.get_root()
+~~~
+
+
+<%= json(:root) %>
+
+The only URL that your application needs to know is the root endpoint, which is
+like the "Home Page" of the API. You can issue a `GET` request to the root
+endpoint of the API to get the root resource that links to all other API
+resources.
+
+`GET https://api.viagogo.net/v2`

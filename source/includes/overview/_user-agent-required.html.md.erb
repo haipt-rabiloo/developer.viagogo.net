@@ -1,0 +1,7 @@
+## User Agent Required
+
+<%= json(:user_agent_error, %(Invalid `User-Agent` header:)) %>
+
+All API requests **must** include a valid `User-Agent` header. Requests with no
+`User-Agent` header will be rejected. If you provide an invalid `User-Agent`
+header, you will receive a `403 Forbidden` response.
