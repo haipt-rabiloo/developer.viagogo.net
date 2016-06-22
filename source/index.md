@@ -42,8 +42,10 @@ includes:
   - getting-started/affiliate-commission-tiers
 
   - authentication
-  - authentication/getting-access-tokens
-  - authentication/using-access-tokens
+  - authentication/basic-steps
+  - authentication/application-only-flow
+  - authentication/user-login-flow
+  - authentication/token-expiration
   - authentication/scopes
 
   - webhooks

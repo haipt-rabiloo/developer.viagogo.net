@@ -1,0 +1,62 @@
+## Application-Only Authentication Flow
+
+[oauth2]: http://oauth.net/2/
+[clientcredentials]: http://tools.ietf.org/html/rfc6749#section-1.3.4
+
+Applications can use the [client credentials grant type][clientcredentials] of
+the [OAuth2 specification][oauth2] to get an access token that will provide
+access to public, non-user-specific data (events, listings, etc).
+
+~~~ shell
+curl -X POST "https://account.viagogo.com/oauth2/token"
+  -u "clientId:clientSecret" --basic
+  -H "Content-Type: application/x-www-form-urlencoded"
+  -d "grant_type=client_credentials"
+~~~
+
+~~~ csharp
+var api = new ViagogoClient("clientId",
+                            "clientSecret",
+                            new ProductHeaderValue("MyAwesomeApp"));
+var token = await api.OAuth2.GetClientAccessTokenAsync();
+~~~
+
+~~~ ruby
+api = GogoKit::Client.new(client_id: CLIENT_ID, client_secret: CLIENT_SECRET)
+token = api.get_client_access_token
+~~~
+
+### 1. Create a Basic Authorization header
+
+[rfc1738]: http://www.ietf.org/rfc/rfc1738.txt
+
+* URL encode your application's client id and client secret according to
+[RFC 1738][rfc1738]
+* Concatenate the encoded client id, a colon character “:” and the encoded
+consumer secret into a single string
+* Base64 encode the string from the previous step
+
+<%= json(:client_credentials_token) %>
+
+### 2. Obtain an access token
+
+* The value calculated in [Step 1](#create-a-basic-authorization-header) must be
+exchanged for an access token:
+
+#### HTTP Request
+
+`POST https://account.viagogo.com/oauth2/token`
+
+#### Headers
+
+| **Name** | **Value** |
+| -------- | --------- |
+| `Authorization` | Basic {value from step 1} |
+| `Content-Type` | `application/x-www-form-urlencoded` |
+
+#### Parameters
+
+| **Name** | **Type** | **Description** |
+| -------- | -------- | --------------- |
+| `grant_type` | `string` | *Required*. Value should be `client_credentials` |
+| `scope` | `string` | Space-delimited string of the [scopes](#scopes) you would like. |
