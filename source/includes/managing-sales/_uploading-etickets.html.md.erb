@@ -1,0 +1,9 @@
+## Uploading E-Tickets for your sale
+
+As soon as you have your tickets and are ready to upload them, you can use the
+[`sale:uploadetickets`](#saleuploadetickets) link to upload one or more files
+containing one or more tickets. The files that you upload will be represented as
+[`ETicketUpload`](#eticketupload) resources that will contain separate
+[`ETicket`](#eticket) resources for each ticket in the file(s). You can then
+submit the `id`s of the [`ETicket`](#eticket) resources that you want to assign
+to the sale in the [`sale:saveetickets`](#salesaveetickets) link.

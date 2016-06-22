@@ -34,7 +34,6 @@ includes:
   - getting-started/creating-listings-for-viagogo-events
   - getting-started/creating-listings-for-events-on-users-pos
   - getting-started/updating-listings
-  - getting-started/managing-sales
   - getting-started/get-events-in-genre
   - getting-started/search-for-events
   - getting-started/get-resource-changes
@@ -51,6 +50,13 @@ includes:
   - webhooks
   - webhooks/salestopic
   - webhooks/pingtopic
+
+  - managing-sales
+  - managing-sales/accessing-sales
+  - managing-sales/confirming-sales
+  - managing-sales/uploading-etickets
+  - managing-sales/shipping-tickets
+  - managing-sales/arranging-courier-collection
 
   - basic-types
 
