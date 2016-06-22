@@ -17,6 +17,7 @@ includes:
   - overview/quick-reference
   - overview/explorable-api
   - overview/sandbox-environment
+  - overview/libraries
   - overview/http-methods
   - overview/http-status-codes
   - overview/error-responses
@@ -29,8 +30,6 @@ includes:
   - overview/batching-requests
 
   - getting-started
-  - getting-started/libraries
-  - getting-started/entities
   - getting-started/creating-listings-for-viagogo-events
   - getting-started/creating-listings-for-events-on-users-pos
   - getting-started/updating-listings
