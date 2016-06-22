@@ -41,6 +41,7 @@ includes:
   - managing-listings/create-listings-for-viagogo-events
   - managing-listings/create-listings-for-events-on-users-pos
   - managing-listings/update-listings
+  - managing-listings/handling-errors
 
   - managing-sales
   - managing-sales/access-sales
