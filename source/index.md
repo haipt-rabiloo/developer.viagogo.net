@@ -33,11 +33,7 @@ includes:
   - getting-started/creating-listings-for-viagogo-events
   - getting-started/creating-listings-for-events-on-users-pos
   - getting-started/updating-listings
-  - getting-started/get-events-in-genre
-  - getting-started/search-for-events
   - getting-started/get-resource-changes
-  - getting-started/direct-users-to-website
-  - getting-started/affiliate-commission-tiers
 
   - authentication
   - authentication/basic-steps
@@ -56,6 +52,12 @@ includes:
   - webhooks
   - webhooks/salestopic
   - webhooks/pingtopic
+
+  - browsing-events
+  - browsing-events/search-for-events
+  - browsing-events/get-events-in-genre
+  - browsing-events/direct-users-to-website
+  - browsing-events/affiliate-commission-tiers
 
   - basic-types
 
