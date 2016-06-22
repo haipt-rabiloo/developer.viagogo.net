@@ -26,6 +26,7 @@ includes:
   - overview/sparse-fieldsets
   - overview/localization
   - overview/http-caching
+  - overview/resource-changes
   - overview/idempotent-requests
   - overview/batching-requests
 
@@ -33,7 +34,6 @@ includes:
   - getting-started/creating-listings-for-viagogo-events
   - getting-started/creating-listings-for-events-on-users-pos
   - getting-started/updating-listings
-  - getting-started/get-resource-changes
 
   - authentication
   - authentication/basic-steps
