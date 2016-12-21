@@ -1,0 +1,60 @@
+## Embedded Resources
+
+<%= curl('GET', ROOT['_links']['viagogo:search']['href'] + "?embed=category,event") %>
+
+~~~ csharp
+var api = new ViagogoClient("clientId",
+                            "clientSecret",
+                            new ProductHeaderValue("MyAwesomeApp"));
+
+var request = new SearchResult {Embed = new[] {SearchResultEmbed.Category, SearchResultEmbed.Event}};
+
+var @searchResults = api.Search.GetAllAsync("One Dir", request);
+~~~
+
+~~~ ruby
+api = GogoKit::Client.new(client_id: CLIENT_ID,
+                          client_secret: CLIENT_SECRET,
+                          access_token: ACCESS_TOKEN)
+search_results = api.search('One Dir',
+                            params: {
+                              'embed' => 'category, event'
+                            })
+~~~
+
+~~~ python
+# TODO
+~~~
+
+<%= json_paged_resource(:search_result_with_embedded_category, "viagogo:search", 40, "query=One%20Dir&embed=category%2Cevent") %>
+
+The API uses [Hypertext Application Language (HAL)][hal] to hyperlink between
+resources. One of the features of HAL resources is that they contain a property
+named `_embedded` that is a JSON object containing other related resources. 
+viagogo API v2 exposes two types of embedded resources:
+
+[hal]: http://stateless.co/hal_specification.html
+
+### 1. Required Embedded Resources
+
+Required embedded resources are always included in the resource in which they
+are embedded. For example, the `event` property will always be embedded inside
+of [SellerListing](#sellerlisting) resources.
+
+### 2. Optional Embedded Resources
+
+Optional embedded resources are only included in a resource when your
+application includes the embedded property name(s) as a comma-separated value in
+the `embed` parameter. For example, `category` and `event` are optional embedded
+resources on [`SearchResult`](#searchresult) resources; To have these properties
+included in the response of the [`viagogo:search`](#viagogo-search) link your
+application would need to add the parameter `?embed=category,event` to the
+request.
+
+<aside class="notice">
+  <strong>See Resource Documentation for Embedded Resources</strong>
+  <p>The documentation of every API resources has an <code>Embedded</code>
+  section that defines the embedded properties on that resource. See the
+  <code>Optional</code> column to determine whether the embedded resource is
+  required or optional.</p>
+</aside>

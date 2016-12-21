@@ -23,6 +23,7 @@ includes:
   - overview/error-responses
   - overview/pagination
   - overview/sorting
+  - overview/embedded-resources
   - overview/sparse-fieldsets
   - overview/localization
   - overview/http-caching

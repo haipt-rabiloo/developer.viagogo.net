@@ -721,6 +721,15 @@ module ResourceHelpers
     }
   }
 
+  EMBEDDED_CATEGORY ||= {
+    "id" => CATEGORY_PERFORMER["id"],
+    "name" => CATEGORY_PERFORMER["name"],
+    "_links" => {
+      "self" => CATEGORY_PERFORMER["_links"]["self"],
+      "category:image" => CATEGORY_PERFORMER["_links"]["category:image"]
+    }
+  }
+
   LISTING_NOTE ||= {
     "id" => 11,
     "note" => "Includes VIP pass",
@@ -1004,6 +1013,16 @@ module ResourceHelpers
         "title" => nil,
         "templated" => false
       }
+    }
+  }
+
+  SEARCH_RESULT_WITH_EMBEDDED_CATEGORY ||= {
+    "title" => SEARCH_RESULT["title"],
+    "type" => SEARCH_RESULT["type"],
+    "type_description" => SEARCH_RESULT["type_description"],
+    "_links" => SEARCH_RESULT["_links"],
+    "_embedded" => {
+      "category" => EMBEDDED_CATEGORY
     }
   }
 
