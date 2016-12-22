@@ -7,7 +7,7 @@ var api = new ViagogoClient("clientId",
                             "clientSecret",
                             new ProductHeaderValue("MyAwesomeApp"));
 
-var request = new SearchResult {Embed = new[] {SearchResultEmbed.Category, SearchResultEmbed.Event}};
+var request = new SearchResultRequest {Embed = new[] {SearchResultEmbed.Category, SearchResultEmbed.Event}};
 
 var @searchResults = api.Search.GetAllAsync("One Dir", request);
 ~~~
