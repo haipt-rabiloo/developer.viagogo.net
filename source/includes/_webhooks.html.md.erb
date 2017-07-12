@@ -16,6 +16,8 @@ The available topics are:
 
 | **Name** | **Description** |
 | [`Sales`](#salestopic) | Any time something happens that affects a [`Sale`](#sale) (e.g. you sell one or more tickets) |
+| [`ProvisionalSale`](#provisionalsaletopic) | Will notify you when a provisional sale comes in. The normal Sale webhook will confirm the Provisional Sale, and if you want to reject the provisional sale, just ignore it and reject the sale when it comes through as normal.
+| [`CancelProvisionalSale`](#cancelprovisionalsaletopic) | Will notify you when a provisional sale is cancelled.
 | [`Ping`](#pingtopic) | Any time a [`Webhook`](#webhook) is pinged via its [`webhook:ping`](#webhookping) link. All webhooks are automatically subscribed to this topic so you can ping any webhook. |
 
 <aside class="notice">

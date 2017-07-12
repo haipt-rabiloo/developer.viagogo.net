@@ -53,6 +53,8 @@ includes:
 
   - webhooks
   - webhooks/salestopic
+  - webhooks/provisionalsaletopic
+  - webhooks/cancelprovisionalsaletopic
   - webhooks/pingtopic
 
   - browsing-events

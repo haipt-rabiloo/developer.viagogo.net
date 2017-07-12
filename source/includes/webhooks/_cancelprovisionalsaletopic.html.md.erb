@@ -1,0 +1,31 @@
+## CancelProvisionalSaleTopic
+
+<%= json(:cancel_provisional_sale_topic,
+         "Webhook payload example:",
+         {
+            "method" => "POST",
+            "path" => "/payload",
+            "headers" => {
+                "HOST" => "myapplication.com",
+                "User-Agent" => "Viagogo-Webhooks/0.3.18.54687",
+                "Content-Type" => "application/hal+json",
+                "Content-Length" => 1215,
+                "VGG-Topic" => "CancelProvisionalSale",
+                "VGG-DeliveryId" => "1993433"
+             }
+         }) %>
+
+Will notify you when a provisional is cancelled. 
+
+### Properties
+
+| **Name** | **Type** | **Description** |
+| `action` | `string` | The action that triggered this webhook. Can be `Cancelled`. |
+
+### Embedded
+
+| **Relation** | **Type** | **Optional** | **Description** |
+| `sale` | [`Sale`](#sale) | No | The event for this sale. |
+| `seller_listing` | [`SellerListing`](#sellerlisting) | No | The listing from which the tickets were sold. |
+| `event` | [`Event`](#event) | No | The event for this sale. |
+| `venue` | [`Venue`](#venue) | No | The venue where the event is taking place. |

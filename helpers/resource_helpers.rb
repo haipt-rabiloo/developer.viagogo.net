@@ -1209,6 +1209,26 @@ module ResourceHelpers
     }
   }
 
+  PROVISIONAL_SALE_TOPIC ||= {
+    "action" => "Created",
+    "_embedded" => {
+      "event" => EMBEDDED_EVENT,
+      "sale" => EMBEDDED_SALE,
+      "seller_listing" => EMBEDDED_SELLER_LISTING,
+      "venue" => EMBEDDED_VENUE
+    }
+  }
+
+  CANCEL_PROVISIONAL_SALE_TOPIC ||= {
+    "action" => "Cancelled",
+    "_embedded" => {
+      "event" => EMBEDDED_EVENT,
+      "sale" => EMBEDDED_SALE,
+      "seller_listing" => EMBEDDED_SELLER_LISTING,
+      "venue" => EMBEDDED_VENUE
+    }
+  }
+
   PING_TOPIC ||= {
     "action" => "Created",
     "_embedded" => {
