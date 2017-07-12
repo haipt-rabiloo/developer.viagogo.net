@@ -2558,6 +2558,14 @@ handling so that you can limit the number of HTTP requests to your server.</p>
       <td>Any time something happens that affects a <a href="#sale"><code>Sale</code></a> (e.g. you sell one or more tickets)</td>
     </tr>
     <tr>
+      <td><a href="#provisionalsaletopic"><code>ProvisionalSale</code></a></td>
+      <td>Will notify you when a provisional sale comes in. The normal Sale webhook will confirm the Provisional Sale, and if you want to reject the provisional sale, just ignore it and reject the sale when it comes through as normal.</td>
+    </tr>
+    <tr>
+      <td><a href="#cancelprovisionalsaletopic"><code>CancelProvisionalSale</code></a></td>
+      <td>Will notify you when a provisional sale is cancelled.</td>
+    </tr>
+    <tr>
       <td><a href="#pingtopic"><code>Ping</code></a></td>
       <td>Any time a <a href="#webhook"><code>Webhook</code></a> is pinged via its <a href="#webhookping"><code>webhook:ping</code></a> link. All webhooks are automatically subscribed to this topic so you can ping any webhook.</td>
     </tr>
@@ -2726,6 +2734,338 @@ VGG-DeliveryId: 1993433
       <td><code>action</code></td>
       <td><code>string</code></td>
       <td>The action that triggered this webhook. Can be <code>Created</code>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="embedded">Embedded</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Relation</strong></td>
+      <td><strong>Type</strong></td>
+      <td><strong>Optional</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>sale</code></td>
+      <td><a href="#sale"><code>Sale</code></a></td>
+      <td>No</td>
+      <td>The event for this sale.</td>
+    </tr>
+    <tr>
+      <td><code>seller_listing</code></td>
+      <td><a href="#sellerlisting"><code>SellerListing</code></a></td>
+      <td>No</td>
+      <td>The listing from which the tickets were sold.</td>
+    </tr>
+    <tr>
+      <td><code>event</code></td>
+      <td><a href="#event"><code>Event</code></a></td>
+      <td>No</td>
+      <td>The event for this sale.</td>
+    </tr>
+    <tr>
+      <td><code>venue</code></td>
+      <td><a href="#venue"><code>Venue</code></a></td>
+      <td>No</td>
+      <td>The venue where the event is taking place.</td>
+    </tr>
+  </tbody>
+</table>
+
+          <h2 id="provisionalsaletopic">ProvisionalSaleTopic</h2>
+
+<blockquote>
+  <p>Webhook payload example:</p>
+</blockquote>
+
+<pre><code class="highlight plaintext">POST /payload
+</code></pre>
+<pre><code class="highlight plaintext">HOST: myapplication.com
+User-Agent: Viagogo-Webhooks/0.3.18.54687
+Content-Type: application/hal+json
+Content-Length: 1215
+VGG-Topic: ProvisionalSale
+VGG-DeliveryId: 1993433
+</code></pre>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Created"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"_embedded"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"event"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">735139</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One Direction"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T18:30:00+01:00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"on_sale_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-12-24T08:30:00+01:00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"date_confirmed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/events/735139"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"sale"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1017322</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-21T16:02:39+00:00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"seating"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"section"</span><span class="p">:</span><span class="w"> </span><span class="s2">"107"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"row"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"seat_from"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"seat_to"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"proceeds"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">22.58</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"currency_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"display"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$22.58"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sales/1017322"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"seller_listing"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">22096065</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-06-12T15:05:35+01:00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"external_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"495293"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"ticket_price"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">25.65</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"currency_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"display"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$25.65"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sellerlistings/22096065"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"venue"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1364</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The O2 arena"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"London"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">51.5025</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0024</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/venues/1364"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"_embedded"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GB"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"United Kingdom"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/countries/GB"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"country:events"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/categories/0/events?country_code=GB"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Will notify you when a provisional sale comes in. The normal Sale <a href="#salestopic"><code>Webhook</code></a> will confirm the Provisional Sale, and if you want to reject the provisional sale, just ignore it and reject the sale when it comes through as normal.</p>
+
+<h3 id="properties">Properties</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Name</strong></td>
+      <td><strong>Type</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>action</code></td>
+      <td><code>string</code></td>
+      <td>The action that triggered this webhook. Can be <code>Created</code>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="embedded">Embedded</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Relation</strong></td>
+      <td><strong>Type</strong></td>
+      <td><strong>Optional</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>sale</code></td>
+      <td><a href="#sale"><code>Sale</code></a></td>
+      <td>No</td>
+      <td>The event for this sale.</td>
+    </tr>
+    <tr>
+      <td><code>seller_listing</code></td>
+      <td><a href="#sellerlisting"><code>SellerListing</code></a></td>
+      <td>No</td>
+      <td>The listing from which the tickets were sold.</td>
+    </tr>
+    <tr>
+      <td><code>event</code></td>
+      <td><a href="#event"><code>Event</code></a></td>
+      <td>No</td>
+      <td>The event for this sale.</td>
+    </tr>
+    <tr>
+      <td><code>venue</code></td>
+      <td><a href="#venue"><code>Venue</code></a></td>
+      <td>No</td>
+      <td>The venue where the event is taking place.</td>
+    </tr>
+  </tbody>
+</table>
+
+          <h2 id="cancelprovisionalsaletopic">CancelProvisionalSaleTopic</h2>
+
+<blockquote>
+  <p>Webhook payload example:</p>
+</blockquote>
+
+<pre><code class="highlight plaintext">POST /payload
+</code></pre>
+<pre><code class="highlight plaintext">HOST: myapplication.com
+User-Agent: Viagogo-Webhooks/0.3.18.54687
+Content-Type: application/hal+json
+Content-Length: 1215
+VGG-Topic: CancelProvisionalSale
+VGG-DeliveryId: 1993433
+</code></pre>
+<pre><code class="highlight json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cancelled"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"_embedded"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"event"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">735139</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"One Direction"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"start_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-24T18:30:00+01:00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"end_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"on_sale_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2014-12-24T08:30:00+01:00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"date_confirmed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/events/735139"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"sale"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1017322</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-21T16:02:39+00:00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"seating"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"section"</span><span class="p">:</span><span class="w"> </span><span class="s2">"107"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"row"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"seat_from"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"seat_to"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"proceeds"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">22.58</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"currency_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"display"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$22.58"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sales/1017322"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"seller_listing"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">22096065</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-06-12T15:05:35+01:00"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"external_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"495293"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"number_of_tickets"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"ticket_price"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">25.65</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"currency_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"display"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$25.65"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/sellerlistings/22096065"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"venue"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1364</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The O2 arena"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"London"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">51.5025</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0024</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/venues/1364"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"_embedded"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"country"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GB"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"United Kingdom"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"_links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/countries/GB"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"country:events"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="s2">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.viagogo.net/v2/categories/0/events?country_code=GB"</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+              </span><span class="s2">"templated"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>Will notify you when a provisional is cancelled.</p>
+
+<h3 id="properties">Properties</h3>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Name</strong></td>
+      <td><strong>Type</strong></td>
+      <td><strong>Description</strong></td>
+    </tr>
+    <tr>
+      <td><code>action</code></td>
+      <td><code>string</code></td>
+      <td>The action that triggered this webhook. Can be <code>Cancelled</code>.</td>
     </tr>
   </tbody>
 </table>
